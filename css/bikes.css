@@ -1,0 +1,996 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Inter, Poppins, Roboto, Arial, sans-serif;
+  color: #212121;
+  background: #f8f8f8;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #111;
+  color: #fff;
+  border-bottom: 1px solid #292929;
+}
+
+.nav-container {
+  width: min(1280px, 94%);
+  min-height: 68px;
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.logo span,
+.footer-logo span {
+  color: #fbc02d;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.nav-menu a {
+  color: #ddd;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+  color: #fbc02d;
+}
+
+.list-vehicle {
+  border: 1px solid #777;
+  padding: 9px 13px;
+}
+
+.profile-link {
+  background: #fbc02d;
+  color: #111 !important;
+  padding: 10px 14px;
+}
+
+.menu-toggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 26px;
+}
+
+
+/* ================= HERO ================= */
+
+.bike-hero {
+  min-height: 330px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.97),
+      rgba(255,255,255,.88),
+      rgba(255,255,255,.55)
+    ),
+    url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1900&q=90");
+
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  width: min(1280px, 94%);
+  margin: auto;
+}
+
+.hero-label,
+.section-label {
+  color: #b78400;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.hero-content h1 {
+  font-size: clamp(34px, 5vw, 52px);
+  line-height: 1.1;
+  margin: 8px 0;
+  font-weight: 900;
+}
+
+.hero-content h1 span {
+  color: #d69e00;
+}
+
+.hero-content p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+
+/* ================= SEARCH ================= */
+
+.bike-search {
+  width: min(1000px, 100%);
+
+  background: #fff;
+
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr auto;
+
+  padding: 12px;
+  gap: 8px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.14);
+  border: 1px solid #eee;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+}
+
+.search-icon {
+  font-size: 20px;
+}
+
+.search-field label {
+  display: block;
+  font-size: 9px;
+  color: #777;
+  font-weight: 800;
+}
+
+.search-field input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #222;
+  font-size: 12px;
+}
+
+.search-btn {
+  border: 0;
+  background: #fbc02d;
+  color: #171717;
+
+  padding: 0 20px;
+
+  font-size: 11px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+
+/* ================= MAIN LAYOUT ================= */
+
+.main-section {
+  padding: 45px 0 60px;
+}
+
+.page-container {
+  width: min(1280px, 94%);
+  margin: auto;
+
+  display: grid;
+
+  /* FILTER LEFT + BIKES RIGHT */
+  grid-template-columns: 240px minmax(0, 1fr);
+
+  gap: 25px;
+
+  direction: ltr;
+}
+
+.filter-box {
+  grid-column: 1;
+  grid-row: 1;
+
+  width: 100%;
+
+  background: #fff;
+  border: 1px solid #e5e5e5;
+
+  padding: 14px;
+
+  align-self: start;
+
+  position: sticky;
+  top: 84px;
+
+  min-width: 0;
+}
+
+.listing-section {
+  grid-column: 2;
+  grid-row: 1;
+
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* ================= FILTER TOGGLE ================= */
+
+.filter-toggle {
+  width: 100%;
+
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #111;
+  color: #fff;
+
+  border: 0;
+
+  padding: 0 13px;
+
+  font-size: 11px;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  margin-bottom: 12px;
+}
+
+.filter-toggle span:last-child {
+  color: #fbc02d;
+  font-size: 14px;
+}
+
+.filter-box.collapsed .filter-content {
+  display: none;
+}
+
+.filter-box.collapsed {
+  padding-bottom: 14px;
+}
+
+
+/* ================= FILTER ================= */
+
+.filter-content {
+  display: block;
+}
+
+.filter-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.filter-heading h2 {
+  font-size: 16px;
+}
+
+.filter-heading button {
+  border: 0;
+  background: transparent;
+  color: #d49b00;
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.filter-group {
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.filter-group > label:first-child {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  margin-bottom: 9px;
+}
+
+.mini-search {
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+}
+
+.mini-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 9px;
+  font-size: 10px;
+}
+
+.mini-search span {
+  padding-right: 8px;
+  color: #777;
+}
+
+.price-values {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 9px;
+  margin-bottom: 5px;
+}
+
+#priceRange {
+  width: 100%;
+  accent-color: #fbc02d;
+}
+
+.check-option {
+  display: flex !important;
+  gap: 8px;
+  align-items: center;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  margin: 7px 0;
+  color: #555;
+}
+
+.check-option input {
+  accent-color: #fbc02d;
+}
+
+.rating-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.rating-filter {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 7px 8px;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.rating-filter.active,
+.rating-filter:hover {
+  border-color: #fbc02d;
+  background: #fff9df;
+}
+
+
+/* ================= LISTING HEADER ================= */
+
+.listing-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.listing-header h2 {
+  font-size: 25px;
+  margin-top: 4px;
+}
+
+.listing-header h2 span {
+  color: #d49b00;
+}
+
+.listing-header p {
+  color: #777;
+  font-size: 11px;
+}
+
+.sort-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort-box label {
+  color: #666;
+  font-size: 10px;
+}
+
+.sort-box select {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 9px 12px;
+  font-size: 10px;
+  outline: 0;
+}
+
+
+/* ================= BIKE GRID ================= */
+
+.bike-grid {
+  width: 100%;
+
+  display: grid;
+
+  /* 4 PROPER COLUMNS */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 15px;
+}
+
+.bike-card {
+  width: 100%;
+  min-width: 0;
+
+  background: #fff;
+
+  border: 1px solid #e3e3e3;
+
+  overflow: hidden;
+
+  transition: .25s;
+}
+
+.bike-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.10);
+}
+
+
+/* ================= BIKE IMAGE ================= */
+
+.bike-image {
+  width: 100%;
+  height: 175px;
+
+  position: relative;
+  overflow: hidden;
+
+  background: #eee;
+}
+
+.bike-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  display: block;
+
+  transition: .3s;
+}
+
+.bike-card:hover .bike-image img {
+  transform: scale(1.04);
+}
+
+.available {
+  position: absolute;
+  left: 9px;
+  top: 9px;
+
+  background: #2eaa55;
+  color: #fff;
+
+  padding: 4px 8px;
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.favorite {
+  position: absolute;
+  right: 9px;
+  top: 9px;
+
+  width: 29px;
+  height: 29px;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #fff;
+  color: #333;
+
+  font-size: 19px;
+  cursor: pointer;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+
+.favorite.liked {
+  color: #e0a600;
+}
+
+
+/* ================= BIKE BODY ================= */
+
+.bike-body {
+  padding: 13px;
+}
+
+.bike-title {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.bike-title h3 {
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.rating {
+  font-size: 9px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.bike-location {
+  color: #777;
+  font-size: 9px;
+  margin-top: 7px;
+}
+
+.bike-spec {
+  color: #666;
+  font-size: 9px;
+  margin: 7px 0 11px;
+}
+
+
+/* ================= PACKAGES ================= */
+
+.packages {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.packages div {
+  border: 1px solid #ddd;
+
+  text-align: center;
+
+  padding: 5px 2px;
+}
+
+.packages small {
+  display: block;
+  color: #777;
+  font-size: 7px;
+}
+
+.packages b {
+  font-size: 9px;
+}
+
+
+/* ================= DETAILS BUTTON ================= */
+
+.details-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 37px;
+
+  background: #171717;
+  color: #fff;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  transition: .2s;
+}
+
+.details-btn:hover {
+  background: #fbc02d;
+  color: #171717;
+}
+
+
+/* ================= NO RESULTS ================= */
+
+.no-results {
+  display: none;
+
+  text-align: center;
+
+  padding: 70px 20px;
+
+  background: #fff;
+
+  border: 1px solid #eee;
+}
+
+.no-results.show {
+  display: block;
+}
+
+.no-results div {
+  font-size: 40px;
+}
+
+.no-results h3 {
+  margin-top: 10px;
+}
+
+.no-results p {
+  color: #777;
+  font-size: 12px;
+}
+
+
+/* ================= PAGINATION ================= */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  gap: 6px;
+
+  margin-top: 30px;
+}
+
+.pagination button {
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid #ddd;
+  background: #fff;
+
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.pagination button:hover,
+.pagination .page-active {
+  background: #fbc02d;
+  border-color: #fbc02d;
+}
+
+
+/* ================= BENEFITS ================= */
+
+.benefits {
+  width: min(1280px, 94%);
+  margin: 0 auto 50px;
+
+  background: #fff8df;
+  border: 1px solid #f2e4af;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.benefit {
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  border-right: 1px solid #eadfae;
+}
+
+.benefit:last-child {
+  border-right: 0;
+}
+
+.benefit-icon {
+  width: 40px;
+  height: 40px;
+
+  background: #fbc02d;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.benefit strong {
+  display: block;
+  font-size: 12px;
+}
+
+.benefit p {
+  color: #777;
+  font-size: 9px;
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer {
+  background: #171717;
+  color: #fff;
+
+  padding-top: 50px;
+}
+
+.footer-container {
+  width: min(1280px, 94%);
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+
+  gap: 40px;
+
+  padding-bottom: 40px;
+}
+
+.footer-logo {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.footer-brand p {
+  color: #999;
+
+  max-width: 260px;
+
+  font-size: 10px;
+
+  margin-top: 12px;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.footer-column h4 {
+  color: #fbc02d;
+
+  font-size: 10px;
+  letter-spacing: 1px;
+
+  margin-bottom: 5px;
+}
+
+.footer-column a {
+  color: #aaa;
+  font-size: 10px;
+}
+
+.footer-column a:hover {
+  color: #fbc02d;
+}
+
+.footer-bottom {
+  border-top: 1px solid #303030;
+
+  width: min(1280px, 94%);
+  margin: auto;
+
+  padding: 17px 0;
+
+  display: flex;
+  justify-content: space-between;
+
+  color: #777;
+  font-size: 9px;
+}
+
+
+/* ================= TABLET ================= */
+
+@media (max-width: 1100px) {
+
+  .nav-menu {
+    gap: 13px;
+  }
+
+  .page-container {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .bike-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 800px) {
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none;
+
+    position: absolute;
+
+    top: 68px;
+    left: 0;
+    right: 0;
+
+    background: #111;
+
+    padding: 12px 5%;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 0;
+  }
+
+  .nav-menu.active {
+    display: flex;
+  }
+
+  .nav-menu a {
+    padding: 12px 5px;
+
+    border-bottom: 1px solid #292929;
+  }
+
+  .profile-link,
+  .list-vehicle {
+    text-align: center;
+    margin-top: 7px;
+  }
+
+
+  .bike-hero {
+    min-height: 480px;
+  }
+
+  .bike-search {
+    grid-template-columns: 1fr;
+  }
+
+  .search-btn {
+    min-height: 45px;
+  }
+
+
+  /* MOBILE = ONE COLUMN */
+
+  .page-container {
+    width: min(94%, 600px);
+
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .filter-box {
+    grid-column: 1;
+    grid-row: 1;
+
+    position: static;
+  }
+
+  .listing-section {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .bike-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+
+  .listing-header {
+    align-items: start;
+
+    flex-direction: column;
+
+    gap: 15px;
+  }
+
+
+  .benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .benefit:nth-child(2) {
+    border-right: 0;
+  }
+
+  .benefit:nth-child(-n+2) {
+    border-bottom: 1px solid #eadfae;
+  }
+
+
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width: 520px) {
+
+  .bike-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bike-image {
+    height: 230px;
+  }
+
+  .benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .benefit {
+    border-right: 0;
+    border-bottom: 1px solid #eadfae;
+  }
+
+  .benefit:last-child {
+    border-bottom: 0;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 5px;
+
+    text-align: center;
+  }
+
+}

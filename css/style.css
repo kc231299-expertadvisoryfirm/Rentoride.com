@@ -1,0 +1,337 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, Roboto, Poppins, Arial, sans-serif;
+  background: #F7F5F0;
+  color: #212121;
+  line-height: 1.6;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}
+
+h1, h2, h3 {
+  color: #212121;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+/* =========================
+   RENTORIDE HOME PAGE
+   ========================= */
+
+.navbar {
+  width: 100%;
+  background: #ffffff;
+  padding: 16px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eeeeee;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: #FBC02D;
+}
+
+.nav-login {
+  background: #FBC02D;
+  color: #212121;
+  border: none;
+  padding: 11px 18px;
+  font-weight: 700;
+}
+
+
+/* HERO */
+
+.hero {
+  min-height: 430px;
+  background:
+    linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)),
+    url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1600&q=80")
+    center/cover no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero-content {
+  max-width: 700px;
+  color: #ffffff;
+}
+
+.hero h1 {
+  color: #ffffff;
+  font-size: 42px;
+  line-height: 1.15;
+  margin-bottom: 18px;
+  font-weight: 800;
+}
+
+.hero p {
+  color: #ffffff;
+  font-size: 16px;
+  margin-bottom: 28px;
+}
+
+.hero-btn {
+  background: #FBC02D;
+  color: #212121;
+  border: none;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+
+/* FIND BIKE */
+
+.find-bike {
+  background: #ffffff;
+  padding: 35px 20px;
+  text-align: center;
+}
+
+.find-bike h2 {
+  margin-bottom: 20px;
+}
+
+.search-box {
+  max-width: 700px;
+  margin: auto;
+  display: flex;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid #dddddd;
+  outline: none;
+  font-size: 14px;
+}
+
+.search-box button {
+  background: #FBC02D;
+  color: #212121;
+  border: none;
+  padding: 0 24px;
+  font-weight: 800;
+}
+
+
+/* BIKES */
+
+.bikes-section {
+  padding: 60px 6%;
+  text-align: center;
+}
+
+.bikes-section h2 {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  color: #666666;
+  margin-bottom: 35px;
+}
+
+.bike-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  text-align: left;
+}
+
+.bike-card {
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  overflow: hidden;
+}
+
+.bike-card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.bike-info {
+  padding: 18px;
+}
+
+.bike-info h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.bike-location {
+  color: #666666;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.bike-price {
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.bike-btn {
+  width: 100%;
+  background: #FBC02D;
+  border: none;
+  padding: 13px;
+  font-weight: 800;
+}
+
+
+/* WHY CHOOSE */
+
+.why-section {
+  background: #F7F5F0;
+  padding: 60px 6%;
+  text-align: center;
+}
+
+.why-section h2 {
+  font-size: 26px;
+  margin-bottom: 35px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.feature-card {
+  background: #ffffff;
+  padding: 28px 20px;
+}
+
+.feature-icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.feature-card h3 {
+  font-size: 17px;
+  margin-bottom: 7px;
+}
+
+.feature-card p {
+  color: #666666;
+  font-size: 13px;
+}
+
+
+/* FOOTER */
+
+.footer {
+  background: #212121;
+  color: #ffffff;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.footer h3 {
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.footer p {
+  color: #cccccc;
+  font-size: 13px;
+}
+
+.copyright {
+  margin-top: 20px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 767px) {
+
+  .navbar {
+    padding: 14px 18px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-login {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .hero {
+    min-height: 380px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .search-box {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
+
+  .search-box button {
+    padding: 14px;
+  }
+
+  .bike-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+}
