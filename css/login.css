@@ -1,0 +1,733 @@
+/* =========================================================
+   RentoRide — Login / Signup CSS
+   Restyled to match list-vehicle.css design system
+   Theme: Black / Yellow / White
+   ========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #080808;
+  --black-2: #111111;
+  --yellow: #ffd400;
+  --yellow-light: #fff8d6;
+  --white: #ffffff;
+  --bg: #f5f5f5;
+  --text: #151515;
+  --muted: #858585;
+  --border: #e5e5e5;
+  --danger: #d93030;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.auth-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  display: grid;
+  place-items: center;
+
+  padding: 40px 20px;
+
+  background: var(--bg);
+}
+
+/* =========================================================
+   BACKGROUND PANEL (left side, list-vehicle hero style)
+   ========================================================= */
+
+.vehicle-bg {
+  position: absolute;
+  inset: 0;
+
+  background:
+    url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1800&q=85")
+    center 58% / cover no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8,8,8,.96) 0%,
+      rgba(8,8,8,.82) 38%,
+      rgba(8,8,8,.6) 63%,
+      rgba(8,8,8,.9) 100%
+    );
+}
+
+.vehicle-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(255,212,0,.14),
+      transparent 32%
+    );
+}
+
+/* BRAND */
+
+.brand {
+  position: absolute;
+  top: 35px;
+  left: 48px;
+  z-index: 3;
+}
+
+.brand a {
+  color: var(--white);
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.7px;
+}
+
+.brand span:last-child {
+  color: var(--yellow);
+}
+
+.brand-icon {
+  margin-right: 7px;
+}
+
+/* HERO COPY */
+
+.hero-copy {
+  position: absolute;
+  left: 8%;
+  bottom: 12%;
+  z-index: 2;
+
+  width: min(430px, 40%);
+  color: var(--white);
+}
+
+.eyebrow {
+  color: var(--yellow);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+.hero-copy h1 {
+  font-size: clamp(38px, 5vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 18px;
+}
+
+.hero-copy h1 span {
+  color: var(--yellow);
+}
+
+.hero-copy > p:last-child {
+  max-width: 360px;
+  color: rgba(255,255,255,.72);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* VEHICLE LABELS — reuse list-vehicle "badge" language */
+
+.vehicle-label {
+  position: absolute;
+  z-index: 2;
+
+  padding: 9px 13px;
+
+  border: 1px solid rgba(255,212,0,.35);
+  border-radius: 8px;
+
+  background: rgba(255,255,255,.04);
+  color: var(--yellow);
+
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.bike-label {
+  top: 24%;
+  left: 43%;
+}
+
+.car-label {
+  right: 6%;
+  bottom: 14%;
+}
+
+/* =========================================================
+   AUTH CARD — list-vehicle .form-section styling
+   ========================================================= */
+
+.auth-card {
+  position: relative;
+  z-index: 10;
+
+  width: min(470px, calc(100% - 40px));
+  max-height: calc(100vh - 50px);
+  overflow-y: auto;
+
+  margin-left: 37%;
+
+  padding: 34px 36px;
+
+  background: var(--white);
+
+  border: 1px solid var(--border);
+  border-radius: 13px;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,.06);
+}
+
+.mobile-brand {
+  display: none;
+}
+
+/* HEADING */
+
+.auth-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  padding-bottom: 20px;
+  margin-bottom: 22px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.auth-heading::before {
+  content: "🔑";
+
+  width: 39px;
+  height: 39px;
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 8px;
+
+  background: var(--black);
+  font-size: 16px;
+}
+
+.auth-heading h2 {
+  font-size: 18px;
+  letter-spacing: -0.4px;
+  color: var(--text);
+}
+
+.auth-heading p {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+/* TABS — styled like list-vehicle progress-bar pills */
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  padding: 4px;
+  margin-bottom: 22px;
+
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.tab {
+  height: 40px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: transparent;
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  transition: 0.2s;
+}
+
+.tab.active {
+  background: var(--yellow);
+  color: var(--black);
+  box-shadow: 0 2px 7px rgba(0,0,0,.08);
+}
+
+/* =========================================================
+   FORM — list-vehicle .form-group input styling
+   ========================================================= */
+
+.auth-form {
+  display: block;
+}
+
+.auth-form.hidden {
+  display: none;
+}
+
+.auth-form > label,
+.role-title {
+  display: block;
+
+  margin: 13px 0 7px;
+
+  color: #333;
+
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="text"],
+.auth-form input[type="tel"] {
+  width: 100%;
+  height: 46px;
+
+  padding: 0 13px;
+
+  border: 1px solid #ddd;
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #fff;
+  color: #222;
+
+  font-size: 11px;
+
+  transition: 0.2s;
+}
+
+.auth-form input::placeholder {
+  color: #aaa;
+}
+
+.auth-form input:focus {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 3px rgba(255,212,0,.12);
+}
+
+.password-wrap {
+  position: relative;
+}
+
+.password-wrap input {
+  padding-right: 60px !important;
+}
+
+.show-password {
+  position: absolute;
+  top: 50%;
+  right: 11px;
+
+  transform: translateY(-50%);
+
+  border: 0;
+  background: transparent;
+
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+/* FORM ROW */
+
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 14px 0 18px;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.remember input,
+.terms input {
+  accent-color: var(--yellow);
+}
+
+.form-row > a {
+  color: var(--text);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.form-row > a:hover,
+.switch-text button:hover {
+  color: #a98d00;
+}
+
+/* PRIMARY — list-vehicle .submit-btn look */
+
+.primary-btn {
+  width: 100%;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: var(--yellow);
+  color: var(--black);
+
+  font-size: 11px;
+  font-weight: 900;
+
+  transition: 0.2s;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.14);
+}
+
+.primary-btn span {
+  font-size: 14px;
+}
+
+/* DIVIDER */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 18px 0;
+
+  color: #aaa;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+/* GOOGLE */
+
+.google-btn {
+  width: 100%;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border: 1px solid #ddd;
+  border-radius: 7px;
+
+  background: #fff;
+  color: #333;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.google-btn:hover {
+  border-color: var(--yellow);
+  background: #fffdf0;
+}
+
+.google-icon {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+/* SWITCH TEXT */
+
+.switch-text {
+  margin-top: 20px;
+
+  text-align: center;
+
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.switch-text button {
+  border: 0;
+  background: transparent;
+
+  color: var(--text);
+  font-weight: 900;
+}
+
+/* =========================================================
+   ROLE CARDS — matches list-vehicle .document-card
+   ========================================================= */
+
+.role-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.role-card {
+  min-height: 72px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 11px;
+
+  border: 1px solid #e3e3e3;
+  border-radius: 9px;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.role-card:hover {
+  border-color: #d4d4d4;
+  box-shadow: 0 6px 20px rgba(0,0,0,.04);
+}
+
+.role-card input {
+  display: none;
+}
+
+.role-card.selected {
+  border-color: var(--yellow);
+  background: var(--yellow-light);
+  box-shadow: inset 0 0 0 1px var(--yellow);
+}
+
+.role-icon {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  background: #f4f4f4;
+  border-radius: 7px;
+}
+
+.role-card strong,
+.role-card small {
+  display: block;
+}
+
+.role-card strong {
+  color: #222;
+  font-size: 9px;
+}
+
+.role-card small {
+  color: #999;
+  font-size: 7px;
+  margin-top: 3px;
+}
+
+/* TERMS */
+
+.terms {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 7px;
+
+  margin: 15px 0 !important;
+
+  color: #777 !important;
+  font-size: 8px !important;
+  font-weight: 400 !important;
+  line-height: 1.6;
+}
+
+.terms a {
+  color: var(--text);
+  font-weight: 800;
+}
+
+/* MESSAGE — list-vehicle verification-notice style */
+
+.auth-message {
+  display: none;
+
+  margin-top: 13px;
+  padding: 12px 14px;
+
+  border-radius: 8px;
+
+  background: var(--yellow-light);
+  color: #756500;
+  border-left: 3px solid var(--yellow);
+
+  text-align: left;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.auth-message.show {
+  display: block;
+}
+
+/* SCROLLBAR */
+
+.auth-card::-webkit-scrollbar {
+  width: 4px;
+}
+
+.auth-card::-webkit-scrollbar-thumb {
+  background: #d5d5d5;
+  border-radius: 10px;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+  .hero-copy {
+    left: 5%;
+    width: 34%;
+  }
+
+  .hero-copy h1 {
+    font-size: 40px;
+  }
+
+  .auth-card {
+    margin-left: 34%;
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .auth-page {
+    min-height: 100vh;
+    padding: 20px 0;
+  }
+
+  .overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(8,8,8,.9),
+        rgba(8,8,8,.65) 38%,
+        rgba(8,8,8,.94) 100%
+      );
+  }
+
+  .brand,
+  .hero-copy,
+  .vehicle-label {
+    display: none;
+  }
+
+  .auth-card {
+    width: calc(100% - 28px);
+    max-height: calc(100vh - 30px);
+
+    margin: 0;
+
+    padding: 24px 20px;
+
+    border-radius: 12px;
+  }
+
+  .mobile-brand {
+    display: block;
+    margin-bottom: 20px;
+
+    text-align: center;
+  }
+
+  .mobile-brand a {
+    color: var(--text);
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .mobile-brand span {
+    color: #d5b300;
+  }
+
+  .auth-heading h2 {
+    font-size: 20px;
+  }
+
+  .role-options {
+    grid-template-columns: 1fr;
+  }
+
+}
