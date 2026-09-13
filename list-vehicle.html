@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>RentoRide | List Your Vehicle</title>
+
+  <link rel="stylesheet" href="css/list-vehicle.css">
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="site-header">
+
+    <a href="index.html" class="logo">
+      Rento<span>Ride</span>
+    </a>
+
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="bikes.html">Bikes</a>
+      <a href="cars.html">Cars</a>
+      <a href="my-bookings.html">My Bookings</a>
+    </nav>
+
+    <div class="header-profile">
+
+      <button class="profile-btn" id="profileBtn">
+        <span class="profile-avatar" id="profileAvatar">U</span>
+        <span class="profile-name" id="profileName">Profile</span>
+        <span>⌄</span>
+      </button>
+
+      <div class="profile-menu" id="profileMenu">
+
+        <a href="profile.html">👤 Profile</a>
+
+        <a href="my-bookings.html">📋 My Bookings</a>
+
+        <a href="owner-dashboard.html">🏪 Owner Dashboard</a>
+
+        <button id="logoutBtn">↪ Logout</button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= PAGE ================= -->
+
+  <main class="list-page">
+
+    <!-- HERO -->
+
+    <section class="page-hero">
+
+      <div>
+
+        <p class="eyebrow">
+          RENTORIDE • OWNER
+        </p>
+
+        <h1>
+          List Your Vehicle
+        </h1>
+
+        <p>
+          Share your vehicle with verified customers and start earning
+          with RentoRide.
+        </p>
+
+      </div>
+
+      <div class="hero-badge">
+        <span>✓</span>
+        Secure Listing
+      </div>
+
+    </section>
+
+
+    <!-- ================= PROGRESS ================= -->
+
+    <div class="progress-bar">
+
+      <div class="progress-step active">
+        <span>1</span>
+        Owner
+      </div>
+
+      <div class="progress-line"></div>
+
+      <div class="progress-step">
+        <span>2</span>
+        Vehicle
+      </div>
+
+      <div class="progress-line"></div>
+
+      <div class="progress-step">
+        <span>3</span>
+        Documents
+      </div>
+
+      <div class="progress-line"></div>
+
+      <div class="progress-step">
+        <span>4</span>
+        Pricing
+      </div>
+
+    </div>
+
+
+    <!-- ================= FORM ================= -->
+
+    <form id="vehicleForm">
+
+
+      <!-- =================================================
+           SECTION 1 — OWNER DETAILS
+           ================================================= -->
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <div class="section-number">
+            01
+          </div>
+
+          <div>
+            <h2>Owner Details</h2>
+            <p>Your basic information for verification.</p>
+          </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label for="ownerName">
+              Full Name <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="ownerName"
+              name="ownerName"
+              placeholder="Enter your full name"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="ownerPhone">
+              Mobile Number <span>*</span>
+            </label>
+
+            <input
+              type="tel"
+              id="ownerPhone"
+              name="ownerPhone"
+              placeholder="10 digit mobile number"
+              maxlength="10"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="ownerEmail">
+              Email Address <span>*</span>
+            </label>
+
+            <input
+              type="email"
+              id="ownerEmail"
+              name="ownerEmail"
+              placeholder="you@example.com"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="dob">
+              Date of Birth <span>*</span>
+            </label>
+
+            <input
+              type="date"
+              id="dob"
+              name="dob"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group full-width">
+
+            <label for="ownerAddress">
+              Full Address <span>*</span>
+            </label>
+
+            <textarea
+              id="ownerAddress"
+              name="ownerAddress"
+              rows="3"
+              placeholder="Enter your complete address"
+              required
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="ownerCity">
+              City <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="ownerCity"
+              name="ownerCity"
+              placeholder="e.g. Kota"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="ownerState">
+              State <span>*</span>
+            </label>
+
+            <select
+              id="ownerState"
+              name="ownerState"
+              required
+            >
+
+              <option value="">
+                Select State
+              </option>
+
+              <option>Rajasthan</option>
+              <option>Madhya Pradesh</option>
+              <option>Maharashtra</option>
+              <option>Gujarat</option>
+              <option>Delhi</option>
+              <option>Uttar Pradesh</option>
+              <option>Haryana</option>
+              <option>Punjab</option>
+              <option>Other</option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           SECTION 2 — VEHICLE DETAILS
+           ================================================= -->
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <div class="section-number">
+            02
+          </div>
+
+          <div>
+            <h2>Vehicle Details</h2>
+            <p>Tell customers about the vehicle you're listing.</p>
+          </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+
+          <div class="form-group">
+
+            <label for="vehicleType">
+              Vehicle Type <span>*</span>
+            </label>
+
+            <select
+              id="vehicleType"
+              name="vehicleType"
+              required
+            >
+
+              <option value="">
+                Select Vehicle Type
+              </option>
+
+              <option value="bike">
+                Bike
+              </option>
+
+              <option value="scooter">
+                Scooter
+              </option>
+
+              <option value="car">
+                Car
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="brand">
+              Brand <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="brand"
+              name="brand"
+              placeholder="e.g. Honda"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="model">
+              Model <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="model"
+              name="model"
+              placeholder="e.g. Activa 6G"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="registrationNumber">
+              Registration Number <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="registrationNumber"
+              name="registrationNumber"
+              placeholder="e.g. RJ20AB1234"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="registrationYear">
+              Registration Year <span>*</span>
+            </label>
+
+            <input
+              type="number"
+              id="registrationYear"
+              name="registrationYear"
+              placeholder="e.g. 2024"
+              min="1980"
+              max="2035"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="vehicleColor">
+              Vehicle Colour <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="vehicleColor"
+              name="vehicleColor"
+              placeholder="e.g. Black"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="fuelType">
+              Fuel Type <span>*</span>
+            </label>
+
+            <select
+              id="fuelType"
+              name="fuelType"
+              required
+            >
+
+              <option value="">
+                Select Fuel Type
+              </option>
+
+              <option>Petrol</option>
+              <option>Diesel</option>
+              <option>Electric</option>
+              <option>CNG</option>
+              <option>Hybrid</option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="vehicleLocation">
+              Vehicle Location <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="vehicleLocation"
+              name="vehicleLocation"
+              placeholder="Where can customer collect it?"
+              required
+            >
+
+          </div>
+
+
+          <!-- VEHICLE PHOTOS -->
+
+          <div class="form-group full-width">
+
+            <label>
+              Vehicle Photos <span>*</span>
+            </label>
+
+            <div class="upload-box">
+
+              <input
+                type="file"
+                id="vehiclePhotos"
+                name="vehiclePhotos"
+                accept="image/*"
+                multiple
+                required
+              >
+
+              <div class="upload-content">
+
+                <div class="upload-icon">
+                  📷
+                </div>
+
+                <strong>
+                  Upload Vehicle Photos
+                </strong>
+
+                <p>
+                  Add clear front, side and rear photos
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           SECTION 3 — DOCUMENT VERIFICATION
+           ================================================= -->
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <div class="section-number">
+            03
+          </div>
+
+          <div>
+            <h2>Document Verification</h2>
+            <p>Required documents keep RentoRide listings trustworthy.</p>
+          </div>
+
+        </div>
+
+
+        <div class="verification-notice">
+
+          <strong>
+            🔒 Your documents are private
+          </strong>
+
+          <p>
+            Documents are collected for verification and won't be
+            displayed publicly on your vehicle listing.
+          </p>
+
+        </div>
+
+
+        <div class="form-grid">
+
+
+          <!-- RC -->
+
+          <div class="document-card">
+
+            <div class="document-top">
+
+              <div class="document-icon">
+                📄
+              </div>
+
+              <div>
+
+                <h3>
+                  Vehicle RC
+                  <span class="required-badge">
+                    Required
+                  </span>
+                </h3>
+
+                <p>
+                  Registration Certificate
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <label
+              class="file-label"
+              for="rcDocument"
+            >
+              Upload RC
+            </label>
+
+            <input
+              type="file"
+              id="rcDocument"
+              name="rcDocument"
+              accept="image/*,.pdf"
+              required
+            >
+
+          </div>
+
+
+          <!-- INSURANCE -->
+
+          <div class="document-card">
+
+            <div class="document-top">
+
+              <div class="document-icon">
+                🛡️
+              </div>
+
+              <div>
+
+                <h3>
+                  Insurance
+                  <span class="required-badge">
+                    Required
+                  </span>
+                </h3>
+
+                <p>
+                  Valid vehicle insurance
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <label
+              class="file-label"
+              for="insuranceDocument"
+            >
+              Upload Insurance
+            </label>
+
+            <input
+              type="file"
+              id="insuranceDocument"
+              name="insuranceDocument"
+              accept="image/*,.pdf"
+              required
+            >
+
+          </div>
+
+
+          <!-- OPERATOR LICENCE -->
+
+          <div class="document-card optional-document">
+
+            <div class="document-top">
+
+              <div class="document-icon">
+                🪪
+              </div>
+
+              <div>
+
+                <h3>
+                  Operator Licence
+                  <span class="optional-badge">
+                    Optional
+                  </span>
+                </h3>
+
+                <p>
+                  Add licence details if applicable
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="operatorLicenceNumber">
+                Licence Number
+              </label>
+
+              <input
+                type="text"
+                id="operatorLicenceNumber"
+                name="operatorLicenceNumber"
+                placeholder="Optional"
+              >
+
+            </div>
+
+
+            <label
+              class="file-label"
+              for="operatorLicenceDocument"
+            >
+              Upload Licence
+            </label>
+
+            <input
+              type="file"
+              id="operatorLicenceDocument"
+              name="operatorLicenceDocument"
+              accept="image/*,.pdf"
+            >
+
+          </div>
+
+
+          <!-- ID PROOF -->
+
+          <div class="document-card">
+
+            <div class="document-top">
+
+              <div class="document-icon">
+                🪪
+              </div>
+
+              <div>
+
+                <h3>
+                  Owner ID Proof
+                  <span class="required-badge">
+                    Required
+                  </span>
+                </h3>
+
+                <p>
+                  Verify your identity
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="idProofType">
+                ID Type
+              </label>
+
+              <select
+                id="idProofType"
+                name="idProofType"
+                required
+              >
+
+                <option value="">
+                  Select ID
+                </option>
+
+                <option>Aadhaar Card</option>
+                <option>Driving Licence</option>
+                <option>Passport</option>
+                <option>Voter ID</option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="idProofNumber">
+                ID Number
+              </label>
+
+              <input
+                type="text"
+                id="idProofNumber"
+                name="idProofNumber"
+                placeholder="Enter ID number"
+                required
+              >
+
+            </div>
+
+
+            <label
+              class="file-label"
+              for="idProofDocument"
+            >
+              Upload ID Proof
+            </label>
+
+            <input
+              type="file"
+              id="idProofDocument"
+              name="idProofDocument"
+              accept="image/*,.pdf"
+              required
+            >
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           SECTION 4 — RENTAL PRICING
+           ================================================= -->
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <div class="section-number">
+            04
+          </div>
+
+          <div>
+            <h2>Rental Pricing</h2>
+            <p>Set the rental price customers will see.</p>
+          </div>
+
+        </div>
+
+
+        <div class="pricing-grid">
+
+
+          <div class="price-input">
+
+            <label for="price3h">
+              3 Hours <span>*</span>
+            </label>
+
+            <div class="price-field">
+
+              <span>₹</span>
+
+              <input
+                type="number"
+                id="price3h"
+                name="price3h"
+                placeholder="99"
+                min="0"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="price-input">
+
+            <label for="price6h">
+              6 Hours <span>*</span>
+            </label>
+
+            <div class="price-field">
+
+              <span>₹</span>
+
+              <input
+                type="number"
+                id="price6h"
+                name="price6h"
+                placeholder="149"
+                min="0"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="price-input">
+
+            <label for="price12h">
+              12 Hours <span>*</span>
+            </label>
+
+            <div class="price-field">
+
+              <span>₹</span>
+
+              <input
+                type="number"
+                id="price12h"
+                name="price12h"
+                placeholder="249"
+                min="0"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="price-input">
+
+            <label for="price24h">
+              24 Hours <span>*</span>
+            </label>
+
+            <div class="price-field">
+
+              <span>₹</span>
+
+              <input
+                type="number"
+                id="price24h"
+                name="price24h"
+                placeholder="399"
+                min="0"
+                required
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================= PICKUP DROP ================= -->
+
+        <div class="delivery-section">
+
+          <div class="delivery-header">
+
+            <div>
+
+              <h3>
+                🚚 Pickup & Drop Facility
+              </h3>
+
+              <p>
+                Offer vehicle delivery to customers for an additional charge.
+              </p>
+
+            </div>
+
+
+            <label class="toggle">
+
+              <input
+                type="checkbox"
+                id="deliveryEnabled"
+                name="deliveryEnabled"
+              >
+
+              <span class="toggle-slider"></span>
+
+            </label>
+
+          </div>
+
+
+          <div
+            class="delivery-options"
+            id="deliveryOptions"
+          >
+
+            <div class="form-group">
+
+              <label for="deliveryCharge">
+                Delivery Charge <span>*</span>
+              </label>
+
+              <div class="price-field">
+
+                <span>₹</span>
+
+                <input
+                  type="number"
+                  id="deliveryCharge"
+                  name="deliveryCharge"
+                  placeholder="200"
+                  min="0"
+                >
+
+              </div>
+
+              <small>
+                Charge per pickup/drop trip.
+              </small>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="deliveryDistance">
+                Maximum Delivery Distance
+              </label>
+
+              <div class="distance-field">
+
+                <input
+                  type="number"
+                  id="deliveryDistance"
+                  name="deliveryDistance"
+                  placeholder="10"
+                  min="1"
+                >
+
+                <span>KM</span>
+
+              </div>
+
+              <small>
+                Optional — maximum distance you will deliver.
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           SECTION 5 — DECLARATION
+           ================================================= -->
+
+      <section class="declaration-section">
+
+        <label class="checkbox-row">
+
+          <input
+            type="checkbox"
+            id="ownerDeclaration"
+            name="ownerDeclaration"
+            required
+          >
+
+          <span></span>
+
+          <p>
+            I confirm that the information and documents provided by me
+            are accurate and that I have the legal right or permission
+            to list this vehicle for rental on RentoRide.
+          </p>
+
+        </label>
+
+      </section>
+
+
+      <!-- ================= SUBMIT ================= -->
+
+      <div class="submit-area">
+
+        <button
+          type="submit"
+          class="submit-btn"
+          id="submitVehicleBtn"
+        >
+          Submit Vehicle for Verification
+          <span>→</span>
+        </button>
+
+        <p>
+          Your listing will be reviewed before becoming available to customers.
+        </p>
+
+      </div>
+
+
+    </form>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer class="site-footer">
+
+    <div class="footer-logo">
+      Rento<span>Ride</span>
+    </div>
+
+    <p>
+      Ride more. Worry less.
+    </p>
+
+    <div class="footer-links">
+
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="help.html">Help</a>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ================= JS ================= -->
+
+  <script src="js/list-vehicle.js"></script>
+
+</body>
+</html>

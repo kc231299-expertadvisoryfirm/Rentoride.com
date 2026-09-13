@@ -1,0 +1,309 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>RentoRide | Admin Access</title>
+
+  <link
+    rel="stylesheet"
+    href="css/admin-login.css"
+  >
+</head>
+
+<body>
+
+  <!-- =====================================================
+       BACKGROUND
+  ====================================================== -->
+
+  <div class="admin-bg">
+
+    <div class="bg-grid"></div>
+
+    <div class="bg-glow glow-one"></div>
+    <div class="bg-glow glow-two"></div>
+
+  </div>
+
+
+  <!-- =====================================================
+       ADMIN LOGIN WRAPPER
+  ====================================================== -->
+
+  <main class="admin-login-page">
+
+
+    <!-- BRAND -->
+
+    <div class="admin-brand">
+
+      <a href="index.html">
+        Rento<span>Ride</span>
+      </a>
+
+      <small>
+        SECURE ADMIN ACCESS
+      </small>
+
+    </div>
+
+
+    <!-- LOGIN CARD -->
+
+    <section class="admin-login-card">
+
+
+      <!-- SECURITY ICON -->
+
+      <div class="security-icon">
+
+        <div class="security-icon-inner">
+          🔐
+        </div>
+
+      </div>
+
+
+      <!-- HEADER -->
+
+      <div class="login-header">
+
+        <span class="login-kicker">
+          RentoRide • CONTROL SYSTEM
+        </span>
+
+        <h1>
+          Admin Login
+        </h1>
+
+        <p>
+          Authorized administrators only.
+          Sign in to access the RentoRide
+          Command Center.
+        </p>
+
+      </div>
+
+
+      <!-- SECURITY STATUS -->
+
+      <div class="security-status">
+
+        <span class="status-dot"></span>
+
+        <div>
+
+          <strong>
+            Secure Connection
+          </strong>
+
+          <small>
+            Admin access protected
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- LOGIN FORM -->
+
+      <form
+        id="adminLoginForm"
+        autocomplete="on"
+      >
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+          <label for="adminEmail">
+            Admin Email
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              ✉
+            </span>
+
+            <input
+              type="email"
+              id="adminEmail"
+              name="email"
+              placeholder="Enter admin email"
+              autocomplete="username"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+          <div class="label-row">
+
+            <label for="adminPassword">
+              Password
+            </label>
+
+          </div>
+
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              🔑
+            </span>
+
+            <input
+              type="password"
+              id="adminPassword"
+              name="password"
+              placeholder="Enter password"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              id="togglePassword"
+              aria-label="Show password"
+            >
+              👁
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- REMEMBER -->
+
+        <div class="login-options">
+
+          <label class="remember-option">
+
+            <input
+              type="checkbox"
+              id="rememberAdmin"
+            >
+
+            <span class="custom-checkbox"></span>
+
+            <span>
+              Remember this device
+            </span>
+
+          </label>
+
+        </div>
+
+
+        <!-- ERROR MESSAGE -->
+
+        <div
+          class="login-message error-message"
+          id="adminLoginError"
+          role="alert"
+        ></div>
+
+
+        <!-- SUCCESS MESSAGE -->
+
+        <div
+          class="login-message success-message"
+          id="adminLoginSuccess"
+          role="status"
+        ></div>
+
+
+        <!-- LOGIN BUTTON -->
+
+        <button
+          type="submit"
+          class="admin-login-btn"
+          id="adminLoginBtn"
+        >
+
+          <span class="btn-text">
+            Access Command Center
+          </span>
+
+          <span class="btn-loader">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+
+          <span class="btn-arrow">
+            →
+          </span>
+
+        </button>
+
+      </form>
+
+
+      <!-- SECURITY NOTE -->
+
+      <div class="security-note">
+
+        <span>
+          🛡
+        </span>
+
+        <p>
+          This area is restricted to authorized
+          RentoRide administrators. Unauthorized
+          access attempts may be logged.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <div class="admin-login-footer">
+
+      <span>
+        © 2026 RentoRide
+      </span>
+
+      <span class="footer-separator">
+        •
+      </span>
+
+      <span>
+        Protected Admin Portal
+      </span>
+
+    </div>
+
+  </main>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/admin-login.js"></script>
+
+</body>
+</html>
+```

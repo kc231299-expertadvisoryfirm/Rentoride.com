@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentoRide</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">🏍️ Rento<span>Ride</span></a>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <!-- ================= AUTH ================= -->
+
+    <section class="auth-card">
+
+      <h2>Login / Sign Up</h2>
+      <p class="section-sub">Access your RentoRide account to book or list a vehicle.</p>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@example.com">
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password">
+      </div>
+
+      <div class="auth-actions">
+        <button id="loginBtn" class="btn-gold">Login</button>
+        <button id="signupBtn" class="btn-outline">Sign Up</button>
+      </div>
+
+      <p id="message" class="auth-message"></p>
+
+    </section>
+
+
+    <!-- ================= PROFILE ================= -->
+
+    <section id="profile" class="profile-card" style="display:none;">
+
+      <h2>My Profile</h2>
+
+      <div class="profile-grid">
+        <div>
+          <span>Name</span>
+          <strong id="profileName"></strong>
+        </div>
+        <div>
+          <span>Email</span>
+          <strong id="profileEmail"></strong>
+        </div>
+        <div>
+          <span>Phone</span>
+          <strong id="profilePhone"></strong>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ================= ADD BIKE ================= -->
+
+    <section class="add-bike-section">
+
+      <button id="addBikeBtn" class="btn-outline">+ Add Your Bike</button>
+
+      <div id="bikeForm" class="bike-form-card" style="display:none;">
+
+        <h3>Add Your Bike</h3>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="bikeName">Bike Name</label>
+            <input type="text" id="bikeName" placeholder="e.g. Classic 350">
+          </div>
+
+          <div class="field">
+            <label for="bikeBrand">Brand</label>
+            <input type="text" id="bikeBrand" placeholder="e.g. Royal Enfield">
+          </div>
+        </div>
+
+        <div class="field-row price-row">
+          <div class="field">
+            <label for="bikePrice">Price / day</label>
+            <input type="number" id="bikePrice" placeholder="₹399">
+          </div>
+
+          <div class="field">
+            <label for="price3h">3 Hours</label>
+            <input type="number" id="price3h" placeholder="₹99">
+          </div>
+
+          <div class="field">
+            <label for="price6h">6 Hours</label>
+            <input type="number" id="price6h" placeholder="₹149">
+          </div>
+
+          <div class="field">
+            <label for="price12h">12 Hours</label>
+            <input type="number" id="price12h" placeholder="₹249">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="bikeLocation">Location</label>
+          <input type="text" id="bikeLocation" placeholder="e.g. Kota, Rajasthan">
+        </div>
+
+        <div class="field">
+          <label for="bikeImage">Bike Image URL</label>
+          <input type="text" id="bikeImage" placeholder="https://...">
+        </div>
+
+        <button id="saveBikeBtn" class="btn-gold">Save Bike</button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= MY BOOKINGS ================= -->
+
+    <section class="bikes-section">
+      <h2>My Bookings</h2>
+      <div id="myBookings" class="bookings-list">Loading bookings...</div>
+    </section>
+
+
+    <!-- ================= AVAILABLE BIKES ================= -->
+
+    <section class="bikes-section">
+      <h2>Available Bikes</h2>
+      <div id="bikeList" class="bike-grid">Loading bikes...</div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Rento<span>Ride</span> — Ride more. Worry less.</p>
+  </footer>
+
+  <script>
+
+    const SUPABASE_URL = "https://axvttcxrhsblvkmcnqgb.supabase.co";
+
+    const SUPABASE_KEY = "sb_publishable_Nn7T1_HByXSy9Vrxy4XgoA_KlsJAafa";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+
+    const message = document.getElementById("message");
+
+    const profile = document.getElementById("profile");
+
+    const profileName = document.getElementById("profileName");
+
+    const profileEmail = document.getElementById("profileEmail");
+
+    const profilePhone = document.getElementById("profilePhone");
+
+
+    // =========================
+    // SIGN UP
+    // =========================
+
+    document.getElementById("signupBtn").addEventListener("click", async () => {
+
+      const email = document.getElementById("email").value.trim();
+
+      const password = document.getElementById("password").value;
+
+
+      if (!email || !password) {
+
+        message.innerText = "Please enter email and password.";
+
+        return;
+
+      }
+
+
+      message.innerText = "Creating account...";
+
+
+      const { data, error } = await supabaseClient.auth.signUp({
+
+        email: email,
+
+        password: password
+
+      });
+
+
+      console.log("Signup response:", data, error);
+
+
+      if (error) {
+
+        message.innerText = error.message;
+
+      } else {
+
+        message.innerText = "Signup successful!";
+
+      }
+
+    });
+
+
+    // =========================
+    // LOGIN
+    // =========================
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+
+      const email = document.getElementById("email").value.trim();
+
+      const password = document.getElementById("password").value;
+
+
+      if (!email || !password) {
+
+        message.innerText = "Please enter email and password.";
+
+        return;
+
+      }
+
+
+      message.innerText = "Logging in...";
+
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+
+          email: email,
+
+          password: password
+
+        });
+
+
+      console.log("Login response:", data, error);
+
+
+      if (error) {
+
+        message.innerText = error.message;
+
+        return;
+
+      }
+
+
+      message.innerText = "Login successful!";
+
+
+      const user = data.user;
+      console.log("Logged in user:", user);
+      await loadMyBookings();
+      if (!user) {
+
+        message.innerText = "User not found.";
+
+        return;
+
+      }
+
+
+      const { data: profileData, error: profileError } =
+        await supabaseClient
+
+          .from("profiles")
+
+          .select("id, name, email, phone")
+
+          .eq("id", user.id)
+
+          .single();
+
+
+      console.log("Profile response:", profileData, profileError);
+
+
+      if (profileError) {
+
+        message.innerText =
+          "Login successful, but profile could not be loaded: " +
+          profileError.message;
+
+        return;
+
+      }
+
+
+      profile.style.display = "block";
+
+
+      profileName.innerText =
+        profileData.name || "Not added";
+
+
+      profileEmail.innerText =
+        profileData.email || user.email || "Not added";
+
+
+      profilePhone.innerText =
+        profileData.phone || "Not added";
+
+    });
+
+
+    // =========================
+    // OPEN BIKE FORM
+    // =========================
+
+    document.getElementById("addBikeBtn").addEventListener("click", () => {
+
+      document.getElementById("bikeForm").style.display = "block";
+
+    });
+
+
+    // =========================
+    // SAVE BIKE
+    // =========================
+
+    document.getElementById("saveBikeBtn").addEventListener("click", async () => {
+
+      const bikeName =
+        document.getElementById("bikeName").value.trim();
+
+
+      const bikeBrand =
+        document.getElementById("bikeBrand").value.trim();
+
+
+      const bikePrice =
+        document.getElementById("bikePrice").value;
+      const price3h =
+        document.getElementById("price3h").value;
+
+      const price6h =
+        document.getElementById("price6h").value;
+
+      const price12h =
+       document.getElementById("price12h").value;
+ 
+
+      const bikeLocation =
+        document.getElementById("bikeLocation").value.trim();
+
+
+      const bikeImage =
+        document.getElementById("bikeImage").value.trim();
+
+
+      if (!bikeName || !bikeBrand || !bikePrice || !bikeLocation) {
+
+        message.innerText =
+          "Please fill all required fields.";
+
+        return;
+
+      }
+
+
+      const { data: userData } =
+        await supabaseClient.auth.getUser();
+
+
+      if (!userData.user) {
+
+        message.innerText =
+          "Please login first.";
+
+        return;
+
+      }
+
+
+      message.innerText =
+        "Adding bike...";
+
+
+      const { error } =
+        await supabaseClient
+
+          .from("bikes")
+
+          .insert({
+
+            owner_id: userData.user.id,
+
+            bike_name: bikeName,
+
+            brand: bikeBrand,
+
+            price_per_day: Number(bikePrice),
+
+price_3h: Number(price3h),
+price_6h: Number(price6h),
+price_12h: Number(price12h),
+
+location: bikeLocation,
+
+            image_url: bikeImage
+
+          });
+
+
+      if (error) {
+
+        message.innerText =
+          error.message;
+
+        return;
+
+      }
+
+
+      message.innerText =
+        "Bike added successfully!";
+
+
+      document.getElementById("bikeForm").style.display =
+        "none";
+
+
+      document.getElementById("bikeName").value = "";
+
+      document.getElementById("bikeBrand").value = "";
+
+      document.getElementById("bikePrice").value = "";
+
+      document.getElementById("bikeLocation").value = "";
+
+      document.getElementById("bikeImage").value = "";
+
+    });
+async function loadBikes() {
+
+  const bikeList = document.getElementById("bikeList");
+
+  bikeList.innerHTML = "Loading bikes...";
+
+  const { data: bikes, error } = await supabaseClient
+    .from("bikes")
+    .select("id, bike_name, brand, price_per_day, price_3h, price_6h, price_12h, location, image_url")
+
+  if (error) {
+    bikeList.innerText = error.message;
+    return;
+  }
+
+  if (!bikes || bikes.length === 0) {
+    bikeList.innerHTML = `<div class="empty-note">No bikes available yet.</div>`;
+    return;
+  }
+
+  bikeList.innerHTML = "";
+
+  bikes.forEach((bike) => {
+
+    const card = document.createElement("div");
+    card.className = "bike-card";
+
+    card.innerHTML = `
+      <div class="bike-card-image">
+        <img src="${bike.image_url || 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80'}" alt="${bike.bike_name}">
+      </div>
+      <div class="bike-card-body">
+        <h3>${bike.bike_name}</h3>
+        <p class="bike-card-brand">${bike.brand}</p>
+        <p class="bike-card-location">📍 ${bike.location}</p>
+
+        <div class="bike-card-prices">
+          <div><small>3H</small><b>₹${bike.price_3h ?? "—"}</b></div>
+          <div><small>6H</small><b>₹${bike.price_6h ?? "—"}</b></div>
+          <div><small>12H</small><b>₹${bike.price_12h ?? "—"}</b></div>
+          <div><small>24H</small><b>₹${bike.price_per_day ?? "—"}</b></div>
+        </div>
+
+        <button class="btn-gold btn-full" onclick="bookBike('${bike.id}', ${bike.price_per_day}, ${bike.price_3h}, ${bike.price_6h}, ${bike.price_12h})">
+          Book Now
+        </button>
+      </div>
+    `;
+
+    bikeList.appendChild(card);
+
+  });
+}
+async function bookBike(bikeId, pricePerDay, price3h, price6h, price12h) {
+
+  const { data: userData } = await supabaseClient.auth.getUser();
+
+  if (!userData.user) {
+    message.innerText = "Please login first.";
+    return;
+  }
+
+  const startDate = prompt("Enter start date (YYYY-MM-DD):");
+
+if (!startDate) return;
+const pickupTime = await new Promise((resolve) => {
+  const overlay = document.createElement("div");
+  overlay.className = "rr-time-overlay";
+
+  overlay.innerHTML = `
+    <div class="rr-time-box">
+      <h3>Select Pickup Time</h3>
+      <input type="time" id="pickupClock">
+      <button id="confirmPickupTime" class="btn-gold btn-full">Continue</button>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  document.getElementById("confirmPickupTime").onclick = () => {
+    const value = document.getElementById("pickupClock").value;
+
+    if (!value) {
+      alert("Please select pickup time.");
+      return;
+    }
+
+    overlay.remove();
+    resolve(value);
+  };
+});
+const endDate = prompt("Enter end date (YYYY-MM-DD):");
+
+if (!endDate) return;
+const dropoffTime = await new Promise((resolve) => {
+  const overlay = document.createElement("div");
+  overlay.className = "rr-time-overlay";
+
+  overlay.innerHTML = `
+    <div class="rr-time-box">
+      <h3>Select Drop-off Time</h3>
+      <input type="time" id="dropoffClock">
+      <button id="confirmDropoffTime" class="btn-gold btn-full">Continue</button>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  document.getElementById("confirmDropoffTime").onclick = () => {
+    const value = document.getElementById("dropoffClock").value;
+
+    if (!value) {
+      alert("Please select drop-off time.");
+      return;
+    }
+
+    overlay.remove();
+    resolve(value);
+  };
+});
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  
+  if (isNaN(start) || isNaN(end) || end < start) {
+    message.innerText = "Please enter valid dates.";
+    return;
+  }
+const pickupMinutes =
+  Number(pickupTime.split(":")[0]) * 60 +
+  Number(pickupTime.split(":")[1]);
+
+const dropoffMinutes =
+  Number(dropoffTime.split(":")[0]) * 60 +
+  Number(dropoffTime.split(":")[1]);
+
+let totalMinutes =
+  (end - start) / (1000 * 60) +
+  (dropoffMinutes - pickupMinutes);
+
+if (totalMinutes <= 0) {
+  message.innerText = "Please select a valid drop-off time.";
+  return;
+}
+
+const hours = totalMinutes / 60;
+  
+const { data: existingBookings, error: availabilityError } =
+  await supabaseClient
+    .from("bookings")
+    .select("id, start_date, end_date, pickup_time, dropoff_time, status")
+    .eq("bike_id", bikeId);
+
+if (availabilityError) {
+  console.log("Availability check error:", availabilityError.message);
+} else {
+  console.log("Existing bookings:", existingBookings);
+}
+console.log("Booking duration:", hours, "hours");
+  const newStartMinutes =
+  (start.getTime() / 60000) + pickupMinutes;
+
+const newEndMinutes =
+  (end.getTime() / 60000) + dropoffMinutes;
+
+console.log("New booking start:", newStartMinutes);
+console.log("New booking end:", newEndMinutes);
+    
+  const days =
+    Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+
+ let amount;
+
+if (hours <= 3) {
+  amount = Number(price3h);
+} else if (hours <= 6) {
+  amount = Number(price6h);
+} else if (hours <= 12) {
+  amount = Number(price12h);
+} else if (hours <= 24) {
+  amount = Number(pricePerDay);
+} else {
+  message.innerText = "Maximum booking duration is 24 hours.";
+  return;
+}
+
+  const { error } = await supabaseClient
+    .from("bookings")
+    .insert({
+  bike_id: bikeId,
+  user_id: userData.user.id,
+  start_date: startDate,
+  end_date: endDate,
+  pickup_time: pickupTime,
+  dropoff_time: dropoffTime,
+  amount: amount,
+  status: "pending"
+});
+
+  if (error) {
+    message.innerText = error.message;
+    return;
+  }
+
+  message.innerText =
+    "Booking request submitted! Total: ₹" + amount;
+}
+   async function loadMyBookings() {
+
+  const bookingList = document.getElementById("myBookings");
+
+  const { data: userData } = await supabaseClient.auth.getUser();
+
+  if (!userData.user) {
+    bookingList.innerHTML = `<div class="empty-note">Please login to view your bookings.</div>`;
+    return;
+  }
+
+  const { data: bookings, error } = await supabaseClient
+    .from("bookings")
+   .select("id, bike_id, start_date, end_date, pickup_time, dropoff_time, amount, status")
+    .eq("user_id", userData.user.id)
+    .order("start_date", { ascending: false });
+
+  if (error) {
+    bookingList.innerText = error.message;
+    return;
+  }
+
+  if (!bookings || bookings.length === 0) {
+    bookingList.innerHTML = `<div class="empty-note">No bookings yet.</div>`;
+    return;
+  }
+
+  bookingList.innerHTML = "";
+
+  bookings.forEach((booking) => {
+
+    const card = document.createElement("div");
+    card.className = "booking-item";
+  card.innerHTML = `
+    <div class="booking-item-info">
+      <p>🏍️ Bike ID: <span>${booking.bike_id}</span></p>
+      <p>📅 Pickup: ${booking.start_date} at ${booking.pickup_time} ${booking.pickup_time >= "12:00" ? "PM" : "AM"}</p>
+      <p>📅 Drop-off: ${booking.end_date} at ${booking.dropoff_time} ${booking.dropoff_time >= "12:00" ? "PM" : "AM"}</p>
+    </div>
+    <div class="booking-item-side">
+      <strong>₹${booking.amount}</strong>
+      <span class="status-pill status-${booking.status}">${booking.status}</span>
+      <button class="btn-outline btn-small" onclick="cancelBooking('${booking.id}')">Cancel</button>
+    </div>
+`;
+    bookingList.appendChild(card);
+
+  });
+}
+
+message.innerText = "Login successful!";
+
+loadMyBookings();
+    async function cancelBooking(bookingId) {
+  const { error } = await supabaseClient
+    .from("bookings")
+    .update({ status: "cancelled" })
+    .eq("id", bookingId);
+
+  if (error) {
+    message.innerText = error.message;
+    return;
+  }
+
+  message.innerText = "Booking cancelled successfully!";
+
+  await loadMyBookings();
+}
+loadBikes();
+  </script>
+  
+
+  
+</body>
+</html>

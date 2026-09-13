@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentoRide | Rent Bikes & Cars</title>
+  <meta name="description" content="Rent bikes and cars anytime, anywhere with RentoRide.">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="nav-container">
+
+    <a href="home.html" class="logo">
+      <span class="logo-icon">🏍️</span>
+      Rento<span>Ride</span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle">☰</button>
+
+    <nav class="nav-menu" id="navMenu">
+      <a href="home.html" class="active">Home</a>
+      <a href="bikes.html">Bikes</a>
+      <a href="#cars">Cars</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#support">Support</a>
+      <a href="index.html" class="login-btn">Login</a>
+      <a href="index.html" class="list-btn">List Your Vehicle</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+
+    <div class="hero-text">
+
+      <span class="hero-label">RENTORIDE</span>
+
+      <h1>
+        Rent Bikes & Cars
+        <strong>Anytime, Anywhere.</strong>
+      </h1>
+
+      <p>
+        Find the perfect ride for every journey.
+        Easy booking, trusted owners and affordable prices.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#bikes" class="primary-btn">🏍️ FIND A BIKE</a>
+        <a href="#cars" class="secondary-btn">🚗 FIND A CAR</a>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SEARCH -->
+
+  <div class="search-wrapper">
+
+    <div class="search-box">
+
+      <div class="search-field">
+        <label>📍 Location</label>
+        <input type="text" id="locationInput" placeholder="Enter your location">
+      </div>
+
+      <div class="search-field">
+        <label>📅 Pickup Date</label>
+        <input type="date" id="pickupDate">
+      </div>
+
+      <div class="search-field">
+        <label>🕐 Pickup Time</label>
+        <input type="time" id="pickupTime">
+      </div>
+
+      <div class="search-field">
+        <label>🚘 Vehicle</label>
+
+        <select id="vehicleType">
+          <option value="all">All Types</option>
+          <option value="bike">Bikes</option>
+          <option value="car">Cars</option>
+        </select>
+
+      </div>
+
+      <button class="search-button" id="searchBtn">
+        🔍 SEARCH RIDES
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<main>
+
+
+<!-- POPULAR BIKES -->
+
+<section class="vehicles-section" id="bikes">
+
+  <div class="container">
+
+    <div class="section-top">
+
+      <div>
+        <span class="section-label">EXPLORE RIDES</span>
+        <h2>🏍️ Popular Bikes</h2>
+      </div>
+
+      <a href="bikes.html" class="view-link">View all bikes →</a>
+
+    </div>
+
+
+    <div class="vehicle-grid">
+
+
+      <article class="vehicle-card">
+
+        <div class="vehicle-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=85"
+            alt="Royal Enfield motorcycle"
+          >
+
+          <span class="vehicle-badge">POPULAR</span>
+
+        </div>
+
+        <div class="vehicle-body">
+
+          <div class="vehicle-title">
+            <h3>Royal Enfield Classic</h3>
+            <span class="rating">⭐ 4.8</span>
+          </div>
+
+          <p class="vehicle-location">📍 Kota, Rajasthan</p>
+
+          <div class="vehicle-meta">
+            350cc • 2 Seater
+          </div>
+
+          <div class="vehicle-price">
+            <span>From</span>
+            <strong>₹499</strong>
+            <span>/day</span>
+          </div>
+
+          <a href="bikes.html" class="rent-button">Rent Now</a>
+
+        </div>
+
+      </article>
+
+
+      <article class="vehicle-card">
+
+        <div class="vehicle-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=900&q=85"
+            alt="KTM style motorcycle"
+          >
+
+          <span class="vehicle-badge">POPULAR</span>
+
+        </div>
+
+        <div class="vehicle-body">
+
+          <div class="vehicle-title">
+            <h3>KTM Duke</h3>
+            <span class="rating">⭐ 4.7</span>
+          </div>
+
+          <p class="vehicle-location">📍 Kota, Rajasthan</p>
+
+          <div class="vehicle-meta">
+            200cc • 2 Seater
+          </div>
+
+          <div class="vehicle-price">
+            <span>From</span>
+            <strong>₹399</strong>
+            <span>/day</span>
+          </div>
+
+          <a href="bikes.html" class="rent-button">Rent Now</a>
+
+        </div>
+
+      </article>
+
+
+      <article class="vehicle-card">
+
+        <div class="vehicle-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1558980664-10ea56b2f1f7?auto=format&fit=crop&w=900&q=85"
+            alt="Yamaha style motorcycle"
+          >
+
+          <span class="vehicle-badge premium">PREMIUM</span>
+
+        </div>
+
+        <div class="vehicle-body">
+
+          <div class="vehicle-title">
+            <h3>Yamaha R15</h3>
+            <span class="rating">⭐ 4.9</span>
+          </div>
+
+          <p class="vehicle-location">📍 Kota, Rajasthan</p>
+
+          <div class="vehicle-meta">
+            155cc • 2 Seater
+          </div>
+
+          <div class="vehicle-price">
+            <span>From</span>
+            <strong>₹449</strong>
+            <span>/day</span>
+          </div>
+
+          <a href="bikes.html" class="rent-button">Rent Now</a>
+
+        </div>
+
+      </article>
+
+
+      <article class="vehicle-card">
+
+        <div class="vehicle-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=900&q=85"
+            alt="Scooter"
+          >
+
+          <span class="vehicle-badge">VALUE</span>
+
+        </div>
+
+        <div class="vehicle-body">
+
+          <div class="vehicle-title">
+            <h3>Honda Activa</h3>
+            <span class="rating">⭐ 4.6</span>
+          </div>
+
+          <p class="vehicle-location">📍 Kota, Rajasthan</p>
+
+          <div class="vehicle-meta">
+            110cc • 2 Seater
+          </div>
+
+          <div class="vehicle-price">
+            <span>From</span>
+            <strong>₹249</strong>
+            <span>/day</span>
+          </div>
+
+          <a href="bikes.html" class="rent-button">Rent Now</a>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- POPULAR CARS -->
+
+<section class="vehicles-section cars-section" id="cars">
+
+  <div class="container">
+
+    <div class="section-top">
+
+      <div>
+        <span class="section-label">FOUR WHEELS</span>
+        <h2>🚗 Popular Cars</h2>
+      </div>
+
+      <a href="cars.html" class="view-link">View all cars →</a>
+
+    </div>
+
+
+    <div class="vehicle-grid">
+
+
+      <article class="vehicle-card">
+
+        <div class="vehicle-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=900&q=85"
+            alt="Sedan"
+          >
+
+          <span class="vehicle-badge">POPULAR</span>
+
+        </div>
+
+        <div class="vehicle-body">
+
+          <div class="vehicle-title">
+            <h3>Maruti Swift Dzire</h3>
+            <span class="rating">⭐ 4.8</span>
+          </div>
+
+          <p class="vehicle-location">📍 Kota, Rajasthan</p>
+
+          <div class="vehicle-meta">
+            Petrol • Manual • 5 Seater
+          </div>
+
+          <div class="vehicle-price">
+            <span>From</span>
+            <strong>₹999</strong>
+            <span>/day</span>
+          </div>
+
+          <a href="cars.html" class="rent-button">Rent Now</a>
+
+        </div>
+
+      </article>
+
+
+      <article class="vehicle-card">
+
+        <div class="vehicle-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=900&q=85"
+            alt="Hyundai style car"
+          >
+
+          <span class="vehicle-badge">VALUE</span>
+
+        </div>
+
+        <div class="vehicle-body">
+
+          <div class="vehicle-title">
+            <h3>Hyundai i20</h3>
+            <span class="rating">⭐ 4.7</span>
+          </div>
+
+          <p class="vehicle-location">📍 Kota, Rajasthan</p>
+
+          <div class="vehicle-meta">
+            Petrol • Manual • 5 Seater
+          </div>
+
+          <div class="vehicle-price">
+            <span>From</span>
+            <strong>₹1199</strong>
+            <span>/day</span>
+          </div>
+
+          <a href="cars.html" class="rent-button">Rent Now</a>
+
+        </div>
+
+      </article>
+
+
+      <article class="vehicle-card">
+
+        <div class="vehicle-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=900&q=85"
+            alt="SUV"
+          >
+
+          <span class="vehicle-badge">POPULAR</span>
+
+        </div>
+
+        <div class="vehicle-body">
+
+          <div class="vehicle-title">
+            <h3>Tata Nexon</h3>
+            <span class="rating">⭐ 4.8</span>
+          </div>
+
+          <p class="vehicle-location">📍 Kota, Rajasthan</p>
+
+          <div class="vehicle-meta">
+            Diesel • Manual • 5 Seater
+          </div>
+
+          <div class="vehicle-price">
+            <span>From</span>
+            <strong>₹1699</strong>
+            <span>/day</span>
+          </div>
+
+          <a href="cars.html" class="rent-button">Rent Now</a>
+
+        </div>
+
+      </article>
+
+
+      <article class="vehicle-card">
+
+        <div class="vehicle-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=900&q=85"
+            alt="SUV"
+          >
+
+          <span class="vehicle-badge premium">PREMIUM</span>
+
+        </div>
+
+        <div class="vehicle-body">
+
+          <div class="vehicle-title">
+            <h3>Maruti Brezza</h3>
+            <span class="rating">⭐ 4.9</span>
+          </div>
+
+          <p class="vehicle-location">📍 Kota, Rajasthan</p>
+
+          <div class="vehicle-meta">
+            Petrol • Manual • 5 Seater
+          </div>
+
+          <div class="vehicle-price">
+            <span>From</span>
+            <strong>₹1599</strong>
+            <span>/day</span>
+          </div>
+
+          <a href="cars.html" class="rent-button">Rent Now</a>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- EARN -->
+
+<section class="earn-section">
+
+  <div class="earn-container">
+
+    <div class="earn-content">
+
+      <span class="section-label light">FOR VEHICLE OWNERS</span>
+
+      <h2>
+        Have a Bike or Car?
+        <strong>Earn With RentoRide.</strong>
+      </h2>
+
+      <p>
+        List your vehicle on RentoRide and start earning
+        by renting it to verified riders in your city.
+      </p>
+
+      <a href="index.html" class="primary-btn">
+        LIST YOUR VEHICLE
+      </a>
+
+    </div>
+
+    <div class="earn-points">
+
+      <div>
+        <strong>✓</strong>
+        <span><b>Verified Riders</b>100% safer rentals</span>
+      </div>
+
+      <div>
+        <strong>₹</strong>
+        <span><b>Earn More</b>Flexible rental prices</span>
+      </div>
+
+      <div>
+        <strong>⚡</strong>
+        <span><b>Hassle Free</b>We handle the platform</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WHY CHOOSE -->
+
+<section class="why-section">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span class="section-label">WHY RENTORIDE</span>
+
+      <h2>
+        Why Choose <span>RentoRide?</span>
+      </h2>
+
+      <p>
+        A simple and trusted way to rent bikes and cars.
+      </p>
+
+    </div>
+
+
+    <div class="why-grid">
+
+      <div class="why-card">
+        <div class="why-icon">🛡️</div>
+        <h3>Verified Users</h3>
+        <p>Users go through verification for safer rentals.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">🏍️</div>
+        <h3>Quality Vehicles</h3>
+        <p>Find well-maintained vehicles from trusted owners.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <h3>Affordable Prices</h3>
+        <p>Competitive pricing with flexible rental durations.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">📍</div>
+        <h3>Easy Pickup</h3>
+        <p>Find pickup locations that work for your journey.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <h3>Simple Booking</h3>
+        <p>Choose your vehicle, date and time in minutes.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">🛟</div>
+        <h3>Support</h3>
+        <p>Get help with bookings, payments and rentals.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section class="how-section" id="how-it-works">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span class="section-label">SIMPLE PROCESS</span>
+
+      <h2>How It <span>Works?</span></h2>
+
+      <p>Your next ride is just a few steps away.</p>
+
+    </div>
+
+
+    <div class="steps">
+
+      <div class="step">
+        <span class="step-number">01</span>
+        <div class="step-icon">🔍</div>
+        <h3>Choose Vehicle</h3>
+        <p>Select your favourite bike or car.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-number">02</span>
+        <div class="step-icon">👤</div>
+        <h3>Create Profile</h3>
+        <p>Sign up and complete your profile.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-number">03</span>
+        <div class="step-icon">🪪</div>
+        <h3>Verification</h3>
+        <p>Complete KYC for secure booking.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-number">04</span>
+        <div class="step-icon">📅</div>
+        <h3>Date & Time</h3>
+        <p>Choose pickup and drop details.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-number">05</span>
+        <div class="step-icon">💳</div>
+        <h3>Pay & Ride</h3>
+        <p>Make payment and enjoy your ride.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section class="faq-section">
+
+  <div class="container faq-container">
+
+    <div class="section-heading">
+
+      <span class="section-label">HELP CENTER</span>
+
+      <h2>Frequently Asked <span>Questions</span></h2>
+
+    </div>
+
+
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>How do I rent a bike or car? <span>+</span></summary>
+        <p>
+          Choose a vehicle, complete your profile and verification,
+          select your date and time, then complete the payment.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Why is KYC verification required? <span>+</span></summary>
+        <p>
+          Verification helps create a safer rental experience
+          for customers and vehicle owners.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How does pickup and delivery work? <span>+</span></summary>
+        <p>
+          The available pickup or delivery option depends on
+          what the vehicle owner has enabled.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I cancel my booking? <span>+</span></summary>
+        <p>
+          Cancellation and refund eligibility will depend on
+          the final RentoRide cancellation policy.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What payment methods are accepted? <span>+</span></summary>
+        <p>
+          Available payment methods will be shown during
+          the final payment step.
+        </p>
+      </details>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SUPPORT -->
+
+<section class="support-section" id="support">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span class="section-label">NEED HELP?</span>
+
+      <h2>We're Here <span>For You.</span></h2>
+
+    </div>
+
+
+    <div class="support-grid">
+
+      <a href="tel:+919588884172" class="support-card">
+        <div class="support-icon">📞</div>
+        <small>Call Us</small>
+        <strong>Contact Support</strong>
+      </a>
+
+      <a href="https://wa.me/919588884172" class="support-card">
+        <div class="support-icon">💬</div>
+        <small>WhatsApp</small>
+        <strong>Quick Support</strong>
+      </a>
+
+      <a href="mailto:support@rentoride.com" class="support-card">
+        <div class="support-icon">✉️</div>
+        <small>Email Us</small>
+        <strong>Send Message</strong>
+      </a>
+
+      <a href="#support" class="support-card">
+        <div class="support-icon">🎫</div>
+        <small>Booking Help</small>
+        <strong>Get Assistance</strong>
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  <div class="footer-container">
+
+    <div class="footer-brand">
+
+      <a href="home.html" class="footer-logo">
+        🏍️ Rento<span>Ride</span>
+      </a>
+
+      <p>
+        India's trusted peer-to-peer rental platform
+        for bikes and cars.
+      </p>
+
+      <div class="social-links">
+        <a href="#">f</a>
+        <a href="#">◎</a>
+        <a href="#">◉</a>
+        <a href="#">𝕏</a>
+      </div>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>COMPANY</h4>
+
+      <a href="#">About Us</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#">Become an Owner</a>
+      <a href="#">Careers</a>
+      <a href="#support">Contact Us</a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>SERVICES</h4>
+
+      <a href="bikes.html">Rent a Bike</a>
+      <a href="cars.html">Rent a Car</a>
+      <a href="index.html">List Your Bike</a>
+      <a href="index.html">List Your Car</a>
+      <a href="#">Long Term Rental</a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>SUPPORT</h4>
+
+      <a href="#support">Help Center</a>
+      <a href="#">FAQs</a>
+      <a href="#">Terms & Conditions</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Refund Policy</a>
+
+    </div>
+
+
+    <div class="footer-column newsletter">
+
+      <h4>STAY UPDATED</h4>
+
+      <p>Get updates and offers from RentoRide.</p>
+
+      <div class="newsletter-box">
+
+        <input
+          type="email"
+          id="newsletterEmail"
+          placeholder="Enter your email"
+        >
+
+        <button id="subscribeBtn">
+          Subscribe
+        </button>
+
+      </div>
+
+      <small id="subscribeMessage"></small>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <p>© 2026 RentoRide. All Rights Reserved.</p>
+    <p>Made for better rides.</p>
+
+  </div>
+
+</footer>
+
+
+<script src="js/home.js"></script>
+
+</body>
+</html>
+```

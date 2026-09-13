@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentoRide | Add Your Bike</title>
+  <link rel="stylesheet" href="css/add-bike.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">Rento<span>Ride</span></a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="bikes.html">Bikes</a>
+      <a href="my-bookings.html">My Bookings</a>
+      <a href="owner-dashboard.html">Owner Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main class="add-bike-page">
+
+  <div class="page-heading">
+    <p class="kicker">Owner tools</p>
+    <h1>Add your bike to RentoRide</h1>
+    <p class="subtext">Fill in the details below and your bike goes live for riders to book.</p>
+  </div>
+
+  <form id="bikeForm" class="bike-card">
+
+    <div class="field-row">
+      <div class="field">
+        <label for="bikeName">Bike name</label>
+        <input type="text" id="bikeName" placeholder="e.g. Classic 350">
+      </div>
+
+      <div class="field">
+        <label for="bikeBrand">Brand</label>
+        <input type="text" id="bikeBrand" placeholder="e.g. Royal Enfield">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="bikeLocation">Pickup location</label>
+      <input type="text" id="bikeLocation" placeholder="e.g. Kota, Rajasthan">
+    </div>
+
+    <div class="pricing-block">
+      <p class="block-label">Rental pricing</p>
+
+      <div class="price-row">
+        <div class="field price-field">
+          <label for="price3h">3 hours</label>
+          <div class="rupee-input">
+            <span>₹</span>
+            <input type="number" id="price3h" placeholder="99" min="0">
+          </div>
+        </div>
+
+        <div class="field price-field">
+          <label for="price6h">6 hours</label>
+          <div class="rupee-input">
+            <span>₹</span>
+            <input type="number" id="price6h" placeholder="149" min="0">
+          </div>
+        </div>
+
+        <div class="field price-field">
+          <label for="price12h">12 hours</label>
+          <div class="rupee-input">
+            <span>₹</span>
+            <input type="number" id="price12h" placeholder="249" min="0">
+          </div>
+        </div>
+
+        <div class="field price-field">
+          <label for="bikePrice">24 hours</label>
+          <div class="rupee-input">
+            <span>₹</span>
+            <input type="number" id="bikePrice" placeholder="399" min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Bike photo</label>
+      <label for="bikeImage" class="upload-box">
+        <span class="upload-icon">📷</span>
+        <span class="upload-text">
+          <strong>Upload a photo</strong>
+          <small>Clear shot of the bike, well lit</small>
+        </span>
+      </label>
+      <input type="file" id="bikeImage" accept="image/*" class="visually-hidden">
+      <p class="file-name" id="fileName"></p>
+    </div>
+
+    <button type="submit" class="submit-btn">Add bike <span>→</span></button>
+
+  </form>
+
+</main>
+
+<footer class="site-footer">
+  <p>Rento<span>Ride</span> — Ride more. Worry less.</p>
+</footer>
+
+<script>
+  const fileInput = document.getElementById('bikeImage');
+  const fileName = document.getElementById('fileName');
+  fileInput.addEventListener('change', () => {
+    fileName.textContent = fileInput.files.length ? fileInput.files[0].name : '';
+  });
+</script>
+
+</body>
+</html>
