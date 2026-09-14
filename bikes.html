@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>RentoRide | Bikes</title>
+
+  <link rel="stylesheet" href="css/bikes.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+  <div class="nav-container">
+
+```
+<a href="index.html" class="logo">
+  🏍️ Rento<span>Ride</span>
+</a>
+
+<button class="menu-toggle" id="menuToggle">☰</button>
+
+<nav class="nav-menu" id="navMenu">
+
+  <a href="index.html">Home</a>
+
+  <a href="bikes.html" class="active">Bikes</a>
+
+  <a href="cars.html">Cars</a>
+
+  <a href="#howItWorks">How It Works</a>
+
+  <a href="#support">Support</a>
+
+  <a href="list-vehicle.html" class="list-vehicle">
+    List Your Vehicle
+  </a>
+
+  <a href="#" class="bookings-link">
+    📋 My Bookings
+  </a>
+
+  <a href="login.html" class="profile-link">
+    👤 Profile
+  </a>
+
+  <a href="owner-dashboard.html" class="list-vehicle">
+    Owner Dashboard
+  </a>
+
+</nav>
+```
+
+  </div>
+
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="bike-hero">
+
+  <div class="hero-content">
+
+```
+<span class="hero-label">RENTORIDE BIKES</span>
+
+<h1>Find Your Perfect <span>Bike</span></h1>
+
+<p>
+  Explore bikes available near you and ride on your terms.
+</p>
+
+<!-- SEARCH BOX -->
+
+<div class="bike-search">
+
+  <div class="search-field">
+
+    <span class="search-icon">📍</span>
+
+    <div>
+      <label>Location</label>
+      <input
+        type="text"
+        id="locationInput"
+        placeholder="Kota, Rajasthan"
+      >
+    </div>
+
+  </div>
+
+
+  <div class="search-field">
+
+    <span class="search-icon">📅</span>
+
+    <div>
+      <label>Pickup Date</label>
+
+      <input
+        type="date"
+        id="pickupDate"
+      >
+
+    </div>
+
+  </div>
+
+
+  <div class="search-field">
+
+    <span class="search-icon">🕐</span>
+
+    <div>
+
+      <label>Pickup Time</label>
+
+      <input
+        type="time"
+        id="pickupTime"
+      >
+
+    </div>
+
+  </div>
+
+
+  <button
+    class="search-btn"
+    id="searchBtn"
+  >
+    🔍 SEARCH BIKES
+  </button>
+
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- ================= MAIN ================= -->
+
+<main class="main-section">
+
+  <div class="page-container">
+
+```
+<!-- FILTER SIDEBAR -->
+
+<aside class="filter-box">
+
+  <div class="filter-heading">
+
+    <h2>Filter</h2>
+
+    <button id="clearFilters">
+      Clear All
+    </button>
+
+  </div>
+
+
+  <!-- SEARCH -->
+
+  <div class="filter-group">
+
+    <label>Search Bike</label>
+
+    <div class="mini-search">
+
+      <input
+        type="text"
+        id="bikeSearch"
+        placeholder="Search by bike name..."
+      >
+
+      <span>⌕</span>
+
+    </div>
+
+  </div>
+
+
+  <!-- PRICE -->
+
+  <div class="filter-group">
+
+    <label>Price Range</label>
+
+    <div class="price-values">
+
+      <span>₹199</span>
+      <span>₹1999+</span>
+
+    </div>
+
+    <input
+      type="range"
+      id="priceRange"
+      min="199"
+      max="2000"
+      value="2000"
+    >
+
+  </div>
+
+
+  <!-- BIKE TYPE -->
+
+  <div class="filter-group">
+
+    <label>Bike Type</label>
+
+    <label class="check-option">
+      <input type="checkbox" value="all" checked>
+      <span>All Bikes</span>
+    </label>
+
+    <label class="check-option">
+      <input type="checkbox" value="sports">
+      <span>Sports Bike</span>
+    </label>
+
+    <label class="check-option">
+      <input type="checkbox" value="cruiser">
+      <span>Cruiser Bike</span>
+    </label>
+
+    <label class="check-option">
+      <input type="checkbox" value="commuter">
+      <span>Commuter Bike</span>
+    </label>
+
+    <label class="check-option">
+      <input type="checkbox" value="scooter">
+      <span>Scooter</span>
+    </label>
+
+  </div>
+
+
+  <!-- FUEL -->
+
+  <div class="filter-group">
+
+    <label>Fuel Type</label>
+
+    <label class="check-option">
+      <input type="checkbox" value="all" checked>
+      <span>All</span>
+    </label>
+
+    <label class="check-option">
+      <input type="checkbox" value="petrol">
+      <span>Petrol</span>
+    </label>
+
+    <label class="check-option">
+      <input type="checkbox" value="diesel">
+      <span>Diesel</span>
+    </label>
+
+    <label class="check-option">
+      <input type="checkbox" value="electric">
+      <span>Electric</span>
+    </label>
+
+  </div>
+
+
+  <!-- RATING -->
+
+  <div class="filter-group">
+
+    <label>Rating</label>
+
+    <div class="rating-buttons">
+
+      <button class="rating-filter active" data-rating="0">
+        All
+      </button>
+
+      <button class="rating-filter" data-rating="4">
+        4.0+ ⭐
+      </button>
+
+      <button class="rating-filter" data-rating="4.5">
+        4.5+ ⭐
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- AVAILABILITY -->
+
+  <div class="filter-group">
+
+    <label>Availability</label>
+
+    <label class="check-option">
+      <input
+        type="checkbox"
+        id="availableOnly"
+        checked
+      >
+      <span>Available Now</span>
+    </label>
+
+  </div>
+
+</aside>
+
+
+<!-- BIKE LISTING -->
+
+<section class="listing-section">
+
+
+  <div class="listing-header">
+
+    <div>
+
+      <span class="section-label">
+        AVAILABLE RIDES
+      </span>
+
+      <h2>
+        Bikes in <span id="locationTitle">Kota</span>
+      </h2>
+
+      <p id="bikeCount">
+        8 Bikes available
+      </p>
+
+    </div>
+
+
+    <div class="sort-box">
+
+      <label>Sort by:</label>
+
+      <select id="sortSelect">
+
+        <option value="popular">
+          Popularity
+        </option>
+
+        <option value="priceLow">
+          Price: Low to High
+        </option>
+
+        <option value="priceHigh">
+          Price: High to Low
+        </option>
+
+        <option value="rating">
+          Rating
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  <!-- BIKE GRID -->
+
+  <div
+    class="bike-grid"
+    id="bikeGrid"
+  >
+
+
+    <!-- BIKE 1 -->
+
+    <article
+      class="bike-card"
+      data-name="Royal Enfield Classic 350"
+      data-type="cruiser"
+      data-fuel="petrol"
+      data-price="799"
+      data-rating="4.8"
+      data-available="true"
+    >
+
+      <div class="bike-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=85"
+          alt="Royal Enfield Classic 350"
+        >
+
+        <span class="available">
+          Available
+        </span>
+
+        <button class="favorite">♡</button>
+
+      </div>
+
+
+      <div class="bike-body">
+
+        <div class="bike-title">
+
+          <h3>Royal Enfield Classic 350</h3>
+
+          <span class="rating">
+            ⭐ 4.8
+          </span>
+
+        </div>
+
+        <p class="bike-location">
+          📍 Kota, Rajasthan
+        </p>
+
+        <p class="bike-spec">
+          350cc • Petrol • 2 Seater
+        </p>
+
+
+        <div class="packages">
+
+          <div>
+            <small>3H</small>
+            <b>₹299</b>
+          </div>
+
+          <div>
+            <small>6H</small>
+            <b>₹399</b>
+          </div>
+
+          <div>
+            <small>12H</small>
+            <b>₹599</b>
+          </div>
+
+          <div>
+            <small>24H</small>
+            <b>₹799</b>
+          </div>
+
+        </div>
+
+
+        <a
+          href="bike-details.html"
+          class="details-btn"
+        >
+          VIEW DETAILS
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- BIKE 2 -->
+
+    <article
+      class="bike-card"
+      data-name="KTM Duke 250"
+      data-type="sports"
+      data-fuel="petrol"
+      data-price="899"
+      data-rating="4.7"
+      data-available="true"
+    >
+
+      <div class="bike-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=900&q=85"
+          alt="KTM Duke 250"
+        >
+
+        <span class="available">Available</span>
+
+        <button class="favorite">♡</button>
+
+      </div>
+
+
+      <div class="bike-body">
+
+        <div class="bike-title">
+
+          <h3>KTM Duke 250</h3>
+
+          <span class="rating">
+            ⭐ 4.7
+          </span>
+
+        </div>
+
+        <p class="bike-location">
+          📍 Kota, Rajasthan
+        </p>
+
+        <p class="bike-spec">
+          250cc • Petrol • 2 Seater
+        </p>
+
+
+        <div class="packages">
+
+          <div><small>3H</small><b>₹299</b></div>
+          <div><small>6H</small><b>₹549</b></div>
+          <div><small>12H</small><b>₹799</b></div>
+          <div><small>24H</small><b>₹899</b></div>
+
+        </div>
+
+
+        <a href="bike-details.html" class="details-btn">
+          VIEW DETAILS
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- BIKE 3 -->
+
+    <article
+      class="bike-card"
+      data-name="Bajaj Pulsar NS200"
+      data-type="sports"
+      data-fuel="petrol"
+      data-price="699"
+      data-rating="4.6"
+      data-available="true"
+    >
+
+      <div class="bike-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1558980664-10ea56b2f1f7?auto=format&fit=crop&w=900&q=85"
+          alt="Bajaj Pulsar NS200"
+        >
+
+        <span class="available">Available</span>
+
+        <button class="favorite">♡</button>
+
+      </div>
+
+
+      <div class="bike-body">
+
+        <div class="bike-title">
+
+          <h3>Bajaj Pulsar NS200</h3>
+
+          <span class="rating">
+            ⭐ 4.6
+          </span>
+
+        </div>
+
+        <p class="bike-location">
+          📍 Kota, Rajasthan
+        </p>
+
+        <p class="bike-spec">
+          200cc • Petrol • 2 Seater
+        </p>
+
+
+        <div class="packages">
+
+          <div><small>3H</small><b>₹249</b></div>
+          <div><small>6H</small><b>₹349</b></div>
+          <div><small>12H</small><b>₹499</b></div>
+          <div><small>24H</small><b>₹699</b></div>
+
+        </div>
+
+
+        <a href="bike-details.html" class="details-btn">
+          VIEW DETAILS
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- BIKE 4 -->
+
+    <article
+      class="bike-card"
+      data-name="Yamaha R15 V4"
+      data-type="sports"
+      data-fuel="petrol"
+      data-price="999"
+      data-rating="4.8"
+      data-available="true"
+    >
+
+      <div class="bike-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=900&q=85"
+          alt="Yamaha R15"
+        >
+
+        <span class="available">Available</span>
+
+        <button class="favorite">♡</button>
+
+      </div>
+
+
+      <div class="bike-body">
+
+        <div class="bike-title">
+
+          <h3>Yamaha R15 V4</h3>
+
+          <span class="rating">
+            ⭐ 4.8
+          </span>
+
+        </div>
+
+        <p class="bike-location">
+          📍 Kota, Rajasthan
+        </p>
+
+        <p class="bike-spec">
+          155cc • Petrol • 2 Seater
+        </p>
+
+
+        <div class="packages">
+
+          <div><small>3H</small><b>₹399</b></div>
+          <div><small>6H</small><b>₹549</b></div>
+          <div><small>12H</small><b>₹799</b></div>
+          <div><small>24H</small><b>₹999</b></div>
+
+        </div>
+
+
+        <a href="bike-details.html" class="details-btn">
+          VIEW DETAILS
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- BIKE 5 -->
+
+    <article
+      class="bike-card"
+      data-name="Honda Activa 6G"
+      data-type="scooter"
+      data-fuel="petrol"
+      data-price="449"
+      data-rating="4.7"
+      data-available="true"
+    >
+
+      <div class="bike-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=900&q=85"
+          alt="Honda Activa"
+        >
+
+        <span class="available">Available</span>
+
+        <button class="favorite">♡</button>
+
+      </div>
+
+
+      <div class="bike-body">
+
+        <div class="bike-title">
+
+          <h3>Honda Activa 6G</h3>
+
+          <span class="rating">
+            ⭐ 4.7
+          </span>
+
+        </div>
+
+        <p class="bike-location">
+          📍 Kota, Rajasthan
+        </p>
+
+        <p class="bike-spec">
+          110cc • Petrol • 2 Seater
+        </p>
+
+
+        <div class="packages">
+
+          <div><small>3H</small><b>₹199</b></div>
+          <div><small>6H</small><b>₹249</b></div>
+          <div><small>12H</small><b>₹349</b></div>
+          <div><small>24H</small><b>₹449</b></div>
+
+        </div>
+
+
+        <a href="bike-details.html" class="details-btn">
+          VIEW DETAILS
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- BIKE 6 -->
+
+    <article
+      class="bike-card"
+      data-name="Hero Splendor Plus"
+      data-type="commuter"
+      data-fuel="petrol"
+      data-price="449"
+      data-rating="4.5"
+      data-available="true"
+    >
+
+      <div class="bike-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1558981285-6f0c94958bb6?auto=format&fit=crop&w=900&q=85"
+          alt="Hero Splendor"
+        >
+
+        <span class="available">Available</span>
+
+        <button class="favorite">♡</button>
+
+      </div>
+
+
+      <div class="bike-body">
+
+        <div class="bike-title">
+
+          <h3>Hero Splendor Plus</h3>
+
+          <span class="rating">
+            ⭐ 4.5
+          </span>
+
+        </div>
+
+        <p class="bike-location">
+          📍 Kota, Rajasthan
+        </p>
+
+        <p class="bike-spec">
+          100cc • Petrol • 2 Seater
+        </p>
+
+
+        <div class="packages">
+
+          <div><small>3H</small><b>₹199</b></div>
+          <div><small>6H</small><b>₹249</b></div>
+          <div><small>12H</small><b>₹349</b></div>
+          <div><small>24H</small><b>₹449</b></div>
+
+        </div>
+
+
+        <a href="bike-details.html" class="details-btn">
+          VIEW DETAILS
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- BIKE 7 -->
+
+    <article
+      class="bike-card"
+      data-name="Royal Enfield Meteor 350"
+      data-type="cruiser"
+      data-fuel="petrol"
+      data-price="999"
+      data-rating="4.9"
+      data-available="true"
+    >
+
+      <div class="bike-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1558980394-0c6c8f6d7d5b?auto=format&fit=crop&w=900&q=85"
+          alt="Royal Enfield Meteor"
+        >
+
+        <span class="available">Available</span>
+
+        <button class="favorite">♡</button>
+
+      </div>
+
+
+      <div class="bike-body">
+
+        <div class="bike-title">
+
+          <h3>Royal Enfield Meteor 350</h3>
+
+          <span class="rating">
+            ⭐ 4.9
+          </span>
+
+        </div>
+
+        <p class="bike-location">
+          📍 Kota, Rajasthan
+        </p>
+
+        <p class="bike-spec">
+          350cc • Petrol • 2 Seater
+        </p>
+
+
+        <div class="packages">
+
+          <div><small>3H</small><b>₹399</b></div>
+          <div><small>6H</small><b>₹549</b></div>
+          <div><small>12H</small><b>₹799</b></div>
+          <div><small>24H</small><b>₹999</b></div>
+
+        </div>
+
+
+        <a href="bike-details.html" class="details-btn">
+          VIEW DETAILS
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- BIKE 8 -->
+
+    <article
+      class="bike-card"
+      data-name="TVS Ntorq 125"
+      data-type="scooter"
+      data-fuel="petrol"
+      data-price="449"
+      data-rating="4.6"
+      data-available="true"
+    >
+
+      <div class="bike-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1558980664-10ea56b2f1f7?auto=format&fit=crop&w=900&q=85"
+          alt="TVS Ntorq"
+        >
+
+        <span class="available">Available</span>
+
+        <button class="favorite">♡</button>
+
+      </div>
+
+
+      <div class="bike-body">
+
+        <div class="bike-title">
+
+          <h3>TVS Ntorq 125</h3>
+
+          <span class="rating">
+            ⭐ 4.6
+          </span>
+
+        </div>
+
+        <p class="bike-location">
+          📍 Kota, Rajasthan
+        </p>
+
+        <p class="bike-spec">
+          125cc • Petrol • 2 Seater
+        </p>
+
+
+        <div class="packages">
+
+          <div><small>3H</small><b>₹199</b></div>
+          <div><small>6H</small><b>₹249</b></div>
+          <div><small>12H</small><b>₹349</b></div>
+          <div><small>24H</small><b>₹449</b></div>
+
+        </div>
+
+
+        <a href="bike-details.html" class="details-btn">
+          VIEW DETAILS
+        </a>
+
+      </div>
+
+    </article>
+
+  </div>
+
+
+  <!-- NO RESULTS -->
+
+  <div
+    class="no-results"
+    id="noResults"
+  >
+
+    <div>🏍️</div>
+
+    <h3>No bikes found</h3>
+
+    <p>
+      Try changing your search or filters.
+    </p>
+
+  </div>
+
+
+  <!-- PAGINATION -->
+
+  <div class="pagination">
+
+    <button>‹</button>
+
+    <button class="page-active">1</button>
+
+    <button>2</button>
+
+    <button>3</button>
+
+    <button>›</button>
+
+  </div>
+
+</section>
+```
+
+  </div>
+
+</main>
+
+<!-- ================= BENEFITS ================= -->
+
+<section class="benefits">
+
+  <div class="benefit">
+
+```
+<div class="benefit-icon">🛡️</div>
+
+<div>
+  <strong>Verified Owners</strong>
+  <p>Safer rentals</p>
+</div>
+```
+
+  </div>
+
+  <div class="benefit">
+
+```
+<div class="benefit-icon">₹</div>
+
+<div>
+  <strong>Best Prices</strong>
+  <p>Affordable rides</p>
+</div>
+```
+
+  </div>
+
+  <div class="benefit">
+
+```
+<div class="benefit-icon">🎧</div>
+
+<div>
+  <strong>24/7 Support</strong>
+  <p>We're here to help</p>
+</div>
+```
+
+  </div>
+
+  <div class="benefit">
+
+```
+<div class="benefit-icon">🔐</div>
+
+<div>
+  <strong>Safe & Secure</strong>
+  <p>Your safety matters</p>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer" id="support">
+
+  <div class="footer-container">
+
+```
+<div class="footer-brand">
+
+  <a href="index.html" class="footer-logo">
+    🏍️ Rento<span>Ride</span>
+  </a>
+
+  <p>
+    India's trusted peer-to-peer rental platform
+    for bikes and cars.
+  </p>
+
+</div>
+
+
+<div class="footer-column">
+
+  <h4>RENT</h4>
+
+  <a href="bikes.html">Rent a Bike</a>
+
+  <a href="cars.html">Rent a Car</a>
+
+  <a href="index.html">Home</a>
+
+</div>
+
+
+<div class="footer-column">
+
+  <h4>COMPANY</h4>
+
+  <a href="#">About Us</a>
+
+  <a href="#howItWorks">How It Works</a>
+
+  <a href="list-vehicle.html">Become an Owner</a>
+
+</div>
+
+
+<div class="footer-column">
+
+  <h4>SUPPORT</h4>
+
+  <a href="#">Help Center</a>
+
+  <a href="#">FAQs</a>
+
+  <a href="#">Contact Us</a>
+
+</div>
+```
+
+  </div>
+
+  <div class="footer-bottom">
+
+```
+<p>© 2026 RentoRide. All Rights Reserved.</p>
+
+<p>Made for better rides.</p>
+```
+
+  </div>
+
+</footer>
+
+<script src="js/bikes.js"></script>
+
+</body>
+</html>
