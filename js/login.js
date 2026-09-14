@@ -91,20 +91,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     ROLE SELECTOR
+     ACCOUNT TYPE TOGGLE (I'm a customer / I'm a vehicle owner)
+     Shared across Log in + Create account, drives redirect after auth
      ========================================================= */
 
-  document.querySelectorAll(".role-card").forEach(card => {
-    card.addEventListener("click", () => {
-      document.querySelectorAll(".role-card").forEach(item => {
-        item.classList.remove("selected");
-      });
-      card.classList.add("selected");
+  const typeCustomer = document.getElementById("typeCustomer");
+  const typeOwner = document.getElementById("typeOwner");
+  let accountType = "customer";
 
-      const radio = card.querySelector("input[type='radio']");
-      if (radio) radio.checked = true;
-    });
-  });
+  function setAccountType(next) {
+    accountType = next;
+    typeCustomer.classList.toggle("active", next === "customer");
+    typeOwner.classList.toggle("active", next === "owner");
+  }
+
+  if (typeCustomer && typeOwner) {
+    typeCustomer.addEventListener("click", () => setAccountType("customer"));
+    typeOwner.addEventListener("click", () => setAccountType("owner"));
+  }
 
 
   /* =========================================================
@@ -275,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = document.getElementById("signupPassword").value;
     const confirmPassword = document.getElementById("signupConfirm").value;
     const terms = document.getElementById("terms").checked;
-    const role = document.querySelector('input[name="role"]:checked')?.value;
+    const role = accountType;
     const submitBtn = signupForm.querySelector(".primary-btn");
 
     if (!name || !phone || !email || !password || !confirmPassword) {
