@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RentoRide | Bike Details</title>
+  <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/bike-details.css">
 </head>
 
@@ -108,7 +109,7 @@
             </div>
             <div class="spec-item">
               <span>🏍️</span>
-              <strong>349 cc</strong>
+              <strong id="bikeEngine">349 cc</strong>
               <small>Engine</small>
             </div>
             <div class="spec-item">
@@ -174,7 +175,7 @@
           <div class="details-grid">
             <div><small>Brand</small><strong id="detailBrand">Royal Enfield</strong></div>
             <div><small>Model</small><strong id="detailModel">Classic 350</strong></div>
-            <div><small>Engine</small><strong>349 cc</strong></div>
+            <div><small>Engine</small><strong id="detailEngine">349 cc</strong></div>
             <div><small>Fuel</small><strong>Petrol</strong></div>
             <div><small>Transmission</small><strong>Manual</strong></div>
             <div><small>Seats</small><strong>2 Persons</strong></div>
@@ -292,6 +293,8 @@
   </div>
 </footer>
 
+<script src="js/bikes-data.js"></script>
+<script src="js/utils.js"></script>
 <script src="js/bike-details.js"></script>
 </body>
 </html>
