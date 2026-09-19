@@ -393,6 +393,28 @@ button {
 
   border: 1px solid #e4e8ee;
   border-radius: 9px;
+
+  background: #fff;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  width: 100%;
+
+  transition: .15s ease;
+}
+
+.price-box:hover {
+  border-color: #ffb293;
+}
+
+.price-box.selected {
+  border-color: #ff5a1f;
+  background: #fff3ed;
+  box-shadow: 0 0 0 2px rgba(255,90,31,.15);
+}
+
+.price-box.selected strong {
+  color: #ff5a1f;
 }
 
 .price-box small {
