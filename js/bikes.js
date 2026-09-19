@@ -140,6 +140,35 @@ const locationTitle =
 let selectedRating = 0;
 
 
+/* ================= PACKAGE (DURATION) BUTTONS ================= */
+/* Each bike card's 3H/6H/12H/24H boxes are now real buttons.
+   Clicking one highlights it, then takes the customer straight
+   into a pre-filled booking for that bike + duration. */
+
+document.querySelectorAll(".package-btn").forEach(btn => {
+
+  btn.addEventListener("click", () => {
+
+    // only one selected box per card
+    const siblingBtns =
+      btn.closest(".packages")?.querySelectorAll(".package-btn") || [];
+
+    siblingBtns.forEach(sib => sib.classList.remove("selected"));
+    btn.classList.add("selected");
+
+    const bikeId = btn.dataset.bikeId;
+    const hours = btn.dataset.hours;
+
+    if (!bikeId) return;
+
+    window.location.href =
+      `booking.html?id=${encodeURIComponent(bikeId)}&hours=${encodeURIComponent(hours)}`;
+
+  });
+
+});
+
+
 /* ================= TYPE / FUEL CHECKBOX FILTERS ================= */
 /* These checkboxes existed in the HTML but were never wired to
    filterBikes(), so checking/unchecking them did nothing. */
