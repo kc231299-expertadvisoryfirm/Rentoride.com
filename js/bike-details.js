@@ -112,10 +112,53 @@ document.addEventListener("DOMContentLoaded", () => {
      BOOK NOW
      ========================================================= */
 
-  bookNowBtn.href =
-    `booking.html?id=${encodeURIComponent(
-      bikeId || "classic-350"
-    )}`;
+  const finalBikeId = bikeId || "classic-350";
+
+  function updateBookNowLink(hours) {
+
+    let url = `booking.html?id=${encodeURIComponent(finalBikeId)}`;
+
+    if (hours) {
+      url += `&hours=${encodeURIComponent(hours)}`;
+    }
+
+    bookNowBtn.href = url;
+  }
+
+  updateBookNowLink();
+
+
+  /* =========================================================
+     RENTAL DURATION SELECTION (price boxes)
+     ========================================================= */
+
+  const priceBoxes =
+    document.querySelectorAll("#priceGrid .price-box");
+
+  priceBoxes.forEach(box => {
+
+    box.addEventListener("click", () => {
+
+      priceBoxes.forEach(item => {
+        item.classList.remove("selected");
+      });
+
+      box.classList.add("selected");
+
+      updateBookNowLink(box.dataset.hours);
+
+    });
+
+  });
+
+  // Default selection: the "Popular" 24-hour package
+  const defaultBox =
+    document.querySelector('#priceGrid .price-box[data-hours="24"]');
+
+  if (defaultBox) {
+    defaultBox.classList.add("selected");
+    updateBookNowLink(defaultBox.dataset.hours);
+  }
 
 
   /* =========================================================

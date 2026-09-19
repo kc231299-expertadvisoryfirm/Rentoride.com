@@ -181,10 +181,47 @@ document.addEventListener("DOMContentLoaded", () => {
     confirmBtn.dataset.hours = roundedHours;
   }
 
+  /* =========================================================
+     PRE-FILL FROM BIKE DETAILS PAGE
+     If the user picked a rental duration (3H/6H/12H/24H) on the
+     bike details page, ?hours= is passed here — use it to
+     auto-fill pickup/drop so the price shows immediately.
+     ========================================================= */
+
+  const requestedHours = Number(params.get("hours"));
+
+  if (requestedHours > 0) {
+
+    const now = new Date();
+
+    // Round pickup to the next 30-minute slot, starting from "now"
+    now.setMinutes(now.getMinutes() + (30 - (now.getMinutes() % 30 || 30)));
+
+    const dropDateTime = new Date(now.getTime() + requestedHours * 60 * 60 * 1000);
+
+    function toDateInput(d) {
+      return d.toISOString().split("T")[0];
+    }
+
+    function toTimeInput(d) {
+      return d.toTimeString().slice(0, 5);
+    }
+
+    pickupDate.value = toDateInput(now);
+    pickupTime.value = toTimeInput(now);
+    dropDate.value = toDateInput(dropDateTime);
+    dropTime.value = toTimeInput(dropDateTime);
+  }
+
+
   [pickupDate, pickupTime, dropDate, dropTime].forEach(input => {
 
     input.addEventListener("change", recalculate);
   });
+
+  if (requestedHours > 0) {
+    recalculate();
+  }
 
 
   /* =========================================================
