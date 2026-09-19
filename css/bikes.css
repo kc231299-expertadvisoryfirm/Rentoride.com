@@ -590,12 +590,37 @@ select {
   margin-bottom: 10px;
 }
 
-.packages div {
+.packages div,
+.package-btn {
   border: 1px solid #ddd;
 
   text-align: center;
 
   padding: 5px 2px;
+}
+
+.package-btn {
+  background: #fff;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  width: 100%;
+  transition: .15s ease;
+}
+
+.package-btn:hover {
+  border-color: #fbc02d;
+  background: #fff9df;
+}
+
+.package-btn.selected {
+  border-color: #fbc02d;
+  background: #fbc02d;
+}
+
+.package-btn.selected b,
+.package-btn.selected small {
+  color: #171717;
 }
 
 .packages small {
