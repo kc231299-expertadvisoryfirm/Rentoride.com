@@ -222,3 +222,35 @@ document.addEventListener("DOMContentLoaded", () => {
             "↗ Share";
 
         }, 1600);
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Share failed:",
+        error
+      );
+
+    }
+
+  });
+
+
+  /* =========================================================
+     CONTACT OWNER BUTTON
+     ========================================================= */
+
+  if (contactOwnerBtn) {
+
+    contactOwnerBtn.addEventListener("click", () => {
+
+      alert(
+        "Owner contact will be connected once messaging is live."
+      );
+
+    });
+
+  }
+
+});

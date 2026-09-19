@@ -140,6 +140,19 @@ const locationTitle =
 let selectedRating = 0;
 
 
+/* ================= TYPE / FUEL CHECKBOX FILTERS ================= */
+/* These checkboxes existed in the HTML but were never wired to
+   filterBikes(), so checking/unchecking them did nothing. */
+
+document
+  .querySelectorAll('.filter-group input[type="checkbox"]')
+  .forEach(checkbox => {
+
+    checkbox.addEventListener("change", filterBikes);
+
+  });
+
+
 /* ================= FILTER FUNCTION ================= */
 
 function filterBikes() {
