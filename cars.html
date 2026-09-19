@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>RentoRide | Cars — Coming Soon</title>
+
+  <link rel="stylesheet" href="css/bikes.css">
+
+  <style>
+
+    /* ================= COMING SOON (scoped to this page) ================= */
+
+    .cars-hero {
+      min-height: 300px;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(17,17,17,.94),
+          rgba(17,17,17,.8),
+          rgba(17,17,17,.55)
+        ),
+        url("https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1900&q=90");
+
+      background-size: cover;
+      background-position: center;
+
+      display: flex;
+      align-items: center;
+
+      color: #fff;
+    }
+
+    .cars-hero-content {
+      width: min(760px, 94%);
+      margin: auto;
+      text-align: center;
+    }
+
+    .cars-badge {
+      display: inline-block;
+
+      padding: 7px 14px;
+      margin-bottom: 16px;
+
+      background: rgba(251,192,45,.14);
+      border: 1px solid rgba(251,192,45,.4);
+
+      color: #fbc02d;
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .cars-hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .cars-hero h1 span {
+      color: #fbc02d;
+    }
+
+    .cars-hero p {
+      color: #ddd;
+      font-size: 14px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .notify-section {
+      padding: 55px 0 60px;
+      background: #fff;
+    }
+
+    .notify-box {
+      width: min(560px, 92%);
+      margin: 0 auto;
+
+      background: #fff;
+      border: 1px solid #eee;
+
+      padding: 32px;
+
+      text-align: center;
+    }
+
+    .notify-box h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .notify-box p {
+      color: #777;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    .notify-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .notify-form input {
+      flex: 1;
+      min-width: 0;
+
+      border: 1px solid #ddd;
+      padding: 13px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .notify-form input:focus {
+      border-color: #fbc02d;
+    }
+
+    .notify-form button {
+      border: 0;
+      background: #fbc02d;
+      color: #171717;
+
+      padding: 0 20px;
+
+      font-size: 11px;
+      font-weight: 900;
+
+      cursor: pointer;
+    }
+
+    .notify-message {
+      display: block;
+      margin-top: 12px;
+
+      color: #a97b00;
+      font-size: 11px;
+      font-weight: 700;
+
+      min-height: 14px;
+    }
+
+    .back-to-bikes {
+      display: inline-block;
+      margin-top: 22px;
+
+      color: #171717;
+      font-size: 12px;
+      font-weight: 800;
+
+      border-bottom: 2px solid #fbc02d;
+      padding-bottom: 2px;
+    }
+
+    @media (max-width: 600px) {
+
+      .notify-form {
+        flex-direction: column;
+      }
+
+      .notify-form button {
+        min-height: 44px;
+      }
+
+      .notify-box {
+        padding: 24px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+  <div class="nav-container">
+
+    <a href="index.html" class="logo">
+      🏍️ Rento<span>Ride</span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle">☰</button>
+
+    <nav class="nav-menu" id="navMenu">
+
+      <a href="index.html">Home</a>
+
+      <a href="bikes.html">Bikes</a>
+
+      <a href="cars.html" class="active">Cars</a>
+
+      <a href="index.html#how-it-works">How It Works</a>
+
+      <a href="index.html#support">Support</a>
+
+      <a href="list-vehicle.html" class="list-vehicle">
+        List Your Vehicle
+      </a>
+
+      <a href="my-bookings.html" class="bookings-link">
+        📋 My Bookings
+      </a>
+
+      <a href="login.html" class="profile-link">
+        👤 Profile
+      </a>
+
+      <a href="owner-dashboard.html" class="list-vehicle">
+        Owner Dashboard
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="cars-hero">
+
+  <div class="cars-hero-content">
+
+    <span class="cars-badge">🚗 Coming Soon</span>
+
+    <h1>Self-Drive Cars Are <span>On The Way</span></h1>
+
+    <p>
+      We're bringing hatchbacks, sedans and SUVs onto RentoRide next.
+      For now, explore our full range of bikes and scooters — ready to book today.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ================= NOTIFY ================= -->
+
+<section class="notify-section">
+
+  <div class="notify-box">
+
+    <h2>Get notified when cars launch</h2>
+
+    <p>
+      Leave your email and we'll let you know the moment car rentals go live in your city.
+    </p>
+
+    <form class="notify-form" id="carsNotifyForm">
+
+      <input
+        type="email"
+        id="carsNotifyEmail"
+        placeholder="Enter your email"
+        required
+      >
+
+      <button type="submit">
+        Notify Me
+      </button>
+
+    </form>
+
+    <small class="notify-message" id="carsNotifyMessage"></small>
+
+    <div>
+      <a href="bikes.html" class="back-to-bikes">
+        ← Browse Bikes Instead
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer" id="support">
+
+  <div class="footer-container">
+
+    <div class="footer-brand">
+
+      <a href="index.html" class="footer-logo">
+        🏍️ Rento<span>Ride</span>
+      </a>
+
+      <p>
+        India's trusted peer-to-peer rental platform
+        for bikes and cars.
+      </p>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>RENT</h4>
+
+      <a href="bikes.html">Rent a Bike</a>
+
+      <a href="cars.html">Rent a Car</a>
+
+      <a href="index.html">Home</a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>COMPANY</h4>
+
+      <a href="#">About Us</a>
+
+      <a href="index.html#how-it-works">How It Works</a>
+
+      <a href="list-vehicle.html">Become an Owner</a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>SUPPORT</h4>
+
+      <a href="#">Help Center</a>
+
+      <a href="#">FAQs</a>
+
+      <a href="#">Contact Us</a>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+
+    <p>© 2026 RentoRide. All Rights Reserved.</p>
+
+    <p>Made for better rides.</p>
+
+  </div>
+
+</footer>
+
+<script src="js/utils.js"></script>
+
+<script>
+
+  const carsNotifyForm = document.getElementById("carsNotifyForm");
+  const carsNotifyEmail = document.getElementById("carsNotifyEmail");
+  const carsNotifyMessage = document.getElementById("carsNotifyMessage");
+
+  if (carsNotifyForm) {
+
+    carsNotifyForm.addEventListener("submit", (event) => {
+
+      event.preventDefault();
+
+      const email = carsNotifyEmail.value.trim();
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!email || !emailPattern.test(email)) {
+        carsNotifyMessage.textContent = "Please enter a valid email.";
+        return;
+      }
+
+      carsNotifyMessage.textContent = "Thanks! We'll email you when cars launch.";
+      carsNotifyForm.reset();
+
+    });
+
+  }
+
+</script>
+
+</body>
+</html>
