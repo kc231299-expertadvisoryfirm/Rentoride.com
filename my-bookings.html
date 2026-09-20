@@ -3,518 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>RentoRide | My Bookings</title>
-
   <link rel="stylesheet" href="css/my-bookings.css">
 </head>
 
 <body>
 
-  <!-- ================= HEADER ================= -->
-
   <header class="site-header">
-
-    <a href="index.html" class="logo">
-      Rento<span>Ride</span>
-    </a>
-
+    <a href="index.html" class="logo">Rento<span>Ride</span></a>
     <nav class="main-nav">
       <a href="index.html">Home</a>
       <a href="bikes.html">Bikes</a>
       <a href="cars.html">Cars</a>
       <a href="my-bookings.html" class="active">My Bookings</a>
     </nav>
-
     <div class="header-profile">
       <button class="profile-btn" id="profileBtn">
-        <span class="profile-avatar" id="profileAvatar">K</span>
-
-        <span class="profile-name" id="profileName">
-          My Profile
-        </span>
-
+        <span class="profile-avatar" id="profileAvatar">U</span>
+        <span class="profile-name" id="profileName">My Profile</span>
         <span class="arrow">⌄</span>
       </button>
-
       <div class="profile-menu" id="profileMenu">
-
-        <a href="profile.html">
-          👤 Profile
-        </a>
-
-        <a href="my-bookings.html">
-          📋 My Bookings
-        </a>
-
-        <a href="owner-dashboard.html">
-          🏪 Owner Dashboard
-        </a>
-
-        <button id="logoutBtn">
-          ↪ Logout
-        </button>
-
+        <a href="profile.html">👤 Profile</a>
+        <a href="my-bookings.html">📋 My Bookings</a>
+        <a href="owner-dashboard.html">🏪 Owner Dashboard</a>
+        <button id="logoutBtn">↪ Logout</button>
       </div>
     </div>
-
   </header>
-
-
-  <!-- ================= MAIN ================= -->
 
   <main class="bookings-page">
 
-    <!-- PAGE INTRO -->
-
     <section class="page-intro">
-
       <div>
-
-        <p class="eyebrow">
-          RENTORIDE • YOUR JOURNEY
-        </p>
-
-        <h1>
-          My Bookings
-        </h1>
-
-        <p class="intro-text">
-          Manage your upcoming rides and view your previous bookings.
-        </p>
-
+        <p class="eyebrow">RENTORIDE • YOUR JOURNEY</p>
+        <h1>My Bookings</h1>
+        <p class="intro-text">Manage your upcoming rides and view your previous bookings.</p>
       </div>
-
-      <a href="bikes.html" class="book-ride-btn">
-        + Book a Ride
-      </a>
-
+      <a href="bikes.html" class="book-ride-btn">+ Book a Ride</a>
     </section>
-
-
-    <!-- ================= BOOKING TABS ================= -->
 
     <section class="booking-tabs">
-
-      <button
-        class="tab-btn active"
-        data-status="all"
-      >
-        All
-        <span id="allCount">0</span>
-      </button>
-
-      <button
-        class="tab-btn"
-        data-status="upcoming"
-      >
-        Upcoming
-        <span id="upcomingCount">0</span>
-      </button>
-
-      <button
-        class="tab-btn"
-        data-status="active"
-      >
-        Active
-        <span id="activeCount">0</span>
-      </button>
-
-      <button
-        class="tab-btn"
-        data-status="completed"
-      >
-        Completed
-        <span id="completedCount">0</span>
-      </button>
-
-      <button
-        class="tab-btn"
-        data-status="cancelled"
-      >
-        Cancelled
-        <span id="cancelledCount">0</span>
-      </button>
-
+      <button class="tab-btn active" data-status="all">All <span id="allCount">0</span></button>
+      <button class="tab-btn" data-status="upcoming">Upcoming <span id="upcomingCount">0</span></button>
+      <button class="tab-btn" data-status="active">Active <span id="activeCount">0</span></button>
+      <button class="tab-btn" data-status="completed">Completed <span id="completedCount">0</span></button>
+      <button class="tab-btn" data-status="cancelled">Cancelled <span id="cancelledCount">0</span></button>
     </section>
-
-
-    <!-- ================= BOOKING LIST ================= -->
 
     <section class="bookings-section">
 
-      <!-- Loading -->
-
-      <div
-        class="loading-state"
-        id="loadingState"
-      >
-
+      <div class="loading-state" id="loadingState">
         <div class="loading-spinner"></div>
-
-        <p>
-          Loading your bookings...
-        </p>
-
+        <p>Loading your bookings...</p>
       </div>
 
-
-      <!-- Empty -->
-
-      <div
-        class="empty-state"
-        id="emptyState"
-        style="display:none;"
-      >
-
-        <div class="empty-icon">
-          🏍️
-        </div>
-
-        <h2>
-          No bookings yet
-        </h2>
-
-        <p>
-          Your booked bikes and cars will appear here.
-        </p>
-
-        <a href="bikes.html">
-          Explore Rides
-        </a>
-
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="empty-icon">🏍️</div>
+        <h2>No bookings yet</h2>
+        <p>Your booked bikes and cars will appear here.</p>
+        <a href="bikes.html">Explore Rides</a>
       </div>
 
-
-      <!-- Booking cards -->
-
-      <div
-        class="booking-list"
-        id="bookingList"
-      ></div>
+      <div class="booking-list" id="bookingList"></div>
 
     </section>
 
   </main>
 
-
-  <!-- ================= BOOKING CARD TEMPLATE ================= -->
-
   <template id="bookingTemplate">
-
     <article class="booking-card">
-
-      <!-- Vehicle -->
-
       <div class="booking-vehicle">
-
         <div class="vehicle-image">
-
-          <img
-            class="booking-image"
-            src=""
-            alt="Vehicle"
-          >
-
-          <span class="vehicle-type">
-            BIKE
-          </span>
-
+          <img class="booking-image" src="" alt="Vehicle">
+          <span class="vehicle-type">BIKE</span>
         </div>
-
         <div class="vehicle-details">
-
-          <p class="small-label">
-            BOOKING
-          </p>
-
-          <h2 class="booking-vehicle-name">
-            Vehicle Name
-          </h2>
-
-          <p class="booking-id">
-            Booking ID:
-            <strong>RR000000</strong>
-          </p>
-
+          <p class="small-label">BOOKING</p>
+          <h2 class="booking-vehicle-name">Vehicle Name</h2>
+          <p class="booking-id">Booking ID: <strong>RR000000</strong></p>
         </div>
-
       </div>
-
-
-      <!-- Booking details -->
 
       <div class="booking-details">
-
         <div class="detail-box">
-
-          <span class="detail-label">
-            PICKUP
-          </span>
-
-          <strong class="pickup-date">
-            24 Aug 2026
-          </strong>
-
-          <span class="pickup-time">
-            10:00 AM
-          </span>
-
+          <span class="detail-label">PICKUP</span>
+          <strong class="pickup-date">—</strong>
+          <span class="pickup-time">—</span>
         </div>
-
-
-        <div class="route-arrow">
-          →
-        </div>
-
-
+        <div class="route-arrow">→</div>
         <div class="detail-box">
-
-          <span class="detail-label">
-            DROP-OFF
-          </span>
-
-          <strong class="drop-date">
-            25 Aug 2026
-          </strong>
-
-          <span class="drop-time">
-            10:00 AM
-          </span>
-
+          <span class="detail-label">DROP-OFF</span>
+          <strong class="drop-date">—</strong>
+          <span class="drop-time">—</span>
         </div>
-
-
         <div class="detail-box location-box">
-
-          <span class="detail-label">
-            PICKUP LOCATION
-          </span>
-
-          <strong class="booking-location">
-            Kota, Rajasthan
-          </strong>
-
+          <span class="detail-label">PICKUP LOCATION</span>
+          <strong class="booking-location">—</strong>
         </div>
-
       </div>
-
-
-      <!-- Bottom -->
 
       <div class="booking-bottom">
-
         <div class="booking-status-area">
-
-          <span class="status-label">
-            STATUS
-          </span>
-
-          <span class="booking-status pending">
-            Pending
-          </span>
-
+          <span class="status-label">STATUS</span>
+          <span class="booking-status pending">Pending</span>
         </div>
-
-
         <div class="booking-price">
-
-          <span>
-            Total Amount
-          </span>
-
-          <strong>
-            ₹0
-          </strong>
-
+          <span>Total Amount</span>
+          <strong>₹0</strong>
         </div>
-
-
         <div class="booking-actions">
-
-          <button
-            class="view-booking-btn"
-            type="button"
-          >
-            View Details
-          </button>
-
-          <button
-            class="cancel-booking-btn"
-            type="button"
-          >
-            Cancel
-          </button>
-
+          <button class="view-booking-btn" type="button">View Details</button>
+          <button class="cancel-booking-btn" type="button">Cancel</button>
         </div>
-
       </div>
-
     </article>
-
   </template>
 
-
-  <!-- ================= DETAILS MODAL ================= -->
-
-  <div
-    class="modal-overlay"
-    id="bookingModal"
-  >
-
+  <div class="modal-overlay" id="bookingModal">
     <div class="booking-modal">
-
-      <button
-        class="modal-close"
-        id="modalClose"
-        type="button"
-      >
-        ×
-      </button>
-
-      <p class="eyebrow">
-        RENTORIDE • BOOKING DETAILS
-      </p>
-
-      <h2 id="modalVehicleName">
-        Vehicle Name
-      </h2>
-
-      <div class="modal-status">
-        <span id="modalStatus">
-          Pending
-        </span>
-      </div>
-
+      <button class="modal-close" id="modalClose" type="button">×</button>
+      <p class="eyebrow">RENTORIDE • BOOKING DETAILS</p>
+      <h2 id="modalVehicleName">Vehicle Name</h2>
+      <div class="modal-status"><span id="modalStatus">Pending</span></div>
       <div class="modal-grid">
-
-        <div>
-          <span>Booking ID</span>
-          <strong id="modalBookingId">
-            RR000000
-          </strong>
-        </div>
-
-        <div>
-          <span>Total Amount</span>
-          <strong id="modalAmount">
-            ₹0
-          </strong>
-        </div>
-
-        <div>
-          <span>Pickup</span>
-          <strong id="modalPickup">
-            —
-          </strong>
-        </div>
-
-        <div>
-          <span>Drop-off</span>
-          <strong id="modalDrop">
-            —
-          </strong>
-        </div>
-
-        <div class="modal-full">
-          <span>Pickup Location</span>
-          <strong id="modalLocation">
-            —
-          </strong>
-        </div>
-
+        <div><span>Booking ID</span><strong id="modalBookingId">RR000000</strong></div>
+        <div><span>Total Amount</span><strong id="modalAmount">₹0</strong></div>
+        <div><span>Pickup</span><strong id="modalPickup">—</strong></div>
+        <div><span>Drop-off</span><strong id="modalDrop">—</strong></div>
+        <div class="modal-full"><span>Pickup Location</span><strong id="modalLocation">—</strong></div>
       </div>
-
-      <a
-        href="index.html"
-        class="modal-home-btn"
-      >
-        Back to RentoRide
-      </a>
-
+      <a href="index.html" class="modal-home-btn">Back to RentoRide</a>
     </div>
-
   </div>
 
-
-  <!-- ================= CANCEL MODAL ================= -->
-
-  <div
-    class="modal-overlay"
-    id="cancelModal"
-  >
-
+  <div class="modal-overlay" id="cancelModal">
     <div class="cancel-modal">
-
-      <div class="warning-icon">
-        !
-      </div>
-
-      <h2>
-        Cancel this booking?
-      </h2>
-
-      <p>
-        Are you sure you want to cancel this booking?
-        This action may not be reversible.
-      </p>
-
+      <div class="warning-icon">!</div>
+      <h2>Cancel this booking?</h2>
+      <p>Are you sure you want to cancel this booking? This action may not be reversible.</p>
       <div class="cancel-actions">
-
-        <button
-          type="button"
-          id="keepBookingBtn"
-          class="keep-btn"
-        >
-          Keep Booking
-        </button>
-
-        <button
-          type="button"
-          id="confirmCancelBtn"
-          class="confirm-cancel-btn"
-        >
-          Yes, Cancel
-        </button>
-
+        <button type="button" id="keepBookingBtn" class="keep-btn">Keep Booking</button>
+        <button type="button" id="confirmCancelBtn" class="confirm-cancel-btn">Yes, Cancel</button>
       </div>
-
     </div>
-
   </div>
-
-
-  <!-- ================= FOOTER ================= -->
 
   <footer class="site-footer">
-
-    <div class="footer-logo">
-      Rento<span>Ride</span>
-    </div>
-
-    <p>
-      Ride more. Worry less.
-    </p>
-
+    <div class="footer-logo">Rento<span>Ride</span></div>
+    <p>Ride more. Worry less.</p>
     <div class="footer-links">
-
-      <a href="terms.html">
-        Terms
-      </a>
-
-      <a href="privacy.html">
-        Privacy
-      </a>
-
-      <a href="help.html">
-        Help
-      </a>
-
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="help.html">Help</a>
     </div>
-
   </footer>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/utils.js"></script>
   <script src="js/my-bookings.js"></script>
 
 </body>

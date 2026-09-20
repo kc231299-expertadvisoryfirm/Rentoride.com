@@ -31,15 +31,13 @@
       <span>Booking</span>
     </div>
 
-    <!-- BOOKING NOT FOUND (bad or missing ?id=) -->
     <div class="not-found" id="notFoundState">
       <h2>We couldn't find that vehicle</h2>
       <p>The bike you're trying to book may have been removed or the link is incorrect.</p>
       <a href="bikes.html" class="confirm-btn" style="display:inline-flex;width:auto;padding:0 22px;margin-top:10px;">Browse Bikes</a>
     </div>
 
-    <!-- MAIN BOOKING FORM -->
-    <div id="bookingFormWrap">
+    <div id="bookingFormWrap" style="display:none;">
 
       <div class="page-heading">
         <h1>Confirm Your Booking</h1>
@@ -48,82 +46,44 @@
 
       <div class="booking-layout">
 
-        <!-- LEFT: FORM -->
         <section class="card">
           <h2>Rental Period</h2>
 
           <div class="field-row">
-            <div class="field">
-              <label for="pickupDate">Pickup Date</label>
-              <input type="date" id="pickupDate">
-            </div>
-            <div class="field">
-              <label for="pickupTime">Pickup Time</label>
-              <input type="time" id="pickupTime">
-            </div>
+            <div class="field"><label for="pickupDate">Pickup Date</label><input type="date" id="pickupDate"></div>
+            <div class="field"><label for="pickupTime">Pickup Time</label><input type="time" id="pickupTime"></div>
           </div>
 
           <div class="field-row">
-            <div class="field">
-              <label for="dropDate">Drop-off Date</label>
-              <input type="date" id="dropDate">
-            </div>
-            <div class="field">
-              <label for="dropTime">Drop-off Time</label>
-              <input type="time" id="dropTime">
-            </div>
+            <div class="field"><label for="dropDate">Drop-off Date</label><input type="date" id="dropDate"></div>
+            <div class="field"><label for="dropTime">Drop-off Time</label><input type="time" id="dropTime"></div>
           </div>
 
           <div class="form-error" id="bookingError"></div>
 
           <div class="price-breakdown" id="priceBreakdown" style="display:none;">
-            <div class="price-row">
-              <span>Duration</span>
-              <span id="durationText">—</span>
-            </div>
-            <div class="price-row">
-              <span>Rate applied</span>
-              <span id="rateAppliedText">—</span>
-            </div>
-            <div class="price-row total">
-              <span>Total Amount</span>
-              <span id="totalAmountText">₹0</span>
-            </div>
+            <div class="price-row"><span>Duration</span><span id="durationText">—</span></div>
+            <div class="price-row"><span>Rate applied</span><span id="rateAppliedText">—</span></div>
+            <div class="price-row total"><span>Total Amount</span><span id="totalAmountText">₹0</span></div>
           </div>
 
-          <button class="confirm-btn" id="confirmBtn" style="margin-top:18px;" disabled>
-            Confirm Booking →
-          </button>
+          <button class="confirm-btn" id="confirmBtn" style="margin-top:18px;" disabled>Confirm Booking →</button>
         </section>
 
-        <!-- RIGHT: VEHICLE SUMMARY -->
         <aside class="card vehicle-summary">
           <img id="summaryImage" src="" alt="Vehicle">
           <h3 id="summaryName">Vehicle</h3>
           <p class="muted" id="summaryLocation">📍 —</p>
 
-          <div class="spec-row">
-            <span>Engine</span>
-            <span id="summaryEngine">—</span>
-          </div>
-          <div class="spec-row">
-            <span>Rating</span>
-            <span id="summaryRating">—</span>
-          </div>
-          <div class="spec-row">
-            <span>3H / 6H</span>
-            <span id="summaryPrice36">—</span>
-          </div>
-          <div class="spec-row">
-            <span>12H / 24H</span>
-            <span id="summaryPrice1224">—</span>
-          </div>
+          <div class="spec-row"><span>Engine</span><span id="summaryEngine">—</span></div>
+          <div class="spec-row"><span>Rating</span><span id="summaryRating">—</span></div>
+          <div class="spec-row"><span>3H / 6H</span><span id="summaryPrice36">—</span></div>
+          <div class="spec-row"><span>12H / 24H</span><span id="summaryPrice1224">—</span></div>
         </aside>
 
       </div>
     </div>
 
-    <!-- SUCCESS STATE -->
     <div class="booking-success" id="successState">
       <div class="success-icon">✓</div>
       <h2>Booking Request Sent!</h2>
@@ -142,6 +102,8 @@
   <p>Rento<span>Ride</span> — Ride more. Worry less.</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
 <script src="js/bikes-data.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/booking.js"></script>

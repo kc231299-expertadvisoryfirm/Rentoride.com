@@ -1,1013 +1,294 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RentoRide | Admin Command Center</title>
-
   <link rel="stylesheet" href="css/admin.css">
 </head>
 
 <body>
 
-  <!-- SIDEBAR -->
-
   <aside class="admin-sidebar" id="adminSidebar">
+    <div class="admin-logo">
+      <a href="index.html">Rento<span>Ride</span></a>
+      <small>ADMIN COMMAND CENTER</small>
+    </div>
 
-```
-<div class="admin-logo">
-  <a href="index.html">Rento<span>Ride</span></a>
-  <small>ADMIN COMMAND CENTER</small>
-</div>
+    <div class="admin-mini-profile">
+      <div class="admin-avatar" id="adminAvatar">A</div>
+      <div><strong id="adminName">Administrator</strong><small>Platform Control</small></div>
+    </div>
 
-<div class="admin-mini-profile">
-  <div class="admin-avatar" id="adminAvatar">A</div>
+    <nav class="admin-nav">
+      <button class="admin-nav-item active" data-section="overview"><span>◉</span> Command Center</button>
+      <button class="admin-nav-item" data-section="users"><span>👥</span> Users <b class="admin-badge" id="userBadge">0</b></button>
+      <button class="admin-nav-item" data-section="owners"><span>👤</span> Owners <b class="admin-badge" id="ownerBadge">0</b></button>
+      <button class="admin-nav-item" data-section="vehicles"><span>🏍</span> Vehicles <b class="admin-badge warning" id="vehicleBadge">0</b></button>
+      <button class="admin-nav-item" data-section="verification"><span>🛡</span> Verification <b class="admin-badge warning" id="verificationBadge">0</b></button>
+      <button class="admin-nav-item" data-section="bookings"><span>📋</span> Bookings</button>
+      <button class="admin-nav-item" data-section="finance"><span>₹</span> Finance</button>
+      <button class="admin-nav-item" data-section="analytics"><span>📊</span> Analytics</button>
+      <button class="admin-nav-item" data-section="support"><span>🚨</span> Support <b class="admin-badge danger" id="supportBadge">0</b></button>
+      <button class="admin-nav-item" data-section="notifications"><span>🔔</span> Notifications</button>
+      <button class="admin-nav-item" data-section="settings"><span>⚙</span> Platform Settings</button>
+    </nav>
 
-  <div>
-    <strong id="adminName">Administrator</strong>
-    <small>Platform Control</small>
-  </div>
-</div>
-
-<nav class="admin-nav">
-
-  <button class="admin-nav-item active" data-section="overview">
-    <span>◉</span> Command Center
-  </button>
-
-  <button class="admin-nav-item" data-section="users">
-    <span>👥</span> Users
-    <b class="admin-badge" id="userBadge">0</b>
-  </button>
-
-  <button class="admin-nav-item" data-section="owners">
-    <span>👤</span> Owners
-    <b class="admin-badge" id="ownerBadge">0</b>
-  </button>
-
-  <button class="admin-nav-item" data-section="vehicles">
-    <span>🏍</span> Vehicles
-    <b class="admin-badge warning" id="vehicleBadge">0</b>
-  </button>
-
-  <button class="admin-nav-item" data-section="verification">
-    <span>🛡</span> Verification
-    <b class="admin-badge warning" id="verificationBadge">0</b>
-  </button>
-
-  <button class="admin-nav-item" data-section="bookings">
-    <span>📋</span> Bookings
-  </button>
-
-  <button class="admin-nav-item" data-section="finance">
-    <span>₹</span> Finance
-  </button>
-
-  <button class="admin-nav-item" data-section="analytics">
-    <span>📊</span> Analytics
-  </button>
-
-  <button class="admin-nav-item" data-section="support">
-    <span>🚨</span> Support
-    <b class="admin-badge danger" id="supportBadge">0</b>
-  </button>
-
-  <button class="admin-nav-item" data-section="notifications">
-    <span>🔔</span> Notifications
-  </button>
-
-  <button class="admin-nav-item" data-section="settings">
-    <span>⚙</span> Platform Settings
-  </button>
-
-</nav>
-
-<div class="admin-sidebar-bottom">
-
-  <a href="index.html" class="admin-back-home">
-    ← Back to RentoRide
-  </a>
-
-  <button id="adminLogoutBtn" class="admin-logout-btn">
-    ↪ Logout
-  </button>
-
-</div>
-```
-
+    <div class="admin-sidebar-bottom">
+      <a href="index.html" class="admin-back-home">← Back to RentoRide</a>
+      <button id="adminLogoutBtn" class="admin-logout-btn">↪ Logout</button>
+    </div>
   </aside>
 
   <div class="admin-sidebar-overlay" id="adminSidebarOverlay"></div>
 
-  <!-- MAIN -->
-
   <main class="admin-main">
 
-```
-<!-- HEADER -->
-<header class="admin-header">
-
-  <button class="admin-menu-btn" id="adminMenuBtn">
-    ☰
-  </button>
-
-  <div class="admin-header-title">
-    <span>RENTORIDE • ADMIN SYSTEM</span>
-    <h1 id="adminPageTitle">Command Center</h1>
-  </div>
-
-  <div class="admin-header-actions">
-
-    <div class="system-status">
-      <span class="status-dot"></span>
-      SYSTEM ONLINE
-    </div>
-
-    <button class="admin-notification-btn" id="adminNotificationBtn">
-      🔔
-      <b id="adminNotificationBadge">0</b>
-    </button>
-
-    <div class="admin-header-profile">
-      <div class="admin-header-avatar" id="adminHeaderAvatar">A</div>
-
-      <div>
-        <strong id="adminHeaderName">Administrator</strong>
-        <small>Super Admin</small>
-      </div>
-    </div>
-
-  </div>
-
-</header>
-
-
-<div class="admin-content">
-
-
-  <!-- ================= OVERVIEW ================= -->
-
-  <section class="admin-section active" id="admin-section-overview">
-
-    <div class="admin-command-hero">
-
-      <div>
-        <span class="admin-kicker">RENTORIDE • CONTROL SYSTEM</span>
-
-        <h2>
-          Welcome back,
-          <span id="welcomeAdminName">Admin</span> ⚡
-        </h2>
-
-        <p>
-          Monitor and control the entire RentoRide platform from one place.
-        </p>
-      </div>
-
-      <div class="hero-system-card">
-        <span>PLATFORM STATUS</span>
-        <strong>OPERATIONAL</strong>
-        <small>All core systems running</small>
-      </div>
-
-    </div>
-
-
-    <div class="admin-stats-grid">
-
-      <div class="admin-stat-card">
-        <div class="admin-stat-icon">👥</div>
-        <div>
-          <span>TOTAL USERS</span>
-          <strong id="adminTotalUsers">0</strong>
-          <small>Registered customers</small>
+    <header class="admin-header">
+      <button class="admin-menu-btn" id="adminMenuBtn">☰</button>
+      <div class="admin-header-title"><span>RENTORIDE • ADMIN SYSTEM</span><h1 id="adminPageTitle">Command Center</h1></div>
+      <div class="admin-header-actions">
+        <div class="system-status"><span class="status-dot"></span>SYSTEM ONLINE</div>
+        <button class="admin-notification-btn" id="adminNotificationBtn">🔔<b id="adminNotificationBadge">0</b></button>
+        <div class="admin-header-profile">
+          <div class="admin-header-avatar" id="adminHeaderAvatar">A</div>
+          <div><strong id="adminHeaderName">Administrator</strong><small>Super Admin</small></div>
         </div>
       </div>
+    </header>
 
-      <div class="admin-stat-card">
-        <div class="admin-stat-icon">👤</div>
-        <div>
-          <span>TOTAL OWNERS</span>
-          <strong id="adminTotalOwners">0</strong>
-          <small>Vehicle partners</small>
-        </div>
-      </div>
+    <div class="admin-content">
 
-      <div class="admin-stat-card">
-        <div class="admin-stat-icon">🏍</div>
-        <div>
-          <span>VEHICLES</span>
-          <strong id="adminTotalVehicles">0</strong>
-          <small>Listed vehicles</small>
-        </div>
-      </div>
+      <section class="admin-section active" id="admin-section-overview">
 
-      <div class="admin-stat-card">
-        <div class="admin-stat-icon">📋</div>
-        <div>
-          <span>BOOKINGS</span>
-          <strong id="adminTotalBookings">0</strong>
-          <small>Total bookings</small>
-        </div>
-      </div>
-
-      <div class="admin-stat-card">
-        <div class="admin-stat-icon">⚡</div>
-        <div>
-          <span>ACTIVE RENTALS</span>
-          <strong id="adminActiveRentals">0</strong>
-          <small>Currently active</small>
-        </div>
-      </div>
-
-      <div class="admin-stat-card revenue">
-        <div class="admin-stat-icon">₹</div>
-        <div>
-          <span>PLATFORM REVENUE</span>
-          <strong id="adminPlatformRevenue">₹0</strong>
-          <small>Total commission</small>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div class="admin-secondary-stats">
-
-      <div class="mini-admin-stat">
-        <span>PENDING VEHICLE APPROVALS</span>
-        <strong id="pendingVehicleApprovals">0</strong>
-      </div>
-
-      <div class="mini-admin-stat">
-        <span>PENDING VERIFICATIONS</span>
-        <strong id="pendingVerifications">0</strong>
-      </div>
-
-      <div class="mini-admin-stat">
-        <span>PENDING WITHDRAWALS</span>
-        <strong id="pendingWithdrawals">₹0</strong>
-      </div>
-
-      <div class="mini-admin-stat">
-        <span>OPEN SUPPORT CASES</span>
-        <strong id="openSupportCases">0</strong>
-      </div>
-
-    </div>
-
-
-    <div class="admin-overview-grid">
-
-      <div class="admin-panel">
-
-        <div class="admin-panel-header">
-
+        <div class="admin-command-hero">
           <div>
-            <span>PERFORMANCE</span>
-            <h3>Revenue Overview</h3>
+            <span class="admin-kicker">RENTORIDE • CONTROL SYSTEM</span>
+            <h2>Welcome back, <span id="welcomeAdminName">Admin</span> ⚡</h2>
+            <p>Monitor and control the entire RentoRide platform from one place.</p>
+          </div>
+          <div class="hero-system-card"><span>PLATFORM STATUS</span><strong>OPERATIONAL</strong><small>All core systems running</small></div>
+        </div>
+
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card"><div class="admin-stat-icon">👥</div><div><span>TOTAL USERS</span><strong id="adminTotalUsers">0</strong><small>Registered customers</small></div></div>
+          <div class="admin-stat-card"><div class="admin-stat-icon">👤</div><div><span>TOTAL OWNERS</span><strong id="adminTotalOwners">0</strong><small>Vehicle partners</small></div></div>
+          <div class="admin-stat-card"><div class="admin-stat-icon">🏍</div><div><span>VEHICLES</span><strong id="adminTotalVehicles">0</strong><small>Listed vehicles</small></div></div>
+          <div class="admin-stat-card"><div class="admin-stat-icon">📋</div><div><span>BOOKINGS</span><strong id="adminTotalBookings">0</strong><small>Total bookings</small></div></div>
+          <div class="admin-stat-card"><div class="admin-stat-icon">⚡</div><div><span>ACTIVE RENTALS</span><strong id="adminActiveRentals">0</strong><small>Currently active</small></div></div>
+          <div class="admin-stat-card revenue"><div class="admin-stat-icon">₹</div><div><span>PLATFORM REVENUE</span><strong id="adminPlatformRevenue">₹0</strong><small>Total commission</small></div></div>
+        </div>
+
+        <div class="admin-secondary-stats">
+          <div class="mini-admin-stat"><span>PENDING VEHICLE APPROVALS</span><strong id="pendingVehicleApprovals">0</strong></div>
+          <div class="mini-admin-stat"><span>PENDING VERIFICATIONS</span><strong id="pendingVerifications">0</strong></div>
+          <div class="mini-admin-stat"><span>PENDING WITHDRAWALS</span><strong id="pendingWithdrawals">₹0</strong></div>
+          <div class="mini-admin-stat"><span>OPEN SUPPORT CASES</span><strong id="openSupportCases">0</strong></div>
+        </div>
+
+        <div class="admin-overview-grid">
+          <div class="admin-panel">
+            <div class="admin-panel-header">
+              <div><span>PERFORMANCE</span><h3>Revenue Overview</h3></div>
+              <select id="revenuePeriod">
+                <option value="7">Last 7 Days</option>
+                <option value="30">Last 30 Days</option>
+                <option value="90">Last 90 Days</option>
+                <option value="365">This Year</option>
+              </select>
+            </div>
+            <div class="admin-chart" id="revenueChart"><div class="chart-placeholder">Revenue analytics — coming in a future update.</div></div>
           </div>
 
-          <select id="revenuePeriod">
-            <option value="7">Last 7 Days</option>
-            <option value="30">Last 30 Days</option>
-            <option value="90">Last 90 Days</option>
-            <option value="365">This Year</option>
-          </select>
-
-        </div>
-
-        <div class="admin-chart" id="revenueChart">
-          <div class="chart-placeholder">
-            Revenue analytics will appear here.
-          </div>
-        </div>
-
-      </div>
-
-
-      <div class="admin-panel">
-
-        <div class="admin-panel-header">
-          <div>
-            <span>LIVE FEED</span>
-            <h3>Recent Activity</h3>
-          </div>
-
-          <button class="admin-text-btn" data-section-link="notifications">
-            View All →
-          </button>
-        </div>
-
-        <div class="admin-activity-list" id="adminActivityList">
-          <div class="admin-empty">No recent activity.</div>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="admin-panel quick-actions-panel">
-
-      <div class="admin-panel-header">
-        <div>
-          <span>CONTROL CENTER</span>
-          <h3>Quick Actions</h3>
-        </div>
-      </div>
-
-      <div class="quick-actions-grid">
-
-        <button class="quick-action" data-section-link="verification">
-          <span>🛡</span>
-          <div>
-            <strong>Review Verification</strong>
-            <small>Check pending documents</small>
-          </div>
-          <b>→</b>
-        </button>
-
-        <button class="quick-action" data-section-link="vehicles">
-          <span>🏍</span>
-          <div>
-            <strong>Vehicle Approvals</strong>
-            <small>Review new listings</small>
-          </div>
-          <b>→</b>
-        </button>
-
-        <button class="quick-action" data-section-link="finance">
-          <span>₹</span>
-          <div>
-            <strong>Withdrawals</strong>
-            <small>Manage owner payouts</small>
-          </div>
-          <b>→</b>
-        </button>
-
-        <button class="quick-action" data-section-link="support">
-          <span>🚨</span>
-          <div>
-            <strong>Support Cases</strong>
-            <small>Resolve user issues</small>
-          </div>
-          <b>→</b>
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= USERS ================= -->
-
-  <section class="admin-section" id="admin-section-users">
-
-    <div class="admin-section-top">
-      <div>
-        <span class="admin-kicker">USER MANAGEMENT</span>
-        <h2>Users</h2>
-        <p>Manage RentoRide customers and accounts.</p>
-      </div>
-    </div>
-
-    <div class="admin-panel">
-
-      <div class="admin-panel-header">
-        <div>
-          <span>CUSTOMER DATABASE</span>
-          <h3>All Users</h3>
-        </div>
-
-        <input
-          type="search"
-          id="userSearch"
-          class="admin-search"
-          placeholder="Search users..."
-        >
-      </div>
-
-      <div class="admin-table-container" id="usersTable">
-        <div class="admin-table-empty">Users will appear here.</div>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= OWNERS ================= -->
-
-  <section class="admin-section" id="admin-section-owners">
-
-    <div class="admin-section-top">
-      <div>
-        <span class="admin-kicker">PARTNER MANAGEMENT</span>
-        <h2>Owners</h2>
-        <p>Manage RentoRide vehicle partners.</p>
-      </div>
-    </div>
-
-    <div class="admin-panel">
-
-      <div class="admin-panel-header">
-        <div>
-          <span>OWNER DATABASE</span>
-          <h3>Vehicle Partners</h3>
-        </div>
-
-        <input
-          type="search"
-          id="ownerSearch"
-          class="admin-search"
-          placeholder="Search owners..."
-        >
-      </div>
-
-      <div class="admin-table-container" id="ownersTable">
-        <div class="admin-table-empty">Owners will appear here.</div>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= VEHICLES ================= -->
-
-  <section class="admin-section" id="admin-section-vehicles">
-
-    <div class="admin-section-top">
-      <div>
-        <span class="admin-kicker">FLEET CONTROL</span>
-        <h2>Vehicles</h2>
-        <p>Review and control every vehicle listed on RentoRide.</p>
-      </div>
-    </div>
-
-    <div class="admin-filter-bar">
-
-      <button class="admin-filter active" data-vehicle-filter="all">All</button>
-      <button class="admin-filter" data-vehicle-filter="pending">Pending</button>
-      <button class="admin-filter" data-vehicle-filter="approved">Approved</button>
-      <button class="admin-filter" data-vehicle-filter="rejected">Rejected</button>
-      <button class="admin-filter" data-vehicle-filter="suspended">Suspended</button>
-
-    </div>
-
-    <div class="admin-vehicle-grid" id="adminVehicleList">
-      <div class="admin-large-empty">
-        <div>🏍</div>
-        <h3>No vehicles available</h3>
-        <p>Vehicle listings will appear here.</p>
-      </div>
-    </div>
-
-  </section>
-
-
-  <!-- ================= VERIFICATION ================= -->
-
-  <section class="admin-section" id="admin-section-verification">
-
-    <div class="admin-section-top">
-      <div>
-        <span class="admin-kicker">TRUST & SAFETY</span>
-        <h2>Verification Center</h2>
-        <p>Review owner identity and vehicle documents.</p>
-      </div>
-    </div>
-
-    <div class="verification-admin-stats">
-
-      <div>
-        <span>PENDING</span>
-        <strong id="adminPendingVerification">0</strong>
-      </div>
-
-      <div>
-        <span>APPROVED</span>
-        <strong id="adminApprovedVerification">0</strong>
-      </div>
-
-      <div>
-        <span>REJECTED</span>
-        <strong id="adminRejectedVerification">0</strong>
-      </div>
-
-    </div>
-
-    <div class="admin-verification-list" id="adminVerificationList">
-      <div class="admin-large-empty">
-        <div>🛡</div>
-        <h3>No pending verification</h3>
-        <p>New verification requests will appear here.</p>
-      </div>
-    </div>
-
-  </section>
-
-
-  <!-- ================= BOOKINGS ================= -->
-
-  <section class="admin-section" id="admin-section-bookings">
-
-    <div class="admin-section-top">
-      <div>
-        <span class="admin-kicker">BOOKING CONTROL</span>
-        <h2>Bookings</h2>
-        <p>Monitor every booking across the platform.</p>
-      </div>
-    </div>
-
-    <div class="admin-filter-bar">
-
-      <button class="admin-booking-filter active" data-booking-filter="all">All</button>
-      <button class="admin-booking-filter" data-booking-filter="pending">Pending</button>
-      <button class="admin-booking-filter" data-booking-filter="accepted">Accepted</button>
-      <button class="admin-booking-filter" data-booking-filter="active">Active</button>
-      <button class="admin-booking-filter" data-booking-filter="completed">Completed</button>
-      <button class="admin-booking-filter" data-booking-filter="cancelled">Cancelled</button>
-
-    </div>
-
-    <div class="admin-table-container" id="adminBookingsTable">
-      <div class="admin-table-empty">Bookings will appear here.</div>
-    </div>
-
-  </section>
-
-
-  <!-- ================= FINANCE ================= -->
-
-  <section class="admin-section" id="admin-section-finance">
-
-    <div class="admin-section-top">
-      <div>
-        <span class="admin-kicker">MONEY CONTROL</span>
-        <h2>Finance Center</h2>
-        <p>Monitor payments, revenue and owner withdrawals.</p>
-      </div>
-    </div>
-
-    <div class="finance-admin-grid">
-
-      <div class="finance-card">
-        <span>GROSS BOOKING VALUE</span>
-        <strong id="grossBookingValue">₹0</strong>
-      </div>
-
-      <div class="finance-card">
-        <span>PLATFORM COMMISSION</span>
-        <strong id="platformCommission">₹0</strong>
-      </div>
-
-      <div class="finance-card">
-        <span>OWNER PAYOUTS</span>
-        <strong id="ownerPayouts">₹0</strong>
-      </div>
-
-      <div class="finance-card">
-        <span>REFUNDS</span>
-        <strong id="totalRefunds">₹0</strong>
-      </div>
-
-    </div>
-
-    <div class="admin-panel">
-
-      <div class="admin-panel-header">
-        <div>
-          <span>PAYOUT CONTROL</span>
-          <h3>Withdrawal Requests</h3>
-        </div>
-      </div>
-
-      <div class="admin-withdrawal-list" id="adminWithdrawalList">
-        <div class="admin-large-empty">
-          <div>₹</div>
-          <h3>No withdrawal requests</h3>
-          <p>Owner withdrawal requests will appear here.</p>
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= ANALYTICS ================= -->
-
-  <section class="admin-section" id="admin-section-analytics">
-
-    <div class="admin-section-top">
-      <div>
-        <span class="admin-kicker">DATA INTELLIGENCE</span>
-        <h2>Analytics</h2>
-        <p>Understand how RentoRide is performing.</p>
-      </div>
-    </div>
-
-    <div class="analytics-grid">
-
-      <div class="admin-panel">
-        <div class="admin-panel-header">
-          <div>
-            <span>BOOKINGS</span>
-            <h3>Booking Growth</h3>
-          </div>
-        </div>
-        <div class="analytics-chart" id="bookingAnalytics">
-          Analytics chart
-        </div>
-      </div>
-
-      <div class="admin-panel">
-        <div class="admin-panel-header">
-          <div>
-            <span>USERS</span>
-            <h3>User Growth</h3>
-          </div>
-        </div>
-        <div class="analytics-chart" id="userAnalytics">
-          Analytics chart
-        </div>
-      </div>
-
-      <div class="admin-panel">
-        <div class="admin-panel-header">
-          <div>
-            <span>LOCATIONS</span>
-            <h3>Popular Locations</h3>
-          </div>
-        </div>
-        <div class="analytics-chart" id="locationAnalytics">
-          Location analytics
-        </div>
-      </div>
-
-      <div class="admin-panel">
-        <div class="admin-panel-header">
-          <div>
-            <span>VEHICLES</span>
-            <h3>Most Rented Vehicles</h3>
-          </div>
-        </div>
-        <div class="analytics-chart" id="vehicleAnalytics">
-          Vehicle analytics
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= SUPPORT ================= -->
-
-  <section class="admin-section" id="admin-section-support">
-
-    <div class="admin-section-top">
-      <div>
-        <span class="admin-kicker">CUSTOMER CARE</span>
-        <h2>Support & Complaints</h2>
-        <p>Resolve customer and owner issues.</p>
-      </div>
-    </div>
-
-    <div class="admin-filter-bar">
-
-      <button class="support-filter active" data-support-filter="all">All</button>
-      <button class="support-filter" data-support-filter="open">Open</button>
-      <button class="support-filter" data-support-filter="review">In Review</button>
-      <button class="support-filter" data-support-filter="resolved">Resolved</button>
-
-    </div>
-
-    <div class="support-case-list" id="supportCaseList">
-      <div class="admin-large-empty">
-        <div>🚨</div>
-        <h3>No support cases</h3>
-        <p>Customer complaints will appear here.</p>
-      </div>
-    </div>
-
-  </section>
-
-
-  <!-- ================= NOTIFICATIONS ================= -->
-
-  <section class="admin-section" id="admin-section-notifications">
-
-    <div class="admin-section-top">
-      <div>
-        <span class="admin-kicker">COMMUNICATION CONTROL</span>
-        <h2>Notifications</h2>
-        <p>Send important announcements across RentoRide.</p>
-      </div>
-    </div>
-
-    <div class="notification-admin-grid">
-
-      <div class="admin-panel">
-
-        <div class="admin-panel-header">
-          <div>
-            <span>BROADCAST</span>
-            <h3>Send Notification</h3>
+          <div class="admin-panel">
+            <div class="admin-panel-header">
+              <div><span>LIVE FEED</span><h3>Recent Activity</h3></div>
+              <button class="admin-text-btn" data-section-link="notifications">View All →</button>
+            </div>
+            <div class="admin-activity-list" id="adminActivityList"><div class="admin-empty">No recent activity.</div></div>
           </div>
         </div>
 
-        <form id="adminNotificationForm">
-
-          <div class="admin-form-group">
-            <label for="notificationAudience">Send To</label>
-
-            <select id="notificationAudience">
-              <option value="all">Everyone</option>
-              <option value="customers">Customers</option>
-              <option value="owners">Owners</option>
-            </select>
-          </div>
-
-          <div class="admin-form-group">
-            <label for="notificationTitle">Notification Title</label>
-
-            <input
-              type="text"
-              id="notificationTitle"
-              placeholder="Enter title"
-              required
-            >
-          </div>
-
-          <div class="admin-form-group">
-            <label for="notificationMessage">Message</label>
-
-            <textarea
-              id="notificationMessage"
-              rows="5"
-              placeholder="Write notification..."
-              required
-            ></textarea>
-          </div>
-
-          <button type="submit" class="admin-primary-btn">
-            Send Notification →
-          </button>
-
-        </form>
-
-      </div>
-
-
-      <div class="admin-panel">
-
-        <div class="admin-panel-header">
-          <div>
-            <span>HISTORY</span>
-            <h3>Recent Notifications</h3>
+        <div class="admin-panel quick-actions-panel">
+          <div class="admin-panel-header"><div><span>CONTROL CENTER</span><h3>Quick Actions</h3></div></div>
+          <div class="quick-actions-grid">
+            <button class="quick-action" data-section-link="verification"><span>🛡</span><div><strong>Review Verification</strong><small>Check pending documents</small></div><b>→</b></button>
+            <button class="quick-action" data-section-link="vehicles"><span>🏍</span><div><strong>Vehicle Approvals</strong><small>Review new listings</small></div><b>→</b></button>
+            <button class="quick-action" data-section-link="finance"><span>₹</span><div><strong>Withdrawals</strong><small>Manage owner payouts</small></div><b>→</b></button>
+            <button class="quick-action" data-section-link="support"><span>🚨</span><div><strong>Support Cases</strong><small>Resolve user issues</small></div><b>→</b></button>
           </div>
         </div>
 
-        <div class="admin-notification-history" id="adminNotificationHistory">
-          <div class="admin-empty">No notifications sent yet.</div>
-        </div>
+      </section>
 
-      </div>
+      <section class="admin-section" id="admin-section-users">
+        <div class="admin-section-top"><div><span class="admin-kicker">USER MANAGEMENT</span><h2>Users</h2><p>Manage RentoRide customers and accounts.</p></div></div>
+        <div class="admin-panel">
+          <div class="admin-panel-header">
+            <div><span>CUSTOMER DATABASE</span><h3>All Users</h3></div>
+            <input type="search" id="userSearch" class="admin-search" placeholder="Search users...">
+          </div>
+          <div class="admin-table-container" id="usersTable"><div class="admin-table-empty">Loading users...</div></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="admin-section-owners">
+        <div class="admin-section-top"><div><span class="admin-kicker">PARTNER MANAGEMENT</span><h2>Owners</h2><p>Manage RentoRide vehicle partners.</p></div></div>
+        <div class="admin-panel">
+          <div class="admin-panel-header">
+            <div><span>OWNER DATABASE</span><h3>Vehicle Partners</h3></div>
+            <input type="search" id="ownerSearch" class="admin-search" placeholder="Search owners...">
+          </div>
+          <div class="admin-table-container" id="ownersTable"><div class="admin-table-empty">Loading owners...</div></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="admin-section-vehicles">
+        <div class="admin-section-top"><div><span class="admin-kicker">FLEET CONTROL</span><h2>Vehicles</h2><p>Review and control every vehicle listed on RentoRide.</p></div></div>
+        <div class="admin-filter-bar">
+          <button class="admin-filter active" data-vehicle-filter="all">All</button>
+          <button class="admin-filter" data-vehicle-filter="pending">Pending</button>
+          <button class="admin-filter" data-vehicle-filter="approved">Approved</button>
+          <button class="admin-filter" data-vehicle-filter="rejected">Rejected</button>
+          <button class="admin-filter" data-vehicle-filter="suspended">Suspended</button>
+        </div>
+        <div class="admin-vehicle-grid" id="adminVehicleList"><div class="admin-large-empty"><div>🏍</div><h3>Loading vehicles...</h3></div></div>
+      </section>
+
+      <section class="admin-section" id="admin-section-verification">
+        <div class="admin-section-top"><div><span class="admin-kicker">TRUST & SAFETY</span><h2>Verification Center</h2><p>Review owner identity and vehicle documents.</p></div></div>
+        <div class="verification-admin-stats">
+          <div><span>PENDING</span><strong id="adminPendingVerification">0</strong></div>
+          <div><span>APPROVED</span><strong id="adminApprovedVerification">0</strong></div>
+          <div><span>REJECTED</span><strong id="adminRejectedVerification">0</strong></div>
+        </div>
+        <div class="admin-verification-list" id="adminVerificationList">
+          <div class="admin-large-empty"><div>🛡</div><h3>No pending verification</h3><p>New verification requests will appear here.</p></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="admin-section-bookings">
+        <div class="admin-section-top"><div><span class="admin-kicker">BOOKING CONTROL</span><h2>Bookings</h2><p>Monitor every booking across the platform.</p></div></div>
+        <div class="admin-filter-bar">
+          <button class="admin-booking-filter active" data-booking-filter="all">All</button>
+          <button class="admin-booking-filter" data-booking-filter="pending">Pending</button>
+          <button class="admin-booking-filter" data-booking-filter="accepted">Accepted</button>
+          <button class="admin-booking-filter" data-booking-filter="active">Active</button>
+          <button class="admin-booking-filter" data-booking-filter="completed">Completed</button>
+          <button class="admin-booking-filter" data-booking-filter="cancelled">Cancelled</button>
+        </div>
+        <div class="admin-table-container" id="adminBookingsTable"><div class="admin-table-empty">Loading bookings...</div></div>
+      </section>
+
+      <section class="admin-section" id="admin-section-finance">
+        <div class="admin-section-top"><div><span class="admin-kicker">MONEY CONTROL</span><h2>Finance Center</h2><p>Monitor payments, revenue and owner withdrawals.</p></div></div>
+        <div class="finance-admin-grid">
+          <div class="finance-card"><span>GROSS BOOKING VALUE</span><strong id="grossBookingValue">₹0</strong></div>
+          <div class="finance-card"><span>PLATFORM COMMISSION</span><strong id="platformCommission">₹0</strong></div>
+          <div class="finance-card"><span>OWNER PAYOUTS</span><strong id="ownerPayouts">₹0</strong></div>
+          <div class="finance-card"><span>REFUNDS</span><strong id="totalRefunds">₹0</strong></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div><span>PAYOUT CONTROL</span><h3>Withdrawal Requests</h3></div></div>
+          <div class="admin-withdrawal-list" id="adminWithdrawalList">
+            <div class="admin-large-empty"><div>₹</div><h3>No withdrawal requests</h3><p>Owner withdrawal requests will appear here.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="admin-section-analytics">
+        <div class="admin-section-top"><div><span class="admin-kicker">DATA INTELLIGENCE</span><h2>Analytics</h2><p>Understand how RentoRide is performing.</p></div></div>
+        <div class="analytics-grid">
+          <div class="admin-panel"><div class="admin-panel-header"><div><span>BOOKINGS</span><h3>Booking Growth</h3></div></div><div class="analytics-chart" id="bookingAnalytics">Coming in a future update.</div></div>
+          <div class="admin-panel"><div class="admin-panel-header"><div><span>USERS</span><h3>User Growth</h3></div></div><div class="analytics-chart" id="userAnalytics">Coming in a future update.</div></div>
+          <div class="admin-panel"><div class="admin-panel-header"><div><span>LOCATIONS</span><h3>Popular Locations</h3></div></div><div class="analytics-chart" id="locationAnalytics">Coming in a future update.</div></div>
+          <div class="admin-panel"><div class="admin-panel-header"><div><span>VEHICLES</span><h3>Most Rented Vehicles</h3></div></div><div class="analytics-chart" id="vehicleAnalytics">Coming in a future update.</div></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="admin-section-support">
+        <div class="admin-section-top"><div><span class="admin-kicker">CUSTOMER CARE</span><h2>Support & Complaints</h2><p>Resolve customer and owner issues.</p></div></div>
+        <div class="admin-filter-bar">
+          <button class="support-filter active" data-support-filter="all">All</button>
+          <button class="support-filter" data-support-filter="open">Open</button>
+          <button class="support-filter" data-support-filter="review">In Review</button>
+          <button class="support-filter" data-support-filter="resolved">Resolved</button>
+        </div>
+        <div class="support-case-list" id="supportCaseList">
+          <div class="admin-large-empty"><div>🚨</div><h3>No support cases</h3><p>Customer complaints will appear here.</p></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="admin-section-notifications">
+        <div class="admin-section-top"><div><span class="admin-kicker">COMMUNICATION CONTROL</span><h2>Notifications</h2><p>Send important announcements across RentoRide.</p></div></div>
+        <div class="notification-admin-grid">
+          <div class="admin-panel">
+            <div class="admin-panel-header"><div><span>BROADCAST</span><h3>Send Notification</h3></div></div>
+            <form id="adminNotificationForm">
+              <div class="admin-form-group">
+                <label for="notificationAudience">Send To</label>
+                <select id="notificationAudience"><option value="all">Everyone</option><option value="customers">Customers</option><option value="owners">Owners</option></select>
+              </div>
+              <div class="admin-form-group"><label for="notificationTitle">Notification Title</label><input type="text" id="notificationTitle" placeholder="Enter title" required></div>
+              <div class="admin-form-group"><label for="notificationMessage">Message</label><textarea id="notificationMessage" rows="5" placeholder="Write notification..." required></textarea></div>
+              <button type="submit" class="admin-primary-btn">Send Notification →</button>
+            </form>
+          </div>
+          <div class="admin-panel">
+            <div class="admin-panel-header"><div><span>HISTORY</span><h3>Recent Notifications</h3></div></div>
+            <div class="admin-notification-history" id="adminNotificationHistory"><div class="admin-empty">No notifications sent yet.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="admin-section-settings">
+        <div class="admin-section-top"><div><span class="admin-kicker">PLATFORM CONTROL</span><h2>Platform Settings</h2><p>Configure important RentoRide platform rules.</p></div></div>
+        <div class="admin-settings-grid">
+          <div class="admin-panel">
+            <div class="admin-panel-header"><div><span>FINANCE</span><h3>Commission</h3></div></div>
+            <div class="admin-setting-control"><label for="platformCommissionRate">Platform Commission</label><div class="admin-input-with-unit"><input type="number" id="platformCommissionRate" value="10" min="0" max="100"><span>%</span></div></div>
+            <div class="admin-setting-control"><label for="minimumWithdrawal">Minimum Withdrawal</label><div class="admin-input-with-unit"><span>₹</span><input type="number" id="minimumWithdrawal" value="500" min="0"></div></div>
+          </div>
+          <div class="admin-panel">
+            <div class="admin-panel-header"><div><span>BOOKING</span><h3>Booking Rules</h3></div></div>
+            <div class="admin-setting-toggle"><div><strong>Allow New Bookings</strong><small>Enable or disable new platform bookings.</small></div><label class="admin-switch"><input type="checkbox" id="allowBookings" checked><span></span></label></div>
+            <div class="admin-setting-toggle"><div><strong>Maintenance Mode</strong><small>Temporarily restrict platform access.</small></div><label class="admin-switch"><input type="checkbox" id="maintenanceMode"><span></span></label></div>
+          </div>
+          <div class="admin-panel">
+            <div class="admin-panel-header"><div><span>DELIVERY</span><h3>Pickup & Drop</h3></div></div>
+            <div class="admin-setting-control"><label for="defaultDeliveryCharge">Default Delivery Charge</label><div class="admin-input-with-unit"><span>₹</span><input type="number" id="defaultDeliveryCharge" value="100" min="0"></div></div>
+          </div>
+          <div class="admin-panel">
+            <div class="admin-panel-header"><div><span>SECURITY</span><h3>Admin Security</h3></div></div>
+            <button class="admin-outline-btn" id="adminActivityLogBtn">View Admin Activity Log</button>
+            <button class="admin-outline-btn" id="adminSecurityBtn">Security Settings</button>
+          </div>
+        </div>
+        <button class="admin-primary-btn save-settings-btn" id="saveAdminSettings">Save Platform Settings →</button>
+      </section>
 
     </div>
-
-  </section>
-
-
-  <!-- ================= SETTINGS ================= -->
-
-  <section class="admin-section" id="admin-section-settings">
-
-    <div class="admin-section-top">
-      <div>
-        <span class="admin-kicker">PLATFORM CONTROL</span>
-        <h2>Platform Settings</h2>
-        <p>Configure important RentoRide platform rules.</p>
-      </div>
-    </div>
-
-    <div class="admin-settings-grid">
-
-      <div class="admin-panel">
-
-        <div class="admin-panel-header">
-          <div>
-            <span>FINANCE</span>
-            <h3>Commission</h3>
-          </div>
-        </div>
-
-        <div class="admin-setting-control">
-
-          <label for="platformCommissionRate">
-            Platform Commission
-          </label>
-
-          <div class="admin-input-with-unit">
-
-            <input
-              type="number"
-              id="platformCommissionRate"
-              value="10"
-              min="0"
-              max="100"
-            >
-
-            <span>%</span>
-
-          </div>
-
-        </div>
-
-        <div class="admin-setting-control">
-
-          <label for="minimumWithdrawal">
-            Minimum Withdrawal
-          </label>
-
-          <div class="admin-input-with-unit">
-
-            <span>₹</span>
-
-            <input
-              type="number"
-              id="minimumWithdrawal"
-              value="500"
-              min="0"
-            >
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="admin-panel">
-
-        <div class="admin-panel-header">
-          <div>
-            <span>BOOKING</span>
-            <h3>Booking Rules</h3>
-          </div>
-        </div>
-
-        <div class="admin-setting-toggle">
-
-          <div>
-            <strong>Allow New Bookings</strong>
-            <small>Enable or disable new platform bookings.</small>
-          </div>
-
-          <label class="admin-switch">
-            <input type="checkbox" id="allowBookings" checked>
-            <span></span>
-          </label>
-
-        </div>
-
-        <div class="admin-setting-toggle">
-
-          <div>
-            <strong>Maintenance Mode</strong>
-            <small>Temporarily restrict platform access.</small>
-          </div>
-
-          <label class="admin-switch">
-            <input type="checkbox" id="maintenanceMode">
-            <span></span>
-          </label>
-
-        </div>
-
-      </div>
-
-
-      <div class="admin-panel">
-
-        <div class="admin-panel-header">
-          <div>
-            <span>DELIVERY</span>
-            <h3>Pickup & Drop</h3>
-          </div>
-        </div>
-
-        <div class="admin-setting-control">
-
-          <label for="defaultDeliveryCharge">
-            Default Delivery Charge
-          </label>
-
-          <div class="admin-input-with-unit">
-
-            <span>₹</span>
-
-            <input
-              type="number"
-              id="defaultDeliveryCharge"
-              value="100"
-              min="0"
-            >
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="admin-panel">
-
-        <div class="admin-panel-header">
-          <div>
-            <span>SECURITY</span>
-            <h3>Admin Security</h3>
-          </div>
-        </div>
-
-        <button class="admin-outline-btn" id="adminActivityLogBtn">
-          View Admin Activity Log
-        </button>
-
-        <button class="admin-outline-btn" id="adminSecurityBtn">
-          Security Settings
-        </button>
-
-      </div>
-
-    </div>
-
-    <button
-      class="admin-primary-btn save-settings-btn"
-      id="saveAdminSettings"
-    >
-      Save Platform Settings →
-    </button>
-
-  </section>
-
-</div>
-```
 
   </main>
 
-  <!-- NOTIFICATION POPUP -->
-
   <div class="admin-notification-popup" id="adminNotificationPopup">
-
-```
-<div class="admin-popup-icon">🔔</div>
-
-<div>
-  <strong id="adminPopupTitle">System Notification</strong>
-  <p id="adminPopupMessage">You have a new notification.</p>
-</div>
-
-<button id="closeAdminNotificationPopup">×</button>
-```
-
+    <div class="admin-popup-icon">🔔</div>
+    <div><strong id="adminPopupTitle">System Notification</strong><p id="adminPopupMessage">You have a new notification.</p></div>
+    <button id="closeAdminNotificationPopup">×</button>
   </div>
-
-  <!-- DETAIL MODAL -->
 
   <div class="admin-modal" id="adminDetailModal">
-
-```
-<div class="admin-modal-overlay"></div>
-
-<div class="admin-modal-box">
-
-  <button class="admin-modal-close" id="closeAdminDetailModal">
-    ×
-  </button>
-
-  <span class="admin-kicker">ADMIN REVIEW</span>
-
-  <h2 id="adminDetailModalTitle">Details</h2>
-
-  <div
-    id="adminDetailModalContent"
-    class="admin-modal-content"
-  ></div>
-
-</div>
-```
-
+    <div class="admin-modal-overlay"></div>
+    <div class="admin-modal-box">
+      <button class="admin-modal-close" id="closeAdminDetailModal">×</button>
+      <span class="admin-kicker">ADMIN REVIEW</span>
+      <h2 id="adminDetailModalTitle">Details</h2>
+      <div id="adminDetailModalContent" class="admin-modal-content"></div>
+    </div>
   </div>
 
-  <!-- JS -->
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
   <script src="js/admin.js"></script>
 
 </body>

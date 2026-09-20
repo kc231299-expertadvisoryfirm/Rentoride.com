@@ -44,79 +44,41 @@
 
       <div class="details-layout">
 
-        <!-- LEFT: GALLERY -->
         <section class="gallery-card">
-
           <div class="main-image-wrap">
-            <img
-              id="mainBikeImage"
-              src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=85"
-              alt="Bike"
-            >
+            <img id="mainBikeImage" src="" alt="Bike">
             <span class="availability-badge" id="availabilityBadge">● Available</span>
             <button class="favorite-btn" id="favoriteBtn" aria-label="Add to favourites">♡</button>
           </div>
-
-          <div class="thumbnail-row">
-            <button class="thumb active">
-              <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=300&q=80" alt="">
-            </button>
-            <button class="thumb">
-              <img src="https://images.unsplash.com/photo-1558981835-8f8f7f5d8e3c?auto=format&fit=crop&w=300&q=80" alt="">
-            </button>
-            <button class="thumb">
-              <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=300&q=80" alt="">
-            </button>
-            <button class="thumb">
-              <img src="https://images.unsplash.com/photo-1558980664-10ea6b7e4a2c?auto=format&fit=crop&w=300&q=80" alt="">
-            </button>
-          </div>
-
+          <div class="thumbnail-row"></div>
         </section>
 
-        <!-- RIGHT: SUMMARY -->
         <section class="summary-card">
 
           <div class="brand-line">RentoRide Verified Vehicle</div>
 
           <div class="title-row">
             <div>
-              <h1 id="bikeName">Royal Enfield Classic 350</h1>
-              <p class="bike-subtitle" id="bikeSubtitle">Royal Enfield · Classic 350</p>
+              <h1 id="bikeName">—</h1>
+              <p class="bike-subtitle" id="bikeSubtitle">—</p>
             </div>
             <div class="rating-box">
-              <strong id="bikeRating">4.8</strong>
+              <strong id="bikeRating">—</strong>
               <span>★</span>
-              <small>(24 reviews)</small>
+              <small>reviews</small>
             </div>
           </div>
 
           <div class="location-row">
             <span>📍</span>
-            <span id="bikeLocation">Kota, Rajasthan</span>
+            <span id="bikeLocation">—</span>
           </div>
 
           <div class="quick-specs">
-            <div class="spec-item">
-              <span>⚙️</span>
-              <strong>Manual</strong>
-              <small>Transmission</small>
-            </div>
-            <div class="spec-item">
-              <span>⛽</span>
-              <strong>Petrol</strong>
-              <small>Fuel Type</small>
-            </div>
-            <div class="spec-item">
-              <span>🏍️</span>
-              <strong id="bikeEngine">349 cc</strong>
-              <small>Engine</small>
-            </div>
-            <div class="spec-item">
-              <span>📅</span>
-              <strong>2024</strong>
-              <small>Model Year</small>
-            </div>
+            <div class="spec-item"><span>⚙️</span><strong>Manual</strong><small>Transmission</small></div>
+            <div class="spec-item"><span>⛽</span><strong>Petrol</strong><small>Fuel Type</small></div>
+            <div class="spec-item"><span>🏍️</span><strong id="bikeEngine">—</strong><small>Engine</small></div>
+            <div class="spec-item"><span>📅</span><strong>2024</strong><small>Model Year</small></div>
           </div>
 
           <div class="price-section">
@@ -126,23 +88,10 @@
             </div>
 
             <div class="price-grid" id="priceGrid" role="group" aria-label="Choose rental duration">
-              <button type="button" class="price-box" data-hours="3">
-                <small>3 HOURS</small>
-                <strong id="price3">₹299</strong>
-              </button>
-              <button type="button" class="price-box" data-hours="6">
-                <small>6 HOURS</small>
-                <strong id="price6">₹499</strong>
-              </button>
-              <button type="button" class="price-box" data-hours="12">
-                <small>12 HOURS</small>
-                <strong id="price12">₹799</strong>
-              </button>
-              <button type="button" class="price-box featured" data-hours="24">
-                <small>24 HOURS</small>
-                <strong id="price24">₹1,199</strong>
-                <span>Popular</span>
-              </button>
+              <button type="button" class="price-box" data-hours="3"><small>3 HOURS</small><strong id="price3">₹—</strong></button>
+              <button type="button" class="price-box" data-hours="6"><small>6 HOURS</small><strong id="price6">₹—</strong></button>
+              <button type="button" class="price-box" data-hours="12"><small>12 HOURS</small><strong id="price12">₹—</strong></button>
+              <button type="button" class="price-box featured" data-hours="24"><small>24 HOURS</small><strong id="price24">₹—</strong><span>Popular</span></button>
             </div>
           </div>
 
@@ -153,29 +102,21 @@
 
           <div class="secure-note">
             <span>🔒</span>
-            <div>
-              <strong>Safe & secure booking</strong>
-              <p>Your booking details are protected.</p>
-            </div>
+            <div><strong>Safe &amp; secure booking</strong><p>Your booking details are protected.</p></div>
           </div>
 
         </section>
       </div>
 
-      <!-- LOWER CONTENT -->
       <div class="lower-layout">
 
         <section class="content-card">
-
-          <div class="section-heading">
-            <h2>Bike Details</h2>
-            <span>Everything you need to know</span>
-          </div>
+          <div class="section-heading"><h2>Bike Details</h2><span>Everything you need to know</span></div>
 
           <div class="details-grid">
-            <div><small>Brand</small><strong id="detailBrand">Royal Enfield</strong></div>
-            <div><small>Model</small><strong id="detailModel">Classic 350</strong></div>
-            <div><small>Engine</small><strong id="detailEngine">349 cc</strong></div>
+            <div><small>Brand</small><strong id="detailBrand">—</strong></div>
+            <div><small>Model</small><strong id="detailModel">—</strong></div>
+            <div><small>Engine</small><strong id="detailEngine">—</strong></div>
             <div><small>Fuel</small><strong>Petrol</strong></div>
             <div><small>Transmission</small><strong>Manual</strong></div>
             <div><small>Seats</small><strong>2 Persons</strong></div>
@@ -183,91 +124,36 @@
 
           <div class="description">
             <h3>Description</h3>
-            <p id="descriptionText">
-              A clean and well-maintained bike available for comfortable city rides,
-              weekend trips and daily travel. Vehicle condition is checked before
-              every booking.
-            </p>
+            <p id="descriptionText">—</p>
           </div>
-
         </section>
 
         <aside class="owner-card">
-
-          <div class="section-heading">
-            <h2>Vehicle Owner</h2>
-            <span>Verified owner</span>
-          </div>
+          <div class="section-heading"><h2>Vehicle Owner</h2><span>Verified owner</span></div>
 
           <div class="owner-profile">
             <div class="owner-avatar">👤</div>
-            <div>
-              <strong id="ownerName">RentoRide Owner</strong>
-              <p>✓ Identity verified</p>
-            </div>
+            <div><strong id="ownerName">RentoRide Owner</strong><p>✓ Identity verified</p></div>
           </div>
 
           <div class="owner-stats">
-            <div>
-              <strong>4.9</strong>
-              <small>Owner rating</small>
-            </div>
-            <div>
-              <strong>38</strong>
-              <small>Trips completed</small>
-            </div>
+            <div><strong>4.9</strong><small>Owner rating</small></div>
+            <div><strong>—</strong><small>Trips completed</small></div>
           </div>
 
           <button class="outline-btn" id="contactOwnerBtn">Contact Owner</button>
-
         </aside>
 
       </div>
 
-      <!-- RULES -->
       <section class="rules-card">
-
-        <div class="section-heading">
-          <h2>Rental Information</h2>
-          <span>Please read before booking</span>
-        </div>
-
+        <div class="section-heading"><h2>Rental Information</h2><span>Please read before booking</span></div>
         <div class="rules-grid">
-
-          <div class="rule">
-            <span>🪪</span>
-            <div>
-              <strong>Documents Required</strong>
-              <p>Valid ID and required driving documents must be provided.</p>
-            </div>
-          </div>
-
-          <div class="rule">
-            <span>🪖</span>
-            <div>
-              <strong>Safety</strong>
-              <p>Helmet and safety rules must be followed during the ride.</p>
-            </div>
-          </div>
-
-          <div class="rule">
-            <span>⏱️</span>
-            <div>
-              <strong>Pickup Verification</strong>
-              <p>Pickup OTP is generated shortly before the scheduled pickup time.</p>
-            </div>
-          </div>
-
-          <div class="rule">
-            <span>↩️</span>
-            <div>
-              <strong>Cancellation</strong>
-              <p>Cancellation and refund terms are shown before payment.</p>
-            </div>
-          </div>
-
+          <div class="rule"><span>🪪</span><div><strong>Documents Required</strong><p>Valid ID and required driving documents must be provided.</p></div></div>
+          <div class="rule"><span>🪖</span><div><strong>Safety</strong><p>Helmet and safety rules must be followed during the ride.</p></div></div>
+          <div class="rule"><span>⏱️</span><div><strong>Pickup Verification</strong><p>Pickup OTP is generated shortly before the scheduled pickup time.</p></div></div>
+          <div class="rule"><span>↩️</span><div><strong>Cancellation</strong><p>Cancellation and refund terms are shown before payment.</p></div></div>
         </div>
-
       </section>
 
     </div>
@@ -277,10 +163,7 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <div>
-      <strong>🏍️ RentoRide</strong>
-      <p>Simple, trusted and convenient vehicle rentals.</p>
-    </div>
+    <div><strong>🏍️ RentoRide</strong><p>Simple, trusted and convenient vehicle rentals.</p></div>
     <div class="footer-links">
       <a href="#">Contact Us</a>
       <a href="#">Support</a>
@@ -288,11 +171,11 @@
       <a href="#">Privacy</a>
     </div>
   </div>
-  <div class="container footer-bottom">
-    © 2026 RentoRide. All rights reserved.
-  </div>
+  <div class="container footer-bottom">© 2026 RentoRide. All rights reserved.</div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
 <script src="js/bikes-data.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/bike-details.js"></script>

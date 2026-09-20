@@ -3,2004 +3,293 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>RentoRide | Owner Dashboard</title>
-
   <link rel="stylesheet" href="css/owner-dashboard.css">
 </head>
 
 <body>
 
-  <!-- =====================================================
-       SIDEBAR
-       ===================================================== -->
-
   <aside class="sidebar" id="sidebar">
-
-    <div class="sidebar-logo">
-      <a href="index.html">
-        Rento<span>Ride</span>
-      </a>
-    </div>
+    <div class="sidebar-logo"><a href="index.html">Rento<span>Ride</span></a></div>
 
     <div class="owner-mini-profile">
-
-      <div class="owner-avatar" id="ownerAvatar">
-        K
-      </div>
-
-      <div>
-        <strong id="sidebarOwnerName">
-          Owner
-        </strong>
-
-        <small>
-          Vehicle Partner
-        </small>
-      </div>
-
+      <div class="owner-avatar" id="ownerAvatar">K</div>
+      <div><strong id="sidebarOwnerName">Owner</strong><small>Vehicle Partner</small></div>
     </div>
-
 
     <nav class="dashboard-nav">
-
-      <button class="nav-item active" data-section="overview">
-        <span>◉</span>
-        Overview
-      </button>
-
-      <button class="nav-item" data-section="vehicles">
-        <span>🏍</span>
-        My Vehicles
-      </button>
-
-      <button class="nav-item" data-section="bookings">
-        <span>📋</span>
-        Bookings
-        <b class="nav-badge" id="bookingBadge">0</b>
-      </button>
-
-      <button class="nav-item" data-section="earnings">
-        <span>💰</span>
-        Earnings
-      </button>
-
-      <button class="nav-item" data-section="verification">
-        <span>✓</span>
-        Verification
-      </button>
-
-      <button class="nav-item" data-section="notifications">
-        <span>🔔</span>
-        Notifications
-      </button>
-
-      <button class="nav-item" data-section="profile">
-        <span>👤</span>
-        Profile
-      </button>
-
-      <button class="nav-item" data-section="settings">
-        <span>⚙</span>
-        Settings
-      </button>
-
+      <button class="nav-item active" data-section="overview"><span>◉</span>Overview</button>
+      <button class="nav-item" data-section="vehicles"><span>🏍</span>My Vehicles</button>
+      <button class="nav-item" data-section="bookings"><span>📋</span>Bookings <b class="nav-badge" id="bookingBadge">0</b></button>
+      <button class="nav-item" data-section="earnings"><span>💰</span>Earnings</button>
+      <button class="nav-item" data-section="verification"><span>✓</span>Verification</button>
+      <button class="nav-item" data-section="notifications"><span>🔔</span>Notifications</button>
+      <button class="nav-item" data-section="profile"><span>👤</span>Profile</button>
+      <button class="nav-item" data-section="settings"><span>⚙</span>Settings</button>
     </nav>
 
-
     <div class="sidebar-bottom">
-
-      <a href="bikes.html" class="back-home">
-        🏍️ Customer View
-      </a>
-
-      <a href="index.html" class="back-home">
-        ← Back to RentoRide
-      </a>
-
-      <button id="sidebarLogoutBtn" class="logout-btn">
-        ↪ Logout
-      </button>
-
+      <a href="bikes.html" class="back-home">🏍️ Customer View</a>
+      <a href="index.html" class="back-home">← Back to RentoRide</a>
+      <button id="sidebarLogoutBtn" class="logout-btn">↪ Logout</button>
     </div>
-
   </aside>
-
-
-  <!-- =====================================================
-       MOBILE OVERLAY
-       ===================================================== -->
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-
-  <!-- =====================================================
-       MAIN
-       ===================================================== -->
-
   <main class="dashboard-main">
 
-
-    <!-- ===================================================
-         TOP HEADER
-         =================================================== -->
-
     <header class="dashboard-header">
-
-      <button
-        class="menu-btn"
-        id="menuBtn"
-        aria-label="Open menu"
-      >
-        ☰
-      </button>
-
-
-      <div class="header-title">
-
-        <span class="header-label">
-          OWNER COMMAND CENTER
-        </span>
-
-        <h1 id="pageTitle">
-          Dashboard
-        </h1>
-
-      </div>
-
-
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      <div class="header-title"><span class="header-label">OWNER COMMAND CENTER</span><h1 id="pageTitle">Dashboard</h1></div>
       <div class="header-actions">
-
-        <button
-          class="notification-btn"
-          id="headerNotificationBtn"
-        >
-          🔔
-          <span id="headerNotificationBadge">0</span>
-        </button>
-
-
+        <button class="notification-btn" id="headerNotificationBtn">🔔<span id="headerNotificationBadge">0</span></button>
         <div class="header-profile">
-
-          <div class="header-avatar" id="headerAvatar">
-            K
-          </div>
-
-          <div class="header-profile-info">
-
-            <strong id="headerOwnerName">
-              Owner
-            </strong>
-
-            <small>
-              Owner Account
-            </small>
-
-          </div>
-
+          <div class="header-avatar" id="headerAvatar">K</div>
+          <div class="header-profile-info"><strong id="headerOwnerName">Owner</strong><small>Owner Account</small></div>
         </div>
-
       </div>
-
     </header>
-
-
-    <!-- ===================================================
-         DASHBOARD CONTENT
-         =================================================== -->
 
     <div class="dashboard-content">
 
-
-      <!-- =================================================
-           OVERVIEW
-           ================================================= -->
-
-      <section
-        class="dashboard-section active"
-        id="section-overview"
-      >
+      <section class="dashboard-section active" id="section-overview">
 
         <div class="welcome-row">
-
           <div>
-
-            <span class="section-kicker">
-              RENTORIDE • OWNER
-            </span>
-
-            <h2>
-              Good Evening,
-              <span id="welcomeOwnerName">
-                Owner
-              </span>
-              👋
-            </h2>
-
-            <p>
-              Manage your vehicles, bookings and earnings
-              from one place.
-            </p>
-
+            <span class="section-kicker">RENTORIDE • OWNER</span>
+            <h2>Good Evening, <span id="welcomeOwnerName">Owner</span> 👋</h2>
+            <p>Manage your vehicles, bookings and earnings from one place.</p>
           </div>
-
-
-          <a
-            href="list-vehicle.html"
-            class="primary-btn"
-          >
-            + List New Vehicle
-          </a>
-
+          <a href="list-vehicle.html" class="primary-btn">+ List New Vehicle</a>
         </div>
-
-
-        <!-- STATS -->
 
         <div class="stats-grid">
-
-          <div class="stat-card">
-
-            <div class="stat-icon">
-              🏍
-            </div>
-
-            <div>
-              <span>
-                MY VEHICLES
-              </span>
-
-              <strong id="totalVehicles">
-                0
-              </strong>
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-icon">
-              📋
-            </div>
-
-            <div>
-              <span>
-                TOTAL BOOKINGS
-              </span>
-
-              <strong id="totalBookings">
-                0
-              </strong>
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-icon">
-              ⚡
-            </div>
-
-            <div>
-              <span>
-                ACTIVE BOOKINGS
-              </span>
-
-              <strong id="activeBookings">
-                0
-              </strong>
-            </div>
-
-          </div>
-
-
-          <div class="stat-card earnings-stat">
-
-            <div class="stat-icon">
-              ₹
-            </div>
-
-            <div>
-              <span>
-                TOTAL EARNINGS
-              </span>
-
-              <strong id="totalEarnings">
-                ₹0
-              </strong>
-            </div>
-
-          </div>
-
+          <div class="stat-card"><div class="stat-icon">🏍</div><div><span>MY VEHICLES</span><strong id="totalVehicles">0</strong></div></div>
+          <div class="stat-card"><div class="stat-icon">📋</div><div><span>TOTAL BOOKINGS</span><strong id="totalBookings">0</strong></div></div>
+          <div class="stat-card"><div class="stat-icon">⚡</div><div><span>ACTIVE BOOKINGS</span><strong id="activeBookings">0</strong></div></div>
+          <div class="stat-card earnings-stat"><div class="stat-icon">₹</div><div><span>TOTAL EARNINGS</span><strong id="totalEarnings">₹0</strong></div></div>
         </div>
-
-
-        <!-- DASHBOARD GRID -->
 
         <div class="overview-grid">
-
-
-          <!-- VEHICLES -->
-
           <div class="dashboard-card vehicles-overview-card">
-
             <div class="card-header">
-
-              <div>
-
-                <span class="card-kicker">
-                  FLEET
-                </span>
-
-                <h3>
-                  My Vehicles
-                </h3>
-
-              </div>
-
-              <button
-                class="text-btn"
-                data-section-link="vehicles"
-              >
-                View All →
-              </button>
-
+              <div><span class="card-kicker">FLEET</span><h3>My Vehicles</h3></div>
+              <button class="text-btn" data-section-link="vehicles">View All →</button>
             </div>
-
-
-            <div
-              class="vehicle-list"
-              id="overviewVehicleList"
-            >
-
-              <div class="empty-state">
-
-                <div>
-                  🏍
-                </div>
-
-                <p>
-                  No vehicles listed yet.
-                </p>
-
-                <a href="list-vehicle.html">
-                  List Your First Vehicle
-                </a>
-
-              </div>
-
+            <div class="vehicle-list" id="overviewVehicleList">
+              <div class="empty-state"><div>🏍</div><p>No vehicles listed yet.</p><a href="list-vehicle.html">List Your First Vehicle</a></div>
             </div>
-
           </div>
-
-
-          <!-- BOOKING REQUESTS -->
 
           <div class="dashboard-card booking-overview-card">
-
             <div class="card-header">
-
-              <div>
-
-                <span class="card-kicker">
-                  LIVE
-                </span>
-
-                <h3>
-                  Booking Requests
-                </h3>
-
-              </div>
-
-              <button
-                class="text-btn"
-                data-section-link="bookings"
-              >
-                View All →
-              </button>
-
+              <div><span class="card-kicker">LIVE</span><h3>Booking Requests</h3></div>
+              <button class="text-btn" data-section-link="bookings">View All →</button>
             </div>
-
-
-            <div
-              class="booking-list"
-              id="overviewBookingList"
-            >
-
-              <div class="empty-state">
-
-                <div>
-                  📋
-                </div>
-
-                <p>
-                  No new booking requests.
-                </p>
-
-              </div>
-
+            <div class="booking-list" id="overviewBookingList">
+              <div class="empty-state"><div>📋</div><p>No new booking requests.</p></div>
             </div>
-
           </div>
-
-
         </div>
-
-
-        <!-- ACTIVITY TIMELINE -->
 
         <div class="dashboard-card activity-card">
-
-          <div class="card-header">
-
-            <div>
-
-              <span class="card-kicker">
-                ACTIVITY
-              </span>
-
-              <h3>
-                Recent Activity
-              </h3>
-
-            </div>
-
-          </div>
-
-
-          <div
-            class="activity-timeline"
-            id="activityTimeline"
-          >
-
-            <div class="timeline-empty">
-              No recent activity.
-            </div>
-
-          </div>
-
+          <div class="card-header"><div><span class="card-kicker">ACTIVITY</span><h3>Recent Activity</h3></div></div>
+          <div class="activity-timeline" id="activityTimeline"><div class="timeline-empty">No recent activity.</div></div>
         </div>
 
       </section>
 
-
-      <!-- =================================================
-           MY VEHICLES
-           ================================================= -->
-
-      <section
-        class="dashboard-section"
-        id="section-vehicles"
-      >
-
+      <section class="dashboard-section" id="section-vehicles">
         <div class="section-top">
-
-          <div>
-
-            <span class="section-kicker">
-              FLEET MANAGEMENT
-            </span>
-
-            <h2>
-              My Vehicles
-            </h2>
-
-            <p>
-              Manage all your RentoRide vehicles.
-            </p>
-
-          </div>
-
-          <a
-            href="list-vehicle.html"
-            class="primary-btn"
-          >
-            + List Vehicle
-          </a>
-
+          <div><span class="section-kicker">FLEET MANAGEMENT</span><h2>My Vehicles</h2><p>Manage all your RentoRide vehicles.</p></div>
+          <a href="list-vehicle.html" class="primary-btn">+ List Vehicle</a>
         </div>
-
-
-        <div
-          class="full-vehicle-grid"
-          id="fullVehicleList"
-        >
-
-          <div class="large-empty-state">
-
-            <div>
-              🏍
-            </div>
-
-            <h3>
-              No vehicles yet
-            </h3>
-
-            <p>
-              List your first vehicle and start earning.
-            </p>
-
-            <a
-              href="list-vehicle.html"
-              class="primary-btn"
-            >
-              List Your Vehicle
-            </a>
-
-          </div>
-
+        <div class="full-vehicle-grid" id="fullVehicleList">
+          <div class="large-empty-state"><div>🏍</div><h3>No vehicles yet</h3><p>List your first vehicle and start earning.</p><a href="list-vehicle.html" class="primary-btn">List Your Vehicle</a></div>
         </div>
-
       </section>
 
-
-      <!-- =================================================
-           BOOKINGS
-           ================================================= -->
-
-      <section
-        class="dashboard-section"
-        id="section-bookings"
-      >
-
+      <section class="dashboard-section" id="section-bookings">
         <div class="section-top">
-
-          <div>
-
-            <span class="section-kicker">
-              BOOKING MANAGEMENT
-            </span>
-
-            <h2>
-              Booking Requests
-            </h2>
-
-            <p>
-              Accept, reject and manage customer bookings.
-            </p>
-
-          </div>
-
+          <div><span class="section-kicker">BOOKING MANAGEMENT</span><h2>Booking Requests</h2><p>Accept, reject and manage customer bookings.</p></div>
         </div>
-
-
-        <!-- BOOKING FILTERS -->
-
         <div class="filter-bar">
-
-          <button
-            class="booking-filter active"
-            data-booking-filter="all"
-          >
-            All
-          </button>
-
-          <button
-            class="booking-filter"
-            data-booking-filter="pending"
-          >
-            Pending
-          </button>
-
-          <button
-            class="booking-filter"
-            data-booking-filter="accepted"
-          >
-            Accepted
-          </button>
-
-          <button
-            class="booking-filter"
-            data-booking-filter="active"
-          >
-            Active
-          </button>
-
-          <button
-            class="booking-filter"
-            data-booking-filter="completed"
-          >
-            Completed
-          </button>
-
-          <button
-            class="booking-filter"
-            data-booking-filter="cancelled"
-          >
-            Cancelled
-          </button>
-
+          <button class="booking-filter active" data-booking-filter="all">All</button>
+          <button class="booking-filter" data-booking-filter="pending">Pending</button>
+          <button class="booking-filter" data-booking-filter="accepted">Accepted</button>
+          <button class="booking-filter" data-booking-filter="active">Active</button>
+          <button class="booking-filter" data-booking-filter="completed">Completed</button>
+          <button class="booking-filter" data-booking-filter="cancelled">Cancelled</button>
         </div>
-
-
-        <div
-          class="full-booking-list"
-          id="fullBookingList"
-        >
-
-          <div class="large-empty-state">
-
-            <div>
-              📋
-            </div>
-
-            <h3>
-              No bookings found
-            </h3>
-
-            <p>
-              New customer booking requests will appear here.
-            </p>
-
-          </div>
-
+        <div class="full-booking-list" id="fullBookingList">
+          <div class="large-empty-state"><div>📋</div><h3>No bookings found</h3><p>New customer booking requests will appear here.</p></div>
         </div>
-
       </section>
 
-
-      <!-- =================================================
-           EARNINGS
-           ================================================= -->
-
-      <section
-        class="dashboard-section"
-        id="section-earnings"
-      >
-
+      <section class="dashboard-section" id="section-earnings">
         <div class="section-top">
-
-          <div>
-
-            <span class="section-kicker">
-              MONEY CENTER
-            </span>
-
-            <h2>
-              Earnings
-            </h2>
-
-            <p>
-              Track your income and withdraw your available balance.
-            </p>
-
-          </div>
-
+          <div><span class="section-kicker">MONEY CENTER</span><h2>Earnings</h2><p>Track your income and withdraw your available balance.</p></div>
         </div>
-
-
-        <!-- BALANCE HERO -->
 
         <div class="balance-card">
-
-          <div class="balance-info">
-
-            <span>
-              AVAILABLE BALANCE
-            </span>
-
-            <strong id="availableBalance">
-              ₹0
-            </strong>
-
-            <small>
-              Available for withdrawal
-            </small>
-
-          </div>
-
-
-          <button
-            class="withdraw-btn"
-            id="openWithdrawBtn"
-          >
-            💸 Withdraw Money
-          </button>
-
+          <div class="balance-info"><span>AVAILABLE BALANCE</span><strong id="availableBalance">₹0</strong><small>Available for withdrawal</small></div>
+          <button class="withdraw-btn" id="openWithdrawBtn">💸 Withdraw Money</button>
         </div>
-
-
-        <!-- EARNING STATS -->
 
         <div class="earning-stats">
-
-          <div class="earning-stat-card">
-
-            <span>
-              TOTAL EARNINGS
-            </span>
-
-            <strong id="earningsTotal">
-              ₹0
-            </strong>
-
-          </div>
-
-
-          <div class="earning-stat-card">
-
-            <span>
-              PENDING
-            </span>
-
-            <strong id="pendingEarnings">
-              ₹0
-            </strong>
-
-          </div>
-
-
-          <div class="earning-stat-card">
-
-            <span>
-              WITHDRAWN
-            </span>
-
-            <strong id="withdrawnAmount">
-              ₹0
-            </strong>
-
-          </div>
-
+          <div class="earning-stat-card"><span>TOTAL EARNINGS</span><strong id="earningsTotal">₹0</strong></div>
+          <div class="earning-stat-card"><span>PENDING</span><strong id="pendingEarnings">₹0</strong></div>
+          <div class="earning-stat-card"><span>WITHDRAWN</span><strong id="withdrawnAmount">₹0</strong></div>
         </div>
-
-
-        <!-- BANK ACCOUNT -->
 
         <div class="dashboard-card bank-card">
-
           <div class="card-header">
-
-            <div>
-
-              <span class="card-kicker">
-                PAYOUT ACCOUNT
-              </span>
-
-              <h3>
-                Bank Account
-              </h3>
-
-            </div>
-
-            <button
-              class="outline-btn"
-              id="manageBankBtn"
-            >
-              Manage
-            </button>
-
+            <div><span class="card-kicker">PAYOUT ACCOUNT</span><h3>Bank Account</h3></div>
+            <button class="outline-btn" id="manageBankBtn">Manage</button>
           </div>
-
-
-          <div
-            class="bank-account-display"
-            id="bankAccountDisplay"
-          >
-
-            <div class="bank-icon">
-              🏦
-            </div>
-
-            <div>
-
-              <strong>
-                No bank account added
-              </strong>
-
-              <p>
-                Add your bank account to receive withdrawals.
-              </p>
-
-            </div>
-
+          <div class="bank-account-display" id="bankAccountDisplay">
+            <div class="bank-icon">🏦</div>
+            <div><strong>No bank account added</strong><p>Add your bank account to receive withdrawals.</p></div>
           </div>
-
         </div>
-
-
-        <!-- WITHDRAWAL HISTORY -->
 
         <div class="dashboard-card">
-
-          <div class="card-header">
-
-            <div>
-
-              <span class="card-kicker">
-                PAYOUTS
-              </span>
-
-              <h3>
-                Withdrawal History
-              </h3>
-
-            </div>
-
-          </div>
-
-
-          <div
-            class="withdrawal-history"
-            id="withdrawalHistory"
-          >
-
-            <div class="empty-state">
-              No withdrawal history yet.
-            </div>
-
-          </div>
-
+          <div class="card-header"><div><span class="card-kicker">PAYOUTS</span><h3>Withdrawal History</h3></div></div>
+          <div class="withdrawal-history" id="withdrawalHistory"><div class="empty-state">No withdrawal history yet.</div></div>
         </div>
-
       </section>
 
-
-      <!-- =================================================
-           VERIFICATION
-           ================================================= -->
-
-      <section
-        class="dashboard-section"
-        id="section-verification"
-      >
-
+      <section class="dashboard-section" id="section-verification">
         <div class="section-top">
-
-          <div>
-
-            <span class="section-kicker">
-              TRUST & SAFETY
-            </span>
-
-            <h2>
-              Verification
-            </h2>
-
-            <p>
-              Keep your owner and vehicle documents verified.
-            </p>
-
-          </div>
-
+          <div><span class="section-kicker">TRUST & SAFETY</span><h2>Verification</h2><p>Keep your owner and vehicle documents verified.</p></div>
         </div>
-
 
         <div class="verification-status-card">
-
-          <div class="verification-circle">
-            ✓
-          </div>
-
-          <div>
-
-            <span>
-              OVERALL STATUS
-            </span>
-
-            <h3 id="overallVerificationStatus">
-              Verification Pending
-            </h3>
-
-            <p>
-              Your submitted information will be reviewed.
-            </p>
-
-          </div>
-
+          <div class="verification-circle">✓</div>
+          <div><span>OVERALL STATUS</span><h3 id="overallVerificationStatus">Verification Pending</h3><p>Your submitted information will be reviewed.</p></div>
         </div>
-
 
         <div class="verification-grid">
-
-
-          <div class="verification-item">
-
-            <div>
-              👤
-            </div>
-
-            <section>
-
-              <strong>
-                Identity Verification
-              </strong>
-
-              <span
-                class="verification-badge pending"
-                id="identityStatus"
-              >
-                Pending
-              </span>
-
-            </section>
-
-          </div>
-
-
-          <div class="verification-item">
-
-            <div>
-              📄
-            </div>
-
-            <section>
-
-              <strong>
-                Vehicle RC
-              </strong>
-
-              <span
-                class="verification-badge pending"
-                id="rcStatus"
-              >
-                Pending
-              </span>
-
-            </section>
-
-          </div>
-
-
-          <div class="verification-item">
-
-            <div>
-              🛡️
-            </div>
-
-            <section>
-
-              <strong>
-                Insurance
-              </strong>
-
-              <span
-                class="verification-badge pending"
-                id="insuranceStatus"
-              >
-                Pending
-              </span>
-
-            </section>
-
-          </div>
-
-
-          <div class="verification-item optional-verification">
-
-            <div>
-              🪪
-            </div>
-
-            <section>
-
-              <strong>
-                Operator Licence
-              </strong>
-
-              <span class="verification-badge optional">
-                Optional
-              </span>
-
-            </section>
-
-          </div>
-
+          <div class="verification-item"><div>👤</div><section><strong>Identity Verification</strong><span class="verification-badge pending" id="identityStatus">Pending</span></section></div>
+          <div class="verification-item"><div>📄</div><section><strong>Vehicle RC</strong><span class="verification-badge pending" id="rcStatus">Pending</span></section></div>
+          <div class="verification-item"><div>🛡️</div><section><strong>Insurance</strong><span class="verification-badge pending" id="insuranceStatus">Pending</span></section></div>
+          <div class="verification-item optional-verification"><div>🪪</div><section><strong>Operator Licence</strong><span class="verification-badge optional">Optional</span></section></div>
         </div>
-
       </section>
 
-
-      <!-- =================================================
-           NOTIFICATION SETTINGS
-           ================================================= -->
-
-      <section
-        class="dashboard-section"
-        id="section-notifications"
-      >
-
+      <section class="dashboard-section" id="section-notifications">
         <div class="section-top">
-
-          <div>
-
-            <span class="section-kicker">
-              ALERT CONTROL
-            </span>
-
-            <h2>
-              Booking Notifications
-            </h2>
-
-            <p>
-              Choose which booking events you want to be notified about.
-            </p>
-
-          </div>
-
+          <div><span class="section-kicker">ALERT CONTROL</span><h2>Booking Notifications</h2><p>Choose which booking events you want to be notified about.</p></div>
         </div>
-
-
-        <!-- NOTIFICATION CONTROLS -->
 
         <div class="dashboard-card notification-settings-card">
-
-
-          <div class="setting-row">
-
-            <div class="setting-info">
-
-              <div class="setting-icon">
-                📋
-              </div>
-
-              <div>
-
-                <strong>
-                  New Booking
-                </strong>
-
-                <p>
-                  Get notified when a customer requests your vehicle.
-                </p>
-
-              </div>
-
-            </div>
-
-            <label class="switch">
-
-              <input
-                type="checkbox"
-                id="notifyNewBooking"
-                checked
-              >
-
-              <span></span>
-
-            </label>
-
-          </div>
-
-
-          <div class="setting-row">
-
-            <div class="setting-info">
-
-              <div class="setting-icon">
-                ✓
-              </div>
-
-              <div>
-
-                <strong>
-                  Booking Accepted
-                </strong>
-
-                <p>
-                  Receive confirmation when a booking is accepted.
-                </p>
-
-              </div>
-
-            </div>
-
-            <label class="switch">
-
-              <input
-                type="checkbox"
-                id="notifyAccepted"
-                checked
-              >
-
-              <span></span>
-
-            </label>
-
-          </div>
-
-
-          <div class="setting-row">
-
-            <div class="setting-info">
-
-              <div class="setting-icon">
-                ✕
-              </div>
-
-              <div>
-
-                <strong>
-                  Booking Cancelled
-                </strong>
-
-                <p>
-                  Get notified when a customer cancels a booking.
-                </p>
-
-              </div>
-
-            </div>
-
-            <label class="switch">
-
-              <input
-                type="checkbox"
-                id="notifyCancelled"
-                checked
-              >
-
-              <span></span>
-
-            </label>
-
-          </div>
-
-
-          <div class="setting-row">
-
-            <div class="setting-info">
-
-              <div class="setting-icon">
-                ⏰
-              </div>
-
-              <div>
-
-                <strong>
-                  Pickup Reminder
-                </strong>
-
-                <p>
-                  Receive a reminder before scheduled pickup.
-                </p>
-
-              </div>
-
-            </div>
-
-            <label class="switch">
-
-              <input
-                type="checkbox"
-                id="notifyPickup"
-                checked
-              >
-
-              <span></span>
-
-            </label>
-
-          </div>
-
-
-          <div class="setting-row">
-
-            <div class="setting-info">
-
-              <div class="setting-icon">
-                ₹
-              </div>
-
-              <div>
-
-                <strong>
-                  Payment Received
-                </strong>
-
-                <p>
-                  Get notified when rental payment is received.
-                </p>
-
-              </div>
-
-            </div>
-
-            <label class="switch">
-
-              <input
-                type="checkbox"
-                id="notifyPayment"
-                checked
-              >
-
-              <span></span>
-
-            </label>
-
-          </div>
-
-
-          <div class="setting-row">
-
-            <div class="setting-info">
-
-              <div class="setting-icon">
-                🚚
-              </div>
-
-              <div>
-
-                <strong>
-                  Pickup & Drop Request
-                </strong>
-
-                <p>
-                  Get notified when a customer requests delivery.
-                </p>
-
-              </div>
-
-            </div>
-
-            <label class="switch">
-
-              <input
-                type="checkbox"
-                id="notifyDelivery"
-                checked
-              >
-
-              <span></span>
-
-            </label>
-
-          </div>
-
+          <div class="setting-row"><div class="setting-info"><div class="setting-icon">📋</div><div><strong>New Booking</strong><p>Get notified when a customer requests your vehicle.</p></div></div><label class="switch"><input type="checkbox" id="notifyNewBooking" checked><span></span></label></div>
+          <div class="setting-row"><div class="setting-info"><div class="setting-icon">✓</div><div><strong>Booking Accepted</strong><p>Receive confirmation when a booking is accepted.</p></div></div><label class="switch"><input type="checkbox" id="notifyAccepted" checked><span></span></label></div>
+          <div class="setting-row"><div class="setting-info"><div class="setting-icon">✕</div><div><strong>Booking Cancelled</strong><p>Get notified when a customer cancels a booking.</p></div></div><label class="switch"><input type="checkbox" id="notifyCancelled" checked><span></span></label></div>
+          <div class="setting-row"><div class="setting-info"><div class="setting-icon">⏰</div><div><strong>Pickup Reminder</strong><p>Receive a reminder before scheduled pickup.</p></div></div><label class="switch"><input type="checkbox" id="notifyPickup" checked><span></span></label></div>
+          <div class="setting-row"><div class="setting-info"><div class="setting-icon">₹</div><div><strong>Payment Received</strong><p>Get notified when rental payment is received.</p></div></div><label class="switch"><input type="checkbox" id="notifyPayment" checked><span></span></label></div>
+          <div class="setting-row"><div class="setting-info"><div class="setting-icon">🚚</div><div><strong>Pickup & Drop Request</strong><p>Get notified when a customer requests delivery.</p></div></div><label class="switch"><input type="checkbox" id="notifyDelivery" checked><span></span></label></div>
         </div>
-
-
-        <!-- SOUND -->
 
         <div class="dashboard-card sound-card">
-
-          <div class="card-header">
-
-            <div>
-
-              <span class="card-kicker">
-                AUDIO ALERTS
-              </span>
-
-              <h3>
-                Notification Sound
-              </h3>
-
-              <p>
-                Select a sound for new booking alerts.
-              </p>
-
-            </div>
-
-          </div>
-
-
+          <div class="card-header"><div><span class="card-kicker">AUDIO ALERTS</span><h3>Notification Sound</h3><p>Select a sound for new booking alerts.</p></div></div>
           <div class="sound-selector">
-
-
-            <label class="sound-option">
-
-              <input
-                type="radio"
-                name="notificationSound"
-                value="rentoride-alert"
-                checked
-              >
-
-              <span class="sound-radio"></span>
-
-              <div>
-
-                <strong>
-                  RentoRide Alert
-                </strong>
-
-                <small>
-                  Premium booking alert
-                </small>
-
-              </div>
-
-              <button
-                type="button"
-                class="sound-preview"
-                data-sound="rentoride-alert"
-              >
-                ▶
-              </button>
-
-            </label>
-
-
-            <label class="sound-option">
-
-              <input
-                type="radio"
-                name="notificationSound"
-                value="ride-bell"
-              >
-
-              <span class="sound-radio"></span>
-
-              <div>
-
-                <strong>
-                  Ride Bell
-                </strong>
-
-                <small>
-                  Short bell notification
-                </small>
-
-              </div>
-
-              <button
-                type="button"
-                class="sound-preview"
-                data-sound="ride-bell"
-              >
-                ▶
-              </button>
-
-            </label>
-
-
-            <label class="sound-option">
-
-              <input
-                type="radio"
-                name="notificationSound"
-                value="yellow-pulse"
-              >
-
-              <span class="sound-radio"></span>
-
-              <div>
-
-                <strong>
-                  Yellow Pulse
-                </strong>
-
-                <small>
-                  Modern quick alert
-                </small>
-
-              </div>
-
-              <button
-                type="button"
-                class="sound-preview"
-                data-sound="yellow-pulse"
-              >
-                ▶
-              </button>
-
-            </label>
-
-
-            <label class="sound-option">
-
-              <input
-                type="radio"
-                name="notificationSound"
-                value="quick-chime"
-              >
-
-              <span class="sound-radio"></span>
-
-              <div>
-
-                <strong>
-                  Quick Chime
-                </strong>
-
-                <small>
-                  Clean notification tone
-                </small>
-
-              </div>
-
-              <button
-                type="button"
-                class="sound-preview"
-                data-sound="quick-chime"
-              >
-                ▶
-              </button>
-
-            </label>
-
-
-            <label class="sound-option">
-
-              <input
-                type="radio"
-                name="notificationSound"
-                value="booking-ring"
-              >
-
-              <span class="sound-radio"></span>
-
-              <div>
-
-                <strong>
-                  Booking Ring
-                </strong>
-
-                <small>
-                  Strong booking notification
-                </small>
-
-              </div>
-
-              <button
-                type="button"
-                class="sound-preview"
-                data-sound="booking-ring"
-              >
-                ▶
-              </button>
-
-            </label>
-
-
+            <label class="sound-option"><input type="radio" name="notificationSound" value="rentoride-alert" checked><span class="sound-radio"></span><div><strong>RentoRide Alert</strong><small>Premium booking alert</small></div><button type="button" class="sound-preview" data-sound="rentoride-alert">▶</button></label>
+            <label class="sound-option"><input type="radio" name="notificationSound" value="ride-bell"><span class="sound-radio"></span><div><strong>Ride Bell</strong><small>Short bell notification</small></div><button type="button" class="sound-preview" data-sound="ride-bell">▶</button></label>
+            <label class="sound-option"><input type="radio" name="notificationSound" value="yellow-pulse"><span class="sound-radio"></span><div><strong>Yellow Pulse</strong><small>Modern quick alert</small></div><button type="button" class="sound-preview" data-sound="yellow-pulse">▶</button></label>
+            <label class="sound-option"><input type="radio" name="notificationSound" value="quick-chime"><span class="sound-radio"></span><div><strong>Quick Chime</strong><small>Clean notification tone</small></div><button type="button" class="sound-preview" data-sound="quick-chime">▶</button></label>
+            <label class="sound-option"><input type="radio" name="notificationSound" value="booking-ring"><span class="sound-radio"></span><div><strong>Booking Ring</strong><small>Strong booking notification</small></div><button type="button" class="sound-preview" data-sound="booking-ring">▶</button></label>
           </div>
-
-
-          <button
-            type="button"
-            class="test-sound-btn"
-            id="testNotificationSound"
-          >
-            🔊 Test Selected Sound
-          </button>
-
+          <button type="button" class="test-sound-btn" id="testNotificationSound">🔊 Test Selected Sound</button>
         </div>
-
       </section>
 
-
-      <!-- =================================================
-           PROFILE
-           ================================================= -->
-
-      <section
-        class="dashboard-section"
-        id="section-profile"
-      >
-
-        <div class="section-top">
-
-          <div>
-
-            <span class="section-kicker">
-              OWNER ACCOUNT
-            </span>
-
-            <h2>
-              My Profile
-            </h2>
-
-            <p>
-              Manage your personal information.
-            </p>
-
-          </div>
-
-        </div>
-
+      <section class="dashboard-section" id="section-profile">
+        <div class="section-top"><div><span class="section-kicker">OWNER ACCOUNT</span><h2>My Profile</h2><p>Manage your personal information.</p></div></div>
 
         <div class="dashboard-card profile-card">
-
-          <div class="profile-large-avatar" id="profileLargeAvatar">
-            K
-          </div>
-
-
+          <div class="profile-large-avatar" id="profileLargeAvatar">K</div>
           <div class="profile-details">
-
-            <div class="profile-field">
-
-              <span>
-                FULL NAME
-              </span>
-
-              <strong id="profileName">
-                Owner
-              </strong>
-
-            </div>
-
-
-            <div class="profile-field">
-
-              <span>
-                EMAIL
-              </span>
-
-              <strong id="profileEmail">
-                —
-              </strong>
-
-            </div>
-
-
-            <div class="profile-field">
-
-              <span>
-                MOBILE
-              </span>
-
-              <strong id="profilePhone">
-                —
-              </strong>
-
-            </div>
-
-
-            <div class="profile-field">
-
-              <span>
-                LOCATION
-              </span>
-
-              <strong id="profileLocation">
-                —
-              </strong>
-
-            </div>
-
+            <div class="profile-field"><span>FULL NAME</span><strong id="profileName">Owner</strong></div>
+            <div class="profile-field"><span>EMAIL</span><strong id="profileEmail">—</strong></div>
+            <div class="profile-field"><span>MOBILE</span><strong id="profilePhone">—</strong></div>
+            <div class="profile-field"><span>LOCATION</span><strong id="profileLocation">—</strong></div>
           </div>
-
         </div>
-
       </section>
 
-
-      <!-- =================================================
-           SETTINGS
-           ================================================= -->
-
-      <section
-        class="dashboard-section"
-        id="section-settings"
-      >
-
-        <div class="section-top">
-
-          <div>
-
-            <span class="section-kicker">
-              PREFERENCES
-            </span>
-
-            <h2>
-              Settings
-            </h2>
-
-            <p>
-              Control your RentoRide owner experience.
-            </p>
-
-          </div>
-
-        </div>
-
+      <section class="dashboard-section" id="section-settings">
+        <div class="section-top"><div><span class="section-kicker">PREFERENCES</span><h2>Settings</h2><p>Control your RentoRide owner experience.</p></div></div>
 
         <div class="dashboard-card settings-card">
-
-
-          <div class="setting-row">
-
-            <div class="setting-info">
-
-              <div class="setting-icon">
-                🔔
-              </div>
-
-              <div>
-
-                <strong>
-                  Booking Notifications
-                </strong>
-
-                <p>
-                  Manage booking alerts and notification sounds.
-                </p>
-
-              </div>
-
-            </div>
-
-            <button
-              class="outline-btn"
-              data-section-link="notifications"
-            >
-              Manage
-            </button>
-
-          </div>
-
-
-          <div class="setting-row">
-
-            <div class="setting-info">
-
-              <div class="setting-icon">
-                🏦
-              </div>
-
-              <div>
-
-                <strong>
-                  Bank Account
-                </strong>
-
-                <p>
-                  Manage your payout bank account.
-                </p>
-
-              </div>
-
-            </div>
-
-            <button
-              class="outline-btn"
-              id="settingsBankBtn"
-            >
-              Manage
-            </button>
-
-          </div>
-
-
-          <div class="setting-row">
-
-            <div class="setting-info">
-
-              <div class="setting-icon">
-                🔐
-              </div>
-
-              <div>
-
-                <strong>
-                  Account Security
-                </strong>
-
-                <p>
-                  Password and account security settings.
-                </p>
-
-              </div>
-
-            </div>
-
-            <button
-              class="outline-btn"
-              id="securityBtn"
-            >
-              Manage
-            </button>
-
-          </div>
-
+          <div class="setting-row"><div class="setting-info"><div class="setting-icon">🔔</div><div><strong>Booking Notifications</strong><p>Manage booking alerts and notification sounds.</p></div></div><button class="outline-btn" data-section-link="notifications">Manage</button></div>
+          <div class="setting-row"><div class="setting-info"><div class="setting-icon">🏦</div><div><strong>Bank Account</strong><p>Manage your payout bank account.</p></div></div><button class="outline-btn" id="settingsBankBtn">Manage</button></div>
+          <div class="setting-row"><div class="setting-info"><div class="setting-icon">🔐</div><div><strong>Account Security</strong><p>Password and account security settings.</p></div></div><button class="outline-btn" id="securityBtn">Manage</button></div>
         </div>
-
       </section>
 
     </div>
 
   </main>
 
-
-  <!-- =====================================================
-       WITHDRAW MODAL
-       ===================================================== -->
-
-  <div
-    class="modal"
-    id="withdrawModal"
-  >
-
+  <div class="modal" id="withdrawModal">
     <div class="modal-overlay"></div>
-
     <div class="modal-box">
-
-      <button
-        class="modal-close"
-        id="closeWithdrawModal"
-      >
-        ×
-      </button>
-
-
-      <span class="modal-kicker">
-        MONEY CENTER
-      </span>
-
-      <h2>
-        Withdraw Money
-      </h2>
-
-      <p class="modal-description">
-        Transfer your available balance to your registered bank account.
-      </p>
-
-
-      <div class="modal-balance">
-
-        <span>
-          AVAILABLE
-        </span>
-
-        <strong id="modalAvailableBalance">
-          ₹0
-        </strong>
-
-      </div>
-
-
+      <button class="modal-close" id="closeWithdrawModal">×</button>
+      <span class="modal-kicker">MONEY CENTER</span>
+      <h2>Withdraw Money</h2>
+      <p class="modal-description">Transfer your available balance to your registered bank account.</p>
+      <div class="modal-balance"><span>AVAILABLE</span><strong id="modalAvailableBalance">₹0</strong></div>
       <div class="modal-form-group">
-
-        <label for="withdrawAmount">
-          Withdrawal Amount
-        </label>
-
-        <div class="modal-price-input">
-
-          <span>₹</span>
-
-          <input
-            type="number"
-            id="withdrawAmount"
-            placeholder="Enter amount"
-            min="500"
-          >
-
-        </div>
-
-        <small>
-          Minimum withdrawal amount: ₹500
-        </small>
-
+        <label for="withdrawAmount">Withdrawal Amount</label>
+        <div class="modal-price-input"><span>₹</span><input type="number" id="withdrawAmount" placeholder="Enter amount" min="500"></div>
+        <small>Minimum withdrawal amount: ₹500</small>
       </div>
-
-
-      <div class="modal-bank-preview">
-
-        <span>
-          WITHDRAW TO
-        </span>
-
-        <strong id="withdrawBankNumber">
-          No bank account added
-        </strong>
-
-      </div>
-
-
-      <button
-        class="modal-primary-btn"
-        id="confirmWithdrawBtn"
-      >
-        Withdraw Money →
-      </button>
-
+      <div class="modal-bank-preview"><span>WITHDRAW TO</span><strong id="withdrawBankNumber">No bank account added</strong></div>
+      <button class="modal-primary-btn" id="confirmWithdrawBtn">Withdraw Money →</button>
     </div>
-
   </div>
 
-
-  <!-- =====================================================
-       BANK ACCOUNT MODAL
-       ===================================================== -->
-
-  <div
-    class="modal"
-    id="bankModal"
-  >
-
+  <div class="modal" id="bankModal">
     <div class="modal-overlay"></div>
-
     <div class="modal-box">
-
-      <button
-        class="modal-close"
-        id="closeBankModal"
-      >
-        ×
-      </button>
-
-
-      <span class="modal-kicker">
-        PAYOUT ACCOUNT
-      </span>
-
-      <h2>
-        Add Bank Account
-      </h2>
-
-      <p class="modal-description">
-        Add your bank details to receive withdrawals.
-      </p>
-
+      <button class="modal-close" id="closeBankModal">×</button>
+      <span class="modal-kicker">PAYOUT ACCOUNT</span>
+      <h2>Add Bank Account</h2>
+      <p class="modal-description">Add your bank details to receive withdrawals.</p>
 
       <form id="bankForm">
-
-        <div class="modal-form-group">
-
-          <label for="bankHolderName">
-            Account Holder Name
-          </label>
-
-          <input
-            type="text"
-            id="bankHolderName"
-            required
-            placeholder="Enter account holder name"
-          >
-
-        </div>
-
-
-        <div class="modal-form-group">
-
-          <label for="bankAccountNumber">
-            Account Number
-          </label>
-
-          <input
-            type="password"
-            id="bankAccountNumber"
-            required
-            placeholder="Enter account number"
-          >
-
-        </div>
-
-
-        <div class="modal-form-group">
-
-          <label for="confirmBankAccount">
-            Confirm Account Number
-          </label>
-
-          <input
-            type="text"
-            id="confirmBankAccount"
-            required
-            placeholder="Re-enter account number"
-          >
-
-        </div>
-
-
-        <div class="modal-form-group">
-
-          <label for="bankIfsc">
-            IFSC Code
-          </label>
-
-          <input
-            type="text"
-            id="bankIfsc"
-            required
-            placeholder="e.g. SBIN0001234"
-          >
-
-        </div>
-
-
-        <div class="modal-form-group">
-
-          <label for="bankName">
-            Bank Name
-          </label>
-
-          <input
-            type="text"
-            id="bankName"
-            required
-            placeholder="Enter bank name"
-          >
-
-        </div>
-
-
-        <button
-          type="submit"
-          class="modal-primary-btn"
-        >
-          Save Bank Account →
-        </button>
-
+        <div class="modal-form-group"><label for="bankHolderName">Account Holder Name</label><input type="text" id="bankHolderName" required placeholder="Enter account holder name"></div>
+        <div class="modal-form-group"><label for="bankAccountNumber">Account Number</label><input type="password" id="bankAccountNumber" required placeholder="Enter account number"></div>
+        <div class="modal-form-group"><label for="confirmBankAccount">Confirm Account Number</label><input type="text" id="confirmBankAccount" required placeholder="Re-enter account number"></div>
+        <div class="modal-form-group"><label for="bankIfsc">IFSC Code</label><input type="text" id="bankIfsc" required placeholder="e.g. SBIN0001234"></div>
+        <div class="modal-form-group"><label for="bankName">Bank Name</label><input type="text" id="bankName" required placeholder="Enter bank name"></div>
+        <button type="submit" class="modal-primary-btn">Save Bank Account →</button>
       </form>
-
     </div>
-
   </div>
 
-
-  <!-- =====================================================
-       BOOKING DETAIL MODAL
-       ===================================================== -->
-
-  <div
-    class="modal"
-    id="bookingModal"
-  >
-
+  <div class="modal" id="bookingModal">
     <div class="modal-overlay"></div>
-
     <div class="modal-box booking-modal-box">
-
-      <button
-        class="modal-close"
-        id="closeBookingModal"
-      >
-        ×
-      </button>
-
-
-      <span class="modal-kicker">
-        BOOKING DETAILS
-      </span>
-
-      <h2 id="bookingModalTitle">
-        Booking
-      </h2>
-
-
-      <div
-        class="booking-modal-content"
-        id="bookingModalContent"
-      >
-      </div>
-
+      <button class="modal-close" id="closeBookingModal">×</button>
+      <span class="modal-kicker">BOOKING DETAILS</span>
+      <h2 id="bookingModalTitle">Booking</h2>
+      <div class="booking-modal-content" id="bookingModalContent"></div>
     </div>
-
   </div>
 
-
-  <!-- =====================================================
-       NOTIFICATION POPUP
-       ===================================================== -->
-
-  <div
-    class="notification-popup"
-    id="notificationPopup"
-  >
-
-    <div class="popup-icon">
-      🔔
-    </div>
-
-    <div>
-
-      <strong id="popupTitle">
-        New Booking
-      </strong>
-
-      <p id="popupMessage">
-        You have received a new booking request.
-      </p>
-
-    </div>
-
-    <button id="closeNotificationPopup">
-      ×
-    </button>
-
+  <div class="notification-popup" id="notificationPopup">
+    <div class="popup-icon">🔔</div>
+    <div><strong id="popupTitle">New Booking</strong><p id="popupMessage">You have received a new booking request.</p></div>
+    <button id="closeNotificationPopup">×</button>
   </div>
 
-
-  <!-- =====================================================
-       JS
-       ===================================================== -->
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/bikes-data.js"></script>
+  <script src="js/utils.js"></script>
   <script src="js/owner-dashboard.js"></script>
 
 </body>
