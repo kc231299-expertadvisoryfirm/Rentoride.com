@@ -1,0 +1,48 @@
+/* =========================================================
+   RentoRide — Shared Loading / Error / Empty States
+   Include on any page whose JS renders async data into a grid
+   (currently: bikes.html). Framework-agnostic, no dependencies.
+   ========================================================= */
+
+@keyframes rr-shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.grid-loading {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.bike-card-skeleton {
+  height: 340px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #1a1a1a 0%, #262626 50%, #1a1a1a 100%);
+  background-size: 800px 100%;
+  animation: rr-shimmer 1.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bike-card-skeleton { animation: none; opacity: 0.6; }
+}
+
+.grid-error {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  border: 1px dashed #3a3a3a;
+  border-radius: 16px;
+  color: #b8b8b8;
+}
+
+.grid-error p {
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.availability-badge.unavailable {
+  background: #3a1a1a;
+  color: #ff8080;
+}
