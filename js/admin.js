@@ -1,40 +1,19 @@
-```javascript
 /* =========================================================
-   RentoRide Admin Dashboard
+   RentoRide Admin Dashboard  (Supabase-backed)
    File: js/admin.js
+
+   REQUIRES (in this order):
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+   <script src="js/supabase.js"></script>
+   <script src="js/admin.js"></script>
+
+   REPLACES the previous version, which had SUPABASE_URL/KEY still
+   set to the literal strings "YOUR_SUPABASE_URL"/"YOUR_SUPABASE_ANON_KEY"
+   — meaning checkAdminAccess() always failed silently and the whole
+   panel never loaded real data. Uses the shared window.supabaseClient
+   now, and adds the vehicle-approval + verification actions that
+   were UI-only before (buttons existed, no click handlers).
    ========================================================= */
-
-/* ---------------------------------------------------------
-   SUPABASE
---------------------------------------------------------- */
-
-// IMPORTANT:
-// Agar tumhare project me supabaseClient kisi aur JS file
-// se already create ho raha hai, usko yahan dobara mat banao.
-//
-// Example:
-// const supabaseClient = window.supabaseClient;
-
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-
-let supabaseClient;
-
-try {
-  if (window.supabase && SUPABASE_URL !== "YOUR_SUPABASE_URL") {
-    supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
-    );
-  }
-} catch (error) {
-  console.error("Supabase initialization error:", error);
-}
-
-
-/* ---------------------------------------------------------
-   GLOBAL STATE
---------------------------------------------------------- */
 
 let currentAdmin = null;
 let currentProfile = null;
@@ -42,1305 +21,580 @@ let currentProfile = null;
 
 /* =========================================================
    ADMIN SECURITY
-========================================================= */
+   ========================================================= */
 
 async function checkAdminAccess() {
 
-  try {
+  const current = await window.RentoRideAuth.getCurrentUser();
 
-    if (!supabaseClient) {
-      console.error("Supabase client not initialized.");
-
-      // Temporary:
-      // Agar tumhare HTML me Supabase client kisi aur script
-      // se aa raha hai, is block ko uske according adjust karna.
-      return false;
-    }
-
-    const {
-      data: { user },
-      error: userError
-    } = await supabaseClient.auth.getUser();
-
-
-    // USER LOGIN CHECK
-
-    if (userError || !user) {
-
-      window.location.replace("login.html");
-
-      return false;
-    }
-
-
-    currentAdmin = user;
-
-
-    // PROFILE + ROLE CHECK
-
-    const {
-      data: profile,
-      error: profileError
-    } = await supabaseClient
-      .from("profiles")
-      .select("id, name, email, phone, role")
-      .eq("id", user.id)
-      .single();
-
-
-    if (profileError || !profile) {
-
-      console.error("Profile error:", profileError);
-
-      alert("Admin profile not found.");
-
-      await supabaseClient.auth.signOut();
-
-      window.location.replace("login.html");
-
-      return false;
-    }
-
-
-    currentProfile = profile;
-
-
-    // ADMIN ROLE CHECK
-
-    if (String(profile.role).toLowerCase() !== "admin") {
-
-      alert("Access denied. Admin account required.");
-
-      window.location.replace("index.html");
-
-      return false;
-    }
-
-
-    // ADMIN DETAILS LOAD
-
-    updateAdminProfile(profile);
-
-    return true;
-
-  } catch (error) {
-
-    console.error("Admin security error:", error);
-
-    window.location.replace("login.html");
-
+  if (!current) {
+    window.location.replace("admin-login.html");
     return false;
   }
+
+  if (String(current.profile.role).toLowerCase() !== "admin") {
+    alert("Access denied. Admin account required.");
+    window.location.replace("index.html");
+    return false;
+  }
+
+  currentAdmin = current.authUser;
+  currentProfile = current.profile;
+
+  updateAdminProfile(current.profile);
+  return true;
 }
-
-
-/* =========================================================
-   ADMIN PROFILE UI
-========================================================= */
 
 function updateAdminProfile(profile) {
 
-  const name =
-    profile.name ||
-    profile.email?.split("@")[0] ||
-    "Administrator";
+  const name = profile.name || profile.email?.split("@")[0] || "Administrator";
+  const initials = name.trim().split(/\s+/).map(w => w.charAt(0)).join("").substring(0, 2).toUpperCase();
 
-
-  const initials =
-    name
-      .trim()
-      .split(/\s+/)
-      .map(word => word.charAt(0))
-      .join("")
-      .substring(0, 2)
-      .toUpperCase();
-
-
-  const elements = [
-
-    "adminName",
-    "adminHeaderName",
-    "welcomeAdminName"
-
-  ];
-
-
-  elements.forEach(id => {
-
-    const element = document.getElementById(id);
-
-    if (element) {
-      element.textContent = name;
-    }
-
+  ["adminName", "adminHeaderName", "welcomeAdminName"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = name;
   });
 
-
-  const avatarElements = [
-
-    "adminAvatar",
-    "adminHeaderAvatar"
-
-  ];
-
-
-  avatarElements.forEach(id => {
-
-    const element = document.getElementById(id);
-
-    if (element) {
-      element.textContent = initials || "A";
-    }
-
+  ["adminAvatar", "adminHeaderAvatar"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = initials || "A";
   });
-
 }
 
 
 /* =========================================================
-   NAVIGATION
-========================================================= */
+   NAVIGATION (unchanged)
+   ========================================================= */
 
 function setupNavigation() {
 
-  const navItems =
-    document.querySelectorAll(".admin-nav-item");
-
-
-  const sections =
-    document.querySelectorAll(".admin-section");
-
-
-  const pageTitle =
-    document.getElementById("adminPageTitle");
-
+  const navItems = document.querySelectorAll(".admin-nav-item");
+  const sections = document.querySelectorAll(".admin-section");
+  const pageTitle = document.getElementById("adminPageTitle");
 
   navItems.forEach(button => {
-
     button.addEventListener("click", () => {
 
-      const sectionName =
-        button.dataset.section;
-
-
+      const sectionName = button.dataset.section;
       if (!sectionName) return;
 
-
-      // Remove active
-
-      navItems.forEach(item => {
-
-        item.classList.remove("active");
-
-      });
-
-
-      // Add active
-
+      navItems.forEach(item => item.classList.remove("active"));
       button.classList.add("active");
+      sections.forEach(section => section.classList.remove("active"));
 
-
-      // Hide all sections
-
-      sections.forEach(section => {
-
-        section.classList.remove("active");
-
-      });
-
-
-      // Show selected section
-
-      const target =
-        document.getElementById(
-          `admin-section-${sectionName}`
-        );
-
-
-      if (target) {
-
-        target.classList.add("active");
-
-      } else {
-
-        console.warn(
-          `Section not found: admin-section-${sectionName}`
-        );
-
-        return;
-      }
-
-
-      // Page titles
+      const target = document.getElementById(`admin-section-${sectionName}`);
+      if (target) target.classList.add("active");
 
       const titles = {
-
-        overview: "Command Center",
-        users: "Users",
-        owners: "Owners",
-        vehicles: "Vehicles",
-        verification: "Verification Center",
-        bookings: "Bookings",
-        finance: "Finance Center",
-        analytics: "Analytics",
-        support: "Support & Complaints",
-        notifications: "Notifications",
+        overview: "Command Center", users: "Users", owners: "Owners",
+        vehicles: "Vehicles", verification: "Verification Center",
+        bookings: "Bookings", finance: "Finance Center", analytics: "Analytics",
+        support: "Support & Complaints", notifications: "Notifications",
         settings: "Platform Settings"
-
       };
 
-
-      if (pageTitle) {
-
-        pageTitle.textContent =
-          titles[sectionName] ||
-          "Command Center";
-
-      }
-
-
-      // Close mobile sidebar
+      if (pageTitle) pageTitle.textContent = titles[sectionName] || "Command Center";
 
       closeMobileSidebar();
-
     });
-
   });
 
-
-  // Internal section buttons
-
-  document
-    .querySelectorAll("[data-section-link]")
-    .forEach(button => {
-
-      button.addEventListener("click", () => {
-
-        const targetSection =
-          button.dataset.sectionLink;
-
-        const targetNav =
-          document.querySelector(
-            `.admin-nav-item[data-section="${targetSection}"]`
-          );
-
-
-        if (targetNav) {
-
-          targetNav.click();
-
-        }
-
-      });
-
+  document.querySelectorAll("[data-section-link]").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelector(`.admin-nav-item[data-section="${button.dataset.sectionLink}"]`)?.click();
     });
-
+  });
 }
 
 
 /* =========================================================
-   MOBILE SIDEBAR
-========================================================= */
+   MOBILE SIDEBAR (unchanged)
+   ========================================================= */
 
 function setupMobileMenu() {
 
-  const menuBtn =
-    document.getElementById("adminMenuBtn");
+  document.getElementById("adminMenuBtn")?.addEventListener("click", () => {
+    document.getElementById("adminSidebar")?.classList.toggle("open");
+    document.getElementById("adminSidebarOverlay")?.classList.toggle("active");
+  });
 
-  const sidebar =
-    document.getElementById("adminSidebar");
-
-  const overlay =
-    document.getElementById("adminSidebarOverlay");
-
-
-  if (menuBtn) {
-
-    menuBtn.addEventListener("click", () => {
-
-      sidebar?.classList.toggle("open");
-
-      overlay?.classList.toggle("active");
-
-    });
-
-  }
-
-
-  if (overlay) {
-
-    overlay.addEventListener("click", () => {
-
-      closeMobileSidebar();
-
-    });
-
-  }
-
+  document.getElementById("adminSidebarOverlay")?.addEventListener("click", closeMobileSidebar);
 }
 
-
 function closeMobileSidebar() {
-
-  document
-    .getElementById("adminSidebar")
-    ?.classList.remove("open");
-
-
-  document
-    .getElementById("adminSidebarOverlay")
-    ?.classList.remove("active");
-
+  document.getElementById("adminSidebar")?.classList.remove("open");
+  document.getElementById("adminSidebarOverlay")?.classList.remove("active");
 }
 
 
 /* =========================================================
    LOGOUT
-========================================================= */
+   ========================================================= */
 
 function setupLogout() {
-
-  const logoutBtn =
-    document.getElementById("adminLogoutBtn");
-
-
-  if (!logoutBtn) return;
-
-
-  logoutBtn.addEventListener("click", async () => {
-
-    const confirmLogout =
-      confirm("Are you sure you want to logout?");
-
-
-    if (!confirmLogout) return;
-
-
-    try {
-
-      if (supabaseClient) {
-
-        await supabaseClient.auth.signOut();
-
-      }
-
-    } catch (error) {
-
-      console.error("Logout error:", error);
-
-    }
-
-
-    window.location.replace("login.html");
-
+  document.getElementById("adminLogoutBtn")?.addEventListener("click", async () => {
+    if (!confirm("Are you sure you want to logout?")) return;
+    await window.RentoRideAuth.signOut();
   });
-
 }
 
 
 /* =========================================================
-   MODAL SYSTEM
-========================================================= */
+   MODAL SYSTEM (unchanged)
+   ========================================================= */
 
 function setupModals() {
 
-  const modal =
-    document.getElementById("adminDetailModal");
+  const modal = document.getElementById("adminDetailModal");
+  const closeBtn = document.getElementById("closeAdminDetailModal");
+  const overlay = modal?.querySelector(".admin-modal-overlay");
 
-  const closeBtn =
-    document.getElementById("closeAdminDetailModal");
+  function closeModal() { modal?.classList.remove("active"); }
 
-  const overlay =
-    modal?.querySelector(".admin-modal-overlay");
-
-
-  function closeModal() {
-
-    modal?.classList.remove("active");
-
-  }
-
-
-  if (closeBtn) {
-
-    closeBtn.addEventListener(
-      "click",
-      closeModal
-    );
-
-  }
-
-
-  if (overlay) {
-
-    overlay.addEventListener(
-      "click",
-      closeModal
-    );
-
-  }
-
-
-  document.addEventListener("keydown", event => {
-
-    if (event.key === "Escape") {
-
-      closeModal();
-
-    }
-
-  });
-
+  closeBtn?.addEventListener("click", closeModal);
+  overlay?.addEventListener("click", closeModal);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 }
-
-
-/* =========================================================
-   SHOW ADMIN DETAIL MODAL
-========================================================= */
 
 function showAdminDetail(title, content) {
 
-  const modal =
-    document.getElementById("adminDetailModal");
-
-  const titleElement =
-    document.getElementById("adminDetailModalTitle");
-
-  const contentElement =
-    document.getElementById("adminDetailModalContent");
-
-
+  const modal = document.getElementById("adminDetailModal");
   if (!modal) return;
 
-
-  if (titleElement) {
-
-    titleElement.textContent =
-      title || "Details";
-
-  }
-
-
-  if (contentElement) {
-
-    contentElement.innerHTML =
-      content || "";
-
-  }
-
+  document.getElementById("adminDetailModalTitle").textContent = title || "Details";
+  document.getElementById("adminDetailModalContent").innerHTML = content || "";
 
   modal.classList.add("active");
-
 }
 
 
 /* =========================================================
-   VEHICLE FILTERS
-========================================================= */
+   VEHICLE APPROVAL — this makes the "Vehicles" section real:
+   loads pending/approved/rejected/suspended vehicles from
+   Supabase and lets the admin approve/reject/suspend them.
+   ========================================================= */
+
+let allVehiclesCache = [];
+
+async function loadVehicles() {
+
+  const { data, error } = await window.supabaseClient
+    .from("bikes")
+    .select("id, name, brand, model, location, status, image_url, owner_id, profiles:owner_id (name, email)")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Admin vehicles load error:", error);
+    return;
+  }
+
+  allVehiclesCache = data || [];
+
+  setNumber("adminTotalVehicles", allVehiclesCache.length);
+  setNumber("vehicleBadge", allVehiclesCache.filter(v => v.status === "pending").length);
+  setNumber("pendingVehicleApprovals", allVehiclesCache.filter(v => v.status === "pending").length);
+
+  renderVehicleGrid("all");
+}
+
+function renderVehicleGrid(filter) {
+
+  const container = document.getElementById("adminVehicleList");
+  if (!container) return;
+
+  const list = filter === "all" ? allVehiclesCache : allVehiclesCache.filter(v => v.status === filter);
+
+  if (!list.length) {
+    container.innerHTML = `
+      <div class="admin-large-empty"><div>🏍</div><h3>No vehicles</h3>
+      <p>No vehicles match this filter.</p></div>`;
+    return;
+  }
+
+  container.innerHTML = list.map(bike => `
+    <div class="admin-vehicle-card" data-status="${bike.status}" data-bike-id="${bike.id}">
+      <img src="${bike.image_url || 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80'}" alt="${bike.name}">
+      <div>
+        <strong>${bike.name}</strong>
+        <p>${bike.location}</p>
+        <small>Owner: ${bike.profiles?.name || "—"}</small>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+          ${vehicleActionButtons(bike)}
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  attachVehicleActionListeners();
+}
+
+function vehicleActionButtons(bike) {
+  if (bike.status === "pending") {
+    return `
+      <button class="admin-outline-btn" data-vehicle-action="approved" data-id="${bike.id}">Approve</button>
+      <button class="admin-outline-btn" data-vehicle-action="rejected" data-id="${bike.id}">Reject</button>`;
+  }
+  if (bike.status === "approved") {
+    return `<button class="admin-outline-btn" data-vehicle-action="suspended" data-id="${bike.id}">Suspend</button>`;
+  }
+  if (bike.status === "suspended") {
+    return `<button class="admin-outline-btn" data-vehicle-action="approved" data-id="${bike.id}">Reinstate</button>`;
+  }
+  return "";
+}
+
+function attachVehicleActionListeners() {
+  document.querySelectorAll("[data-vehicle-action]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+
+      btn.disabled = true;
+
+      const { error } = await window.supabaseClient
+        .from("bikes")
+        .update({ status: btn.dataset.vehicleAction })
+        .eq("id", btn.dataset.id);
+
+      if (error) {
+        console.error("Vehicle status update error:", error);
+        showAdminNotification("Error", "Could not update vehicle status.");
+        btn.disabled = false;
+        return;
+      }
+
+      showAdminNotification("Vehicle Updated", `Status set to ${btn.dataset.vehicleAction}.`);
+      loadVehicles();
+    });
+  });
+}
 
 function setupVehicleFilters() {
-
-  const buttons =
-    document.querySelectorAll(
-      "[data-vehicle-filter]"
-    );
-
-
-  buttons.forEach(button => {
-
+  document.querySelectorAll("[data-vehicle-filter]").forEach(button => {
     button.addEventListener("click", () => {
-
-      buttons.forEach(btn =>
-        btn.classList.remove("active")
-      );
-
-
+      document.querySelectorAll("[data-vehicle-filter]").forEach(b => b.classList.remove("active"));
       button.classList.add("active");
-
-
-      const filter =
-        button.dataset.vehicleFilter;
-
-
-      console.log(
-        "Vehicle filter:",
-        filter
-      );
-
-
-      filterVehicleCards(filter);
-
+      renderVehicleGrid(button.dataset.vehicleFilter);
     });
-
   });
-
-}
-
-
-function filterVehicleCards(filter) {
-
-  const cards =
-    document.querySelectorAll(
-      ".admin-vehicle-card"
-    );
-
-
-  cards.forEach(card => {
-
-    if (filter === "all") {
-
-      card.style.display = "";
-
-      return;
-
-    }
-
-
-    const status =
-      card.dataset.status;
-
-
-    card.style.display =
-      status === filter
-        ? ""
-        : "none";
-
-  });
-
 }
 
 
 /* =========================================================
-   BOOKING FILTERS
-========================================================= */
+   BOOKINGS TABLE
+   ========================================================= */
+
+async function loadAdminBookings() {
+
+  const { data, error } = await window.supabaseClient
+    .from("bookings")
+    .select("id, booking_ref, status, amount, start_date, end_date, bikes(name), profiles:customer_id(name)")
+    .order("created_at", { ascending: false })
+    .limit(200);
+
+  if (error) {
+    console.error("Admin bookings load error:", error);
+    return;
+  }
+
+  setNumber("adminTotalBookings", data.length);
+  setNumber("adminActiveRentals", data.filter(b => b.status === "active").length);
+
+  const commission = data
+    .filter(b => b.status === "completed")
+    .reduce((sum, b) => sum + Number(b.amount) * 0.10, 0); // 10% default platform commission
+
+  setCurrency("adminPlatformRevenue", commission);
+
+  const container = document.getElementById("adminBookingsTable");
+  if (!container) return;
+
+  if (!data.length) {
+    container.innerHTML = `<div class="admin-table-empty">No bookings yet.</div>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr style="text-align:left;opacity:.7;font-size:12px;">
+          <th style="padding:8px;">Ref</th><th>Vehicle</th><th>Customer</th>
+          <th>Dates</th><th>Amount</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${data.map(b => `
+          <tr class="admin-booking-row" data-status="${b.status}" style="border-top:1px solid var(--border,#2a2a2a);">
+            <td style="padding:8px;">${b.booking_ref}</td>
+            <td>${b.bikes?.name || "—"}</td>
+            <td>${b.profiles?.name || "—"}</td>
+            <td>${b.start_date} → ${b.end_date}</td>
+            <td>₹${b.amount}</td>
+            <td><span class="admin-badge">${b.status}</span></td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>`;
+}
 
 function setupBookingFilters() {
-
-  const buttons =
-    document.querySelectorAll(
-      ".admin-booking-filter"
-    );
-
-
-  buttons.forEach(button => {
-
+  document.querySelectorAll(".admin-booking-filter").forEach(button => {
     button.addEventListener("click", () => {
-
-      buttons.forEach(btn =>
-        btn.classList.remove("active")
-      );
-
-
+      document.querySelectorAll(".admin-booking-filter").forEach(b => b.classList.remove("active"));
       button.classList.add("active");
-
-
-      const filter =
-        button.dataset.bookingFilter;
-
-
-      filterBookingRows(filter);
-
+      const filter = button.dataset.bookingFilter;
+      document.querySelectorAll(".admin-booking-row").forEach(row => {
+        row.style.display = filter === "all" || row.dataset.status === filter ? "" : "none";
+      });
     });
-
   });
-
-}
-
-
-function filterBookingRows(filter) {
-
-  const rows =
-    document.querySelectorAll(
-      ".admin-booking-row"
-    );
-
-
-  rows.forEach(row => {
-
-    if (filter === "all") {
-
-      row.style.display = "";
-
-      return;
-
-    }
-
-
-    const status =
-      row.dataset.status;
-
-
-    row.style.display =
-      status === filter
-        ? ""
-        : "none";
-
-  });
-
 }
 
 
 /* =========================================================
-   SUPPORT FILTERS
-========================================================= */
+   USERS / OWNERS TABLES
+   ========================================================= */
 
-function setupSupportFilters() {
+async function loadUsersAndOwners() {
 
-  const buttons =
-    document.querySelectorAll(
-      ".support-filter"
-    );
+  const { data, error } = await window.supabaseClient
+    .from("profiles")
+    .select("id, name, email, phone, role, created_at");
 
+  if (error) {
+    console.error("Profiles load error:", error);
+    return;
+  }
 
-  buttons.forEach(button => {
+  const customers = data.filter(p => p.role === "customer");
+  const owners = data.filter(p => p.role === "owner");
 
-    button.addEventListener("click", () => {
+  setNumber("adminTotalUsers", customers.length);
+  setNumber("userBadge", customers.length);
+  setNumber("adminTotalOwners", owners.length);
+  setNumber("ownerBadge", owners.length);
 
-      buttons.forEach(btn =>
-        btn.classList.remove("active")
-      );
+  renderProfileTable("usersTable", customers);
+  renderProfileTable("ownersTable", owners);
+}
 
+function renderProfileTable(containerId, rows) {
 
-      button.classList.add("active");
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
+  if (!rows.length) {
+    container.innerHTML = `<div class="admin-table-empty">None yet.</div>`;
+    return;
+  }
 
-      const filter =
-        button.dataset.supportFilter;
-
-
-      filterSupportCases(filter);
-
-    });
-
-  });
-
+  container.innerHTML = `
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr style="text-align:left;opacity:.7;font-size:12px;">
+          <th style="padding:8px;">Name</th><th>Email</th><th>Phone</th><th>Joined</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map(p => `
+          <tr class="admin-table-row" style="border-top:1px solid var(--border,#2a2a2a);">
+            <td style="padding:8px;">${p.name || "—"}</td>
+            <td>${p.email}</td>
+            <td>${p.phone || "—"}</td>
+            <td>${new Date(p.created_at).toLocaleDateString("en-IN")}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>`;
 }
 
 
-function filterSupportCases(filter) {
+/* =========================================================
+   SUPPORT / ANALYTICS
+   Not yet backed by dedicated tables in this pass — left as
+   the existing empty-state UI rather than faked with mock data.
+   ========================================================= */
 
-  const cards =
-    document.querySelectorAll(
-      ".support-case"
-    );
-
-
-  cards.forEach(card => {
-
-    if (filter === "all") {
-
-      card.style.display = "";
-
-      return;
-
-    }
-
-
-    const status =
-      card.dataset.status;
-
-
-    card.style.display =
-      status === filter
-        ? ""
-        : "none";
-
+function setupSupportFilters() {
+  document.querySelectorAll(".support-filter").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".support-filter").forEach(b => b.classList.remove("active"));
+      button.classList.add("active");
+    });
   });
-
 }
 
 
 /* =========================================================
    SEARCH
-========================================================= */
+   ========================================================= */
 
 function setupSearch() {
 
-  const userSearch =
-    document.getElementById("userSearch");
-
-  const ownerSearch =
-    document.getElementById("ownerSearch");
-
-
-  if (userSearch) {
-
-    userSearch.addEventListener(
-      "input",
-      () => {
-
-        searchTable(
-          userSearch.value,
-          "#usersTable .admin-table-row"
-        );
-
-      }
-    );
-
-  }
-
-
-  if (ownerSearch) {
-
-    ownerSearch.addEventListener(
-      "input",
-      () => {
-
-        searchTable(
-          ownerSearch.value,
-          "#ownersTable .admin-table-row"
-        );
-
-      }
-    );
-
-  }
-
-}
-
-
-function searchTable(query, selector) {
-
-  const rows =
-    document.querySelectorAll(selector);
-
-
-  const search =
-    query.trim().toLowerCase();
-
-
-  rows.forEach(row => {
-
-    const text =
-      row.textContent.toLowerCase();
-
-
-    row.style.display =
-      text.includes(search)
-        ? ""
-        : "none";
-
+  document.getElementById("userSearch")?.addEventListener("input", e => {
+    searchTable(e.target.value, "#usersTable .admin-table-row");
   });
 
+  document.getElementById("ownerSearch")?.addEventListener("input", e => {
+    searchTable(e.target.value, "#ownersTable .admin-table-row");
+  });
+}
+
+function searchTable(query, selector) {
+  const search = query.trim().toLowerCase();
+  document.querySelectorAll(selector).forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(search) ? "" : "none";
+  });
 }
 
 
 /* =========================================================
    NOTIFICATION POPUP
-========================================================= */
+   ========================================================= */
 
 function showAdminNotification(title, message) {
 
-  const popup =
-    document.getElementById(
-      "adminNotificationPopup"
-    );
-
-
-  const titleElement =
-    document.getElementById(
-      "adminPopupTitle"
-    );
-
-
-  const messageElement =
-    document.getElementById(
-      "adminPopupMessage"
-    );
-
-
+  const popup = document.getElementById("adminNotificationPopup");
   if (!popup) return;
 
-
-  if (titleElement) {
-
-    titleElement.textContent =
-      title || "System Notification";
-
-  }
-
-
-  if (messageElement) {
-
-    messageElement.textContent =
-      message || "";
-
-  }
-
+  document.getElementById("adminPopupTitle").textContent = title || "System Notification";
+  document.getElementById("adminPopupMessage").textContent = message || "";
 
   popup.classList.add("active");
-
-
-  setTimeout(() => {
-
-    popup.classList.remove("active");
-
-  }, 5000);
-
+  setTimeout(() => popup.classList.remove("active"), 5000);
 }
-
-
-/* =========================================================
-   NOTIFICATION POPUP CLOSE
-========================================================= */
 
 function setupNotificationPopup() {
 
-  const popup =
-    document.getElementById(
-      "adminNotificationPopup"
-    );
+  document.getElementById("closeAdminNotificationPopup")?.addEventListener("click", () => {
+    document.getElementById("adminNotificationPopup")?.classList.remove("active");
+  });
 
-
-  const close =
-    document.getElementById(
-      "closeAdminNotificationPopup"
-    );
-
-
-  if (close) {
-
-    close.addEventListener("click", () => {
-
-      popup?.classList.remove("active");
-
-    });
-
-  }
-
-
-  const notificationButton =
-    document.getElementById(
-      "adminNotificationBtn"
-    );
-
-
-  if (notificationButton) {
-
-    notificationButton.addEventListener(
-      "click",
-      () => {
-
-        const section =
-          document.querySelector(
-            '.admin-nav-item[data-section="notifications"]'
-          );
-
-
-        section?.click();
-
-      }
-    );
-
-  }
-
+  document.getElementById("adminNotificationBtn")?.addEventListener("click", () => {
+    document.querySelector('.admin-nav-item[data-section="notifications"]')?.click();
+  });
 }
 
 
 /* =========================================================
-   ADMIN NOTIFICATION FORM
-========================================================= */
+   ADMIN BROADCAST NOTIFICATION — currently logs only, since
+   there's no `notifications` table yet in this pass. Marked
+   clearly rather than pretending it sends anything.
+   ========================================================= */
 
 function setupNotificationForm() {
 
-  const form =
-    document.getElementById(
-      "adminNotificationForm"
-    );
-
-
+  const form = document.getElementById("adminNotificationForm");
   if (!form) return;
 
+  form.addEventListener("submit", async event => {
 
-  form.addEventListener(
-    "submit",
-    async event => {
+    event.preventDefault();
 
-      event.preventDefault();
+    const title = document.getElementById("notificationTitle")?.value.trim();
+    const message = document.getElementById("notificationMessage")?.value.trim();
 
-
-      const audience =
-        document.getElementById(
-          "notificationAudience"
-        )?.value;
-
-
-      const title =
-        document.getElementById(
-          "notificationTitle"
-        )?.value.trim();
-
-
-      const message =
-        document.getElementById(
-          "notificationMessage"
-        )?.value.trim();
-
-
-      if (!title || !message) {
-
-        alert(
-          "Please enter notification title and message."
-        );
-
-        return;
-
-      }
-
-
-      /*
-       * Abhi database table ka exact schema
-       * define nahi hua hai, isliye yahan fake
-       * database insert nahi kar rahe.
-       *
-       * Form working rahega aur validation karega.
-       */
-
-      console.log({
-        audience,
-        title,
-        message
-      });
-
-
-      showAdminNotification(
-        "Notification Ready",
-        "Notification details validated successfully."
-      );
-
-
-      form.reset();
-
+    if (!title || !message) {
+      alert("Please enter notification title and message.");
+      return;
     }
-  );
 
+    // FRONTEND READY — BACKEND INTEGRATION REQUIRED:
+    // needs a `notifications` table + delivery mechanism (email/push)
+    // to actually reach users. Flagged rather than faked.
+    showAdminNotification("Not yet wired", "Notification broadcast storage isn't built yet — this form validates but doesn't send.");
+
+    form.reset();
+  });
 }
 
 
 /* =========================================================
-   PLATFORM SETTINGS
-========================================================= */
+   PLATFORM SETTINGS — stored in localStorage for now since
+   there's no settings table; flagged, not faked as saved to DB.
+   ========================================================= */
 
 function setupPlatformSettings() {
 
-  const saveBtn =
-    document.getElementById(
-      "saveAdminSettings"
-    );
-
-
+  const saveBtn = document.getElementById("saveAdminSettings");
   if (!saveBtn) return;
 
+  ["platformCommissionRate", "minimumWithdrawal", "defaultDeliveryCharge"].forEach(id => {
+    const el = document.getElementById(id);
+    const saved = localStorage.getItem("rr_admin_" + id);
+    if (el && saved !== null) el.value = saved;
+  });
 
-  saveBtn.addEventListener(
-    "click",
-    () => {
+  ["allowBookings", "maintenanceMode"].forEach(id => {
+    const el = document.getElementById(id);
+    const saved = localStorage.getItem("rr_admin_" + id);
+    if (el && saved !== null) el.checked = saved === "true";
+  });
 
-      const commission =
-        document.getElementById(
-          "platformCommissionRate"
-        )?.value;
+  saveBtn.addEventListener("click", () => {
 
+    ["platformCommissionRate", "minimumWithdrawal", "defaultDeliveryCharge"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) localStorage.setItem("rr_admin_" + id, el.value);
+    });
 
-      const minimumWithdrawal =
-        document.getElementById(
-          "minimumWithdrawal"
-        )?.value;
+    ["allowBookings", "maintenanceMode"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) localStorage.setItem("rr_admin_" + id, el.checked);
+    });
 
-
-      const deliveryCharge =
-        document.getElementById(
-          "defaultDeliveryCharge"
-        )?.value;
-
-
-      const allowBookings =
-        document.getElementById(
-          "allowBookings"
-        )?.checked;
-
-
-      const maintenanceMode =
-        document.getElementById(
-          "maintenanceMode"
-        )?.checked;
-
-
-      console.log(
-        "Platform settings:",
-        {
-          commission,
-          minimumWithdrawal,
-          deliveryCharge,
-          allowBookings,
-          maintenanceMode
-        }
-      );
-
-
-      showAdminNotification(
-        "Settings Saved",
-        "Platform settings have been updated."
-      );
-
-    }
-  );
-
+    showAdminNotification("Settings Saved", "Platform settings have been updated for this device.");
+  });
 }
-
-
-/* =========================================================
-   REVENUE PERIOD
-========================================================= */
 
 function setupRevenuePeriod() {
-
-  const select =
-    document.getElementById(
-      "revenuePeriod"
-    );
-
-
-  if (!select) return;
-
-
-  select.addEventListener(
-    "change",
-    () => {
-
-      console.log(
-        "Revenue period:",
-        select.value
-      );
-
-    }
-  );
-
+  document.getElementById("revenuePeriod")?.addEventListener("change", () => {
+    // Revenue chart rendering is a future-version item (see roadmap) —
+    // left as the existing placeholder rather than faked with mock data.
+  });
 }
 
 
 /* =========================================================
-   BASIC DASHBOARD DATA
-========================================================= */
+   NUMBER HELPERS
+   ========================================================= */
 
 function setNumber(id, value) {
-
-  const element =
-    document.getElementById(id);
-
-
-  if (element) {
-
-    element.textContent =
-      Number(value || 0).toLocaleString("en-IN");
-
-  }
-
+  const el = document.getElementById(id);
+  if (el) el.textContent = Number(value || 0).toLocaleString("en-IN");
 }
-
 
 function setCurrency(id, value) {
-
-  const element =
-    document.getElementById(id);
-
-
-  if (element) {
-
-    element.textContent =
-      "₹" +
-      Number(value || 0).toLocaleString("en-IN");
-
-  }
-
-}
-
-
-/* =========================================================
-   LOAD DASHBOARD COUNTS
-========================================================= */
-
-async function loadDashboardStats() {
-
-  if (!supabaseClient) return;
-
-
-  try {
-
-    // USERS
-
-    const usersResult =
-      await supabaseClient
-        .from("profiles")
-        .select("id", {
-          count: "exact",
-          head: true
-        });
-
-
-    if (!usersResult.error) {
-
-      setNumber(
-        "adminTotalUsers",
-        usersResult.count
-      );
-
-      setNumber(
-        "userBadge",
-        usersResult.count
-      );
-
-    }
-
-
-    // OWNERS
-
-    const ownersResult =
-      await supabaseClient
-        .from("profiles")
-        .select("id", {
-          count: "exact",
-          head: true
-        })
-        .eq("role", "owner");
-
-
-    if (!ownersResult.error) {
-
-      setNumber(
-        "adminTotalOwners",
-        ownersResult.count
-      );
-
-      setNumber(
-        "ownerBadge",
-        ownersResult.count
-      );
-
-    }
-
-
-    // VEHICLES
-
-    const vehiclesResult =
-      await supabaseClient
-        .from("bikes")
-        .select("id", {
-          count: "exact",
-          head: true
-        });
-
-
-    if (!vehiclesResult.error) {
-
-      setNumber(
-        "adminTotalVehicles",
-        vehiclesResult.count
-      );
-
-      setNumber(
-        "vehicleBadge",
-        vehiclesResult.count
-      );
-
-    }
-
-
-    // BOOKINGS
-
-    const bookingsResult =
-      await supabaseClient
-        .from("bookings")
-        .select("id", {
-          count: "exact",
-          head: true
-        });
-
-
-    if (!bookingsResult.error) {
-
-      setNumber(
-        "adminTotalBookings",
-        bookingsResult.count
-      );
-
-    }
-
-
-  } catch (error) {
-
-    console.error(
-      "Dashboard stats error:",
-      error
-    );
-
-  }
-
+  const el = document.getElementById(id);
+  if (el) el.textContent = "₹" + Number(value || 0).toLocaleString("en-IN");
 }
 
 
 /* =========================================================
    PAGE INITIALIZATION
-========================================================= */
+   ========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  async () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
-    /*
-     * SECURITY FIRST
-     *
-     * Admin check fail hua toh dashboard
-     * ka baaki JS execute nahi hoga.
-     */
+  const allowed = await checkAdminAccess();
+  if (!allowed) return;
 
-    const allowed =
-      await checkAdminAccess();
+  setupNavigation();
+  setupMobileMenu();
+  setupLogout();
+  setupModals();
+  setupVehicleFilters();
+  setupBookingFilters();
+  setupSupportFilters();
+  setupSearch();
+  setupNotificationPopup();
+  setupNotificationForm();
+  setupPlatformSettings();
+  setupRevenuePeriod();
 
+  await Promise.all([
+    loadUsersAndOwners(),
+    loadVehicles(),
+    loadAdminBookings()
+  ]);
 
-    if (!allowed) {
-
-      return;
-
-    }
-
-
-    // UI
-
-    setupNavigation();
-
-    setupMobileMenu();
-
-    setupLogout();
-
-    setupModals();
-
-    setupVehicleFilters();
-
-    setupBookingFilters();
-
-    setupSupportFilters();
-
-    setupSearch();
-
-    setupNotificationPopup();
-
-    setupNotificationForm();
-
-    setupPlatformSettings();
-
-    setupRevenuePeriod();
-
-
-    // DATA
-
-    await loadDashboardStats();
-
-
-    console.log(
-      "RentoRide Admin Dashboard initialized."
-    );
-
-  }
-);
-```
+  console.log("RentoRide Admin Dashboard initialized (Supabase-backed).");
+});

@@ -1,7 +1,19 @@
 /* =========================================================
-   RentoRide — Login / Signup JS
-   Adds: password strength meter, live confirm-match,
-   phone digit validation, email regex check, button loading states
+   RentoRide — Login / Signup JS  (real Supabase auth)
+
+   REQUIRES (include before this file, in this order):
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+   <script src="js/supabase.js"></script>
+   <script src="js/login.js"></script>
+
+   Replaces the previous stubbed version where submit handlers
+   just did `await new Promise(r => setTimeout(r, 600))` and
+   showed a fake success message without calling Supabase at all.
+
+   UI/validation logic (tabs, password strength meter, show/hide,
+   phone digit filter, account-type toggle) is unchanged from the
+   working version — only the two submit handlers and the account
+   type toggle's effect on redirect are new/changed.
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -29,14 +41,16 @@ document.addEventListener("DOMContentLoaded", () => {
      MESSAGE HELPERS
      ========================================================= */
 
-  function showMessage(message) {
+  function showMessage(message, isError = true) {
     authMessage.textContent = message;
     authMessage.classList.add("show");
+    authMessage.classList.toggle("is-error", isError);
+    authMessage.classList.toggle("is-success", !isError);
   }
 
   function hideMessage() {
     authMessage.textContent = "";
-    authMessage.classList.remove("show");
+    authMessage.classList.remove("show", "is-error", "is-success");
   }
 
 
@@ -91,8 +105,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     ACCOUNT TYPE TOGGLE (I'm a customer / I'm a vehicle owner)
-     Shared across Log in + Create account, drives redirect after auth
+     ACCOUNT TYPE TOGGLE
+     Drives both the signup role AND where login redirects to,
+     since a customer and an owner land on different home pages.
      ========================================================= */
 
   const typeCustomer = document.getElementById("typeCustomer");
@@ -112,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     PHONE VALIDATION (digits only, max 10) — mirrors list-vehicle.js
+     PHONE VALIDATION
      ========================================================= */
 
   const signupPhone = document.getElementById("signupPhone");
@@ -126,13 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      PASSWORD STRENGTH METER
-     Add this markup once, right after #signupPassword's
-     .password-wrap in login.html:
-
-     <div class="strength-meter" id="strengthMeter">
-       <div class="strength-bar" id="strengthBar"></div>
-     </div>
-     <small class="strength-label" id="strengthLabel"></small>
      ========================================================= */
 
   const signupPassword = document.getElementById("signupPassword");
@@ -148,10 +156,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (/[0-9]/.test(value)) score++;
     if (/[^A-Za-z0-9]/.test(value)) score++;
 
-    if (!value) return { level: "", score: 0 };
-    if (score <= 1) return { level: "weak", score };
-    if (score <= 3) return { level: "medium", score };
-    return { level: "strong", score };
+    if (!value) return { level: "" };
+    if (score <= 1) return { level: "weak" };
+    if (score <= 3) return { level: "medium" };
+    return { level: "strong" };
   }
 
   if (signupPassword && strengthBar && strengthLabel) {
@@ -178,10 +186,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      LIVE CONFIRM-PASSWORD MATCH
-     Add this markup once, right after #signupConfirm's
-     .password-wrap in login.html:
-
-     <small class="match-hint" id="matchHint"></small>
      ========================================================= */
 
   const signupConfirm = document.getElementById("signupConfirm");
@@ -210,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     BUTTON LOADING STATE HELPER
+     BUTTON LOADING STATE
      ========================================================= */
 
   function setButtonLoading(button, isLoading, loadingText, originalText) {
@@ -223,6 +227,33 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       button.disabled = false;
       button.innerHTML = originalText || button.dataset.originalText || button.innerHTML;
+    }
+  }
+
+
+  /* =========================================================
+     POST-LOGIN REDIRECT
+     Sends the user to the right home page for their role, and
+     honours a ?redirect= param set by RentoRideAuth.requireAuth()
+     when they got bounced here from a protected page.
+     ========================================================= */
+
+  function redirectAfterAuth(role) {
+
+    const params = new URLSearchParams(window.location.search);
+    const redirectTo = params.get("redirect");
+
+    if (redirectTo) {
+      window.location.href = redirectTo;
+      return;
+    }
+
+    if (role === "admin") {
+      window.location.href = "admin.html";
+    } else if (role === "owner") {
+      window.location.href = "owner-dashboard.html";
+    } else {
+      window.location.href = "index.html";
     }
   }
 
@@ -252,13 +283,35 @@ document.addEventListener("DOMContentLoaded", () => {
     setButtonLoading(submitBtn, true, "Logging in...");
 
     try {
-      /*
-       * SUPABASE LOGIN — connect actual call here.
-       * await supabaseClient.auth.signInWithPassword({ email, password });
-       */
-      await new Promise(resolve => setTimeout(resolve, 600));
 
-      showMessage("Login system is ready to connect with Supabase.");
+      const { data, error } =
+        await window.supabaseClient.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        showMessage(error.message || "Invalid email or password.");
+        return;
+      }
+
+      const { data: profile, error: profileError } =
+        await window.supabaseClient
+          .from("profiles")
+          .select("role")
+          .eq("id", data.user.id)
+          .single();
+
+      if (profileError || !profile) {
+        showMessage("Login succeeded but your profile could not be loaded. Please contact support.");
+        return;
+      }
+
+      showMessage("Login successful — redirecting...", false);
+
+      setTimeout(() => redirectAfterAuth(profile.role), 500);
+
+    } catch (err) {
+
+      console.error("Login error:", err);
+      showMessage("Something went wrong. Please try again.");
 
     } finally {
       setButtonLoading(submitBtn, false, "", `Login <span>→</span>`);
@@ -279,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = document.getElementById("signupPassword").value;
     const confirmPassword = document.getElementById("signupConfirm").value;
     const terms = document.getElementById("terms").checked;
-    const role = accountType;
+    const role = accountType; // "customer" | "owner"
     const submitBtn = signupForm.querySelector(".primary-btn");
 
     if (!name || !phone || !email || !password || !confirmPassword) {
@@ -316,14 +369,48 @@ document.addEventListener("DOMContentLoaded", () => {
     setButtonLoading(submitBtn, true, "Creating account...");
 
     try {
-      /*
-       * SUPABASE SIGNUP — connect actual call here.
-       * const { error } = await supabaseClient.auth.signUp({ email, password });
-       * Surface error.message directly if error (e.g. "User already registered").
-       */
-      await new Promise(resolve => setTimeout(resolve, 600));
 
-      showMessage(`Account form ready. Selected role: ${role}.`);
+      const { data, error } = await window.supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { name, role } // read by the handle_new_user() DB trigger
+        }
+      });
+
+      if (error) {
+        showMessage(error.message || "Could not create account.");
+        return;
+      }
+
+      // Some Supabase projects require email confirmation before a
+      // session exists — handle both cases correctly instead of
+      // assuming the user is immediately logged in.
+      if (!data.session) {
+
+        showMessage(
+          "Account created! Please check your email to confirm your account, then log in.",
+          false
+        );
+
+        setTimeout(showLogin, 2500);
+        return;
+      }
+
+      // phone isn't in auth.users by default — store it on the profile
+      await window.supabaseClient
+        .from("profiles")
+        .update({ phone })
+        .eq("id", data.user.id);
+
+      showMessage("Account created — redirecting...", false);
+
+      setTimeout(() => redirectAfterAuth(role), 500);
+
+    } catch (err) {
+
+      console.error("Signup error:", err);
+      showMessage("Something went wrong. Please try again.");
 
     } finally {
       setButtonLoading(submitBtn, false, "", `Create Account <span>→</span>`);
@@ -335,8 +422,16 @@ document.addEventListener("DOMContentLoaded", () => {
      GOOGLE LOGIN
      ========================================================= */
 
-  googleLogin.addEventListener("click", () => {
-    showMessage("Google login will be connected with Supabase next.");
+  googleLogin.addEventListener("click", async () => {
+
+    const { error } = await window.supabaseClient.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin + "/index.html" }
+    });
+
+    if (error) {
+      showMessage("Google sign-in is not configured yet. Please use email/password.");
+    }
   });
 
 
@@ -344,7 +439,7 @@ document.addEventListener("DOMContentLoaded", () => {
      FORGOT PASSWORD
      ========================================================= */
 
-  forgotPassword.addEventListener("click", event => {
+  forgotPassword.addEventListener("click", async event => {
     event.preventDefault();
 
     const email = document.getElementById("loginEmail").value.trim();
@@ -359,7 +454,27 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    showMessage("Password reset will be connected with Supabase.");
+    const { error } = await window.supabaseClient.auth.resetPasswordForEmail(
+      email,
+      { redirectTo: window.location.origin + "/login.html" }
+    );
+
+    if (error) {
+      showMessage(error.message || "Could not send reset email.");
+      return;
+    }
+
+    showMessage("Password reset link sent — check your email.", false);
   });
+
+
+  /* =========================================================
+     ALREADY LOGGED IN? — skip the form entirely
+     ========================================================= */
+
+  (async () => {
+    const current = await window.RentoRideAuth.getCurrentUser();
+    if (current) redirectAfterAuth(current.profile.role);
+  })();
 
 });

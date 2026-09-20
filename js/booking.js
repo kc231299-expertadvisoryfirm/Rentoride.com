@@ -1,19 +1,25 @@
 /* =========================================================
-   RentoRide — Booking JS
+   RentoRide — Booking JS  (Supabase-backed, auth-required)
 
-   Backend note: bookings are saved to localStorage for now
-   (key: "rentoride_bookings") since Supabase is deferred.
-   my-bookings.js will need updating later to read from here
-   until the real backend is wired in.
+   REQUIRES (in this order):
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+   <script src="js/supabase.js"></script>
+   <script src="js/bikes-data.js"></script>
+   <script src="js/utils.js"></script>
+   <script src="js/booking.js"></script>
+
+   THIS IS THE FIX for the core bug in the project: the old
+   booking.js saved to localStorage ("rentoride_bookings") while
+   my-bookings.js and the owner dashboard both read from Supabase.
+   A customer could "successfully" book and never see it anywhere.
+   Bookings now write directly to the `bookings` table, which is
+   the same table every other page reads from.
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
   const params = new URLSearchParams(window.location.search);
   const bikeId = params.get("id");
-
-  const bikes = window.RENTORIDE_BIKES || {};
-  const bike = bikeId ? bikes[bikeId] : null;
 
   const notFoundState = document.getElementById("notFoundState");
   const bookingFormWrap = document.getElementById("bookingFormWrap");
@@ -21,16 +27,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     BAD OR MISSING ID — SHOW NOT-FOUND, STOP HERE
+     MUST BE LOGGED IN TO BOOK — bounce to login, then back here
      ========================================================= */
 
-  if (!bike) {
+  const current = await window.RentoRideAuth.requireAuth();
+  if (!current) return; // requireAuth already redirected
 
+
+  /* =========================================================
+     MISSING ID — SHOW NOT-FOUND, STOP HERE
+     ========================================================= */
+
+  if (!bikeId) {
     notFoundState.classList.add("show");
     bookingFormWrap.style.display = "none";
-
     return;
   }
+
+
+  /* =========================================================
+     FETCH BIKE FROM SUPABASE
+     ========================================================= */
+
+  bookingFormWrap.style.display = "none";
+
+  const { data: bike, error: bikeError } = await window.supabaseClient
+    .from("bikes")
+    .select("*")
+    .eq("id", bikeId)
+    .eq("status", "approved")
+    .single();
+
+  if (bikeError || !bike) {
+    notFoundState.classList.add("show");
+    return;
+  }
+
+  bookingFormWrap.style.display = "";
 
 
   /* =========================================================
@@ -71,18 +104,18 @@ document.addEventListener("DOMContentLoaded", () => {
   breadcrumbBikeLink.href = `bike-details.html?id=${encodeURIComponent(bikeId)}`;
   breadcrumbBikeLink.textContent = bike.name;
 
-  summaryImage.src = bike.image;
+  summaryImage.src = bike.image_url || RENTORIDE_FALLBACK_IMAGE;
   summaryImage.alt = bike.name;
   summaryName.textContent = bike.name;
   summaryLocation.textContent = `📍 ${bike.location}`;
-  summaryEngine.textContent = bike.engine;
-  summaryRating.textContent = `⭐ ${bike.rating}`;
-  summaryPrice36.textContent = `₹${bike.price3} / ₹${bike.price6}`;
-  summaryPrice1224.textContent = `₹${bike.price12} / ₹${bike.price24}`;
+  summaryEngine.textContent = bike.engine_cc || "—";
+  summaryRating.textContent = `⭐ ${Number(bike.rating || 0).toFixed(1)}`;
+  summaryPrice36.textContent = `₹${bike.price_3h} / ₹${bike.price_6h}`;
+  summaryPrice1224.textContent = `₹${bike.price_12h} / ₹${bike.price_24h}`;
 
 
   /* =========================================================
-     DATE DEFAULTS — no picking a pickup date in the past
+     DATE DEFAULTS
      ========================================================= */
 
   const today = new Date().toISOString().split("T")[0];
@@ -91,48 +124,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
+     AVAILABILITY CHECK — reject overlapping bookings
+     ========================================================= */
+
+  async function hasConflict(startDate, startTime, endDate, endTime) {
+
+    const { data: existing, error } = await window.supabaseClient
+      .from("bookings")
+      .select("start_date, start_time, end_date, end_time, status")
+      .eq("bike_id", bikeId)
+      .in("status", ["pending", "accepted", "active"]);
+
+    if (error) {
+      console.error("Availability check error:", error);
+      return false; // fail open on check errors rather than blocking a booking
+    }
+
+    const newStart = new Date(`${startDate}T${startTime}`);
+    const newEnd = new Date(`${endDate}T${endTime}`);
+
+    return (existing || []).some(b => {
+      const existingStart = new Date(`${b.start_date}T${b.start_time}`);
+      const existingEnd = new Date(`${b.end_date}T${b.end_time}`);
+      return newStart < existingEnd && newEnd > existingStart;
+    });
+  }
+
+
+  /* =========================================================
      PRICE CALCULATION
      ========================================================= */
 
-  function getRateLabel(hours) {
-
-    if (hours <= 3) return "3 Hour rate";
-    if (hours <= 6) return "6 Hour rate";
-    if (hours <= 12) return "12 Hour rate";
-    if (hours <= 24) return "24 Hour rate";
-
-    return "24 Hour rate × " + Math.ceil(hours / 24) + " days";
-  }
-
   function showError(message) {
-
     bookingError.textContent = message;
     bookingError.classList.add("show");
-
     priceBreakdown.style.display = "none";
     confirmBtn.disabled = true;
   }
 
   function clearError() {
-
     bookingError.textContent = "";
     bookingError.classList.remove("show");
   }
 
-  function recalculate() {
+  async function recalculate() {
 
     const startValue = pickupDate.value;
     const endValue = dropDate.value;
     const startTime = pickupTime.value;
     const endTime = dropTime.value;
 
-    // Wait until all four fields are filled before validating
     if (!startValue || !endValue || !startTime || !endTime) {
-
       clearError();
       priceBreakdown.style.display = "none";
       confirmBtn.disabled = true;
-
       return;
     }
 
@@ -140,29 +185,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const end = new Date(`${endValue}T${endTime}`);
 
     if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
-
       showError("Please enter valid dates and times.");
-
       return;
     }
 
     const diffMs = end - start;
 
     if (diffMs <= 0) {
-
       showError("Drop-off must be after pickup.");
-
       return;
     }
 
     const hours = diffMs / (1000 * 60 * 60);
-
     const amount = rentoRideCalculatePrice(bike, hours);
 
     if (!amount) {
-
       showError("Unable to calculate price for this duration.");
+      return;
+    }
 
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = "Checking availability...";
+
+    const conflict = await hasConflict(startValue, startTime, endValue, endTime);
+
+    confirmBtn.textContent = "Confirm Booking →";
+
+    if (conflict) {
+      showError("This vehicle is already booked for part of that time range. Please choose different dates.");
       return;
     }
 
@@ -171,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const roundedHours = Math.round(hours * 10) / 10;
 
     durationText.textContent = `${roundedHours} hour${roundedHours === 1 ? "" : "s"}`;
-    rateAppliedText.textContent = getRateLabel(hours);
+    rateAppliedText.textContent = rentoRideGetRateLabel(hours);
     totalAmountText.textContent = `₹${amount}`;
 
     priceBreakdown.style.display = "block";
@@ -181,11 +231,9 @@ document.addEventListener("DOMContentLoaded", () => {
     confirmBtn.dataset.hours = roundedHours;
   }
 
+
   /* =========================================================
-     PRE-FILL FROM BIKE DETAILS PAGE
-     If the user picked a rental duration (3H/6H/12H/24H) on the
-     bike details page, ?hours= is passed here — use it to
-     auto-fill pickup/drop so the price shows immediately.
+     PRE-FILL FROM BIKE DETAILS PAGE (?hours=)
      ========================================================= */
 
   const requestedHours = Number(params.get("hours"));
@@ -193,19 +241,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (requestedHours > 0) {
 
     const now = new Date();
-
-    // Round pickup to the next 30-minute slot, starting from "now"
     now.setMinutes(now.getMinutes() + (30 - (now.getMinutes() % 30 || 30)));
 
     const dropDateTime = new Date(now.getTime() + requestedHours * 60 * 60 * 1000);
 
-    function toDateInput(d) {
-      return d.toISOString().split("T")[0];
-    }
-
-    function toTimeInput(d) {
-      return d.toTimeString().slice(0, 5);
-    }
+    const toDateInput = d => d.toISOString().split("T")[0];
+    const toTimeInput = d => d.toTimeString().slice(0, 5);
 
     pickupDate.value = toDateInput(now);
     pickupTime.value = toTimeInput(now);
@@ -213,81 +254,71 @@ document.addEventListener("DOMContentLoaded", () => {
     dropTime.value = toTimeInput(dropDateTime);
   }
 
-
   [pickupDate, pickupTime, dropDate, dropTime].forEach(input => {
-
     input.addEventListener("change", recalculate);
   });
 
-  if (requestedHours > 0) {
-    recalculate();
-  }
+  if (requestedHours > 0) recalculate();
 
 
   /* =========================================================
-     CONFIRM BOOKING — saved to localStorage until Supabase
-     is wired in (see file header note)
+     CONFIRM BOOKING — writes to Supabase `bookings`
      ========================================================= */
 
-  function generateBookingId() {
-
-    return "RR" + Date.now().toString().slice(-8);
-  }
-
-  function saveBooking(booking) {
-
-    let bookings = [];
-
-    try {
-
-      bookings = JSON.parse(localStorage.getItem("rentoride_bookings")) || [];
-
-    } catch (error) {
-
-      bookings = [];
-    }
-
-    bookings.unshift(booking);
-
-    localStorage.setItem("rentoride_bookings", JSON.stringify(bookings));
-  }
-
-  confirmBtn.addEventListener("click", () => {
+  confirmBtn.addEventListener("click", async () => {
 
     if (confirmBtn.disabled) return;
 
     const amount = Number(confirmBtn.dataset.amount || 0);
-
     if (!amount) return;
 
-    const bookingId = generateBookingId();
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = "Confirming...";
 
-    const booking = {
+    // re-check availability right before insert to close the race
+    // window between the last recalculate() and the click
+    const conflict = await hasConflict(
+      pickupDate.value, pickupTime.value, dropDate.value, dropTime.value
+    );
 
-      id: bookingId,
-      bikeId: bikeId,
-      bikeName: bike.name,
-      bikeImage: bike.image,
-      location: bike.location,
+    if (conflict) {
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = "Confirm Booking →";
+      showError("This vehicle was just booked for that time. Please pick different dates.");
+      return;
+    }
 
-      startDate: pickupDate.value,
-      startTime: pickupTime.value,
-      endDate: dropDate.value,
-      endTime: dropTime.value,
+    const { data: booking, error } = await window.supabaseClient
+      .from("bookings")
+      .insert({
+        bike_id: bikeId,
+        customer_id: current.authUser.id,
+        start_date: pickupDate.value,
+        start_time: pickupTime.value,
+        end_date: dropDate.value,
+        end_time: dropTime.value,
+        duration_hours: Number(confirmBtn.dataset.hours),
+        rate_applied: rateAppliedText.textContent,
+        amount: amount,
+        status: "pending"
+      })
+      .select("booking_ref")
+      .single();
 
-      amount: amount,
-      status: "pending",
-      createdAt: new Date().toISOString()
-    };
-
-    saveBooking(booking);
+    if (error) {
+      console.error("Booking insert error:", error);
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = "Confirm Booking →";
+      showError("Could not confirm your booking. Please try again.");
+      return;
+    }
 
     bookingFormWrap.style.display = "none";
 
     successText.textContent =
       `Your booking for ${bike.name} has been submitted and is awaiting owner confirmation.`;
 
-    successRef.textContent = `Booking ID: ${bookingId}`;
+    successRef.textContent = `Booking ID: ${booking.booking_ref}`;
 
     successState.classList.add("show");
 

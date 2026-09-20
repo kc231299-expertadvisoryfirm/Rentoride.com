@@ -1,10 +1,18 @@
-const SUPABASE_URL = "https://axvttcxrhsblvkmcnqgb.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_Nn7T1_HByXSy9Vrxy4XgoA_KlsJAafa";
+/* =========================================================
+   RentoRide — Admin Login JS
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+   REQUIRES (in this order):
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+   <script src="js/supabase.js"></script>
+   <script src="js/admin-login.js"></script>
+
+   The client-side role check below is UX only (fast feedback +
+   sign-out if a non-admin tries this form). The REAL enforcement
+   is server-side: is_admin() in RLS policies means a non-admin
+   session simply cannot read admin-only data even if this check
+   were bypassed entirely — see db/001_schema.sql.
+   ========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
 
   const form = document.getElementById("adminLoginForm");
@@ -20,274 +28,85 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const togglePassword = document.getElementById("togglePassword");
 
-
-  /* ===============================
-     PASSWORD SHOW / HIDE
-  =============================== */
-
   if (togglePassword) {
-
     togglePassword.addEventListener("click", () => {
-
-      if (passwordInput.type === "password") {
-
-        passwordInput.type = "text";
-        togglePassword.textContent = "🙈";
-
-      } else {
-
-        passwordInput.type = "password";
-        togglePassword.textContent = "👁";
-
-      }
-
+      const show = passwordInput.type === "password";
+      passwordInput.type = show ? "text" : "password";
+      togglePassword.textContent = show ? "🙈" : "👁";
     });
-
   }
-
-
-  /* ===============================
-     MESSAGE HELPERS
-  =============================== */
 
   function showError(message) {
-
-    if (errorBox) {
-      errorBox.textContent = message;
-      errorBox.style.display = "block";
-    }
-
-    if (successBox) {
-      successBox.textContent = "";
-      successBox.style.display = "none";
-    }
-
+    if (errorBox) { errorBox.textContent = message; errorBox.style.display = "block"; }
+    if (successBox) { successBox.textContent = ""; successBox.style.display = "none"; }
   }
-
 
   function showSuccess(message) {
-
-    if (successBox) {
-      successBox.textContent = message;
-      successBox.style.display = "block";
-    }
-
-    if (errorBox) {
-      errorBox.textContent = "";
-      errorBox.style.display = "none";
-    }
-
+    if (successBox) { successBox.textContent = message; successBox.style.display = "block"; }
+    if (errorBox) { errorBox.textContent = ""; errorBox.style.display = "none"; }
   }
-
-
-  /* ===============================
-     LOGIN
-  =============================== */
 
   if (!form) return;
 
-
-  form.addEventListener("submit", async (event) => {
+  form.addEventListener("submit", async event => {
 
     event.preventDefault();
-
 
     const email = emailInput.value.trim();
     const password = passwordInput.value;
 
-
     if (!email || !password) {
-
       showError("Please enter your admin email and password.");
-
       return;
-
     }
 
-
-    /* BUTTON LOADING */
-
-    if (loginBtn) {
-      loginBtn.disabled = true;
-    }
-
-    if (btnText) {
-      btnText.textContent = "Authenticating...";
-    }
-
-    if (btnLoader) {
-      btnLoader.style.display = "flex";
-    }
-
+    if (loginBtn) loginBtn.disabled = true;
+    if (btnText) btnText.textContent = "Authenticating...";
+    if (btnLoader) btnLoader.style.display = "flex";
 
     showError("");
 
-
     try {
 
-      /*
-       * SUPABASE CLIENT
-       *
-       * IMPORTANT:
-       * Ye assume karta hai ki tumhare project me
-       * supabaseClient already available hai.
-       */
+      const { data, error } =
+        await window.supabaseClient.auth.signInWithPassword({ email, password });
 
-      if (typeof supabaseClient === "undefined") {
-
-        throw new Error(
-          "Supabase client not found. Check your Supabase JS setup."
-        );
-
-      }
-
-
-      /* ===============================
-         AUTH LOGIN
-      =============================== */
-
-      const {
-        data,
-        error
-      } = await supabaseClient.auth.signInWithPassword({
-
-        email: email,
-        password: password
-
-      });
-
-
-      if (error) {
-
-        console.error("Login error:", error);
-
-        throw new Error(
-          "Invalid email or password."
-        );
-
-      }
-
+      if (error) throw new Error("Invalid email or password.");
 
       const user = data.user;
+      if (!user) throw new Error("Unable to verify your account.");
 
-
-      if (!user) {
-
-        throw new Error(
-          "Unable to verify your account."
-        );
-
-      }
-
-
-      /* ===============================
-         GET PROFILE ROLE
-      =============================== */
-
-      const {
-        data: profile,
-        error: profileError
-      } = await supabaseClient
-
-        .from("profiles")
-
-        .select("id, name, email, role")
-
-        .eq("id", user.id)
-
-        .single();
-
+      const { data: profile, error: profileError } =
+        await window.supabaseClient
+          .from("profiles")
+          .select("id, name, email, role")
+          .eq("id", user.id)
+          .single();
 
       if (profileError || !profile) {
-
-        console.error(
-          "Profile error:",
-          profileError
-        );
-
-        await supabaseClient.auth.signOut();
-
-        throw new Error(
-          "Admin profile not found."
-        );
-
+        await window.supabaseClient.auth.signOut();
+        throw new Error("Admin profile not found.");
       }
 
-
-      /* ===============================
-         ADMIN ROLE CHECK
-      =============================== */
-
-      if (
-        String(profile.role).toLowerCase() !== "admin"
-      ) {
-
-        await supabaseClient.auth.signOut();
-
-        throw new Error(
-          "Access denied. This account is not an administrator."
-        );
-
+      if (String(profile.role).toLowerCase() !== "admin") {
+        await window.supabaseClient.auth.signOut();
+        throw new Error("Access denied. This account is not an administrator.");
       }
 
+      showSuccess("Admin verified. Opening Command Center...");
+      if (btnText) btnText.textContent = "Access Granted ✓";
 
-      /* ===============================
-         SUCCESS
-      =============================== */
-
-      showSuccess(
-        "Admin verified. Opening Command Center..."
-      );
-
-
-      if (btnText) {
-        btnText.textContent = "Access Granted ✓";
-      }
-
-
-      /*
-       * Small delay so user can see
-       * successful login message.
-       */
-
-      setTimeout(() => {
-
-        window.location.replace("admin.html");
-
-      }, 700);
-
+      setTimeout(() => window.location.replace("admin.html"), 700);
 
     } catch (error) {
 
-      console.error(
-        "Admin authentication error:",
-        error
-      );
+      console.error("Admin authentication error:", error);
+      showError(error.message || "Unable to login. Please try again.");
 
-
-      showError(
-        error.message ||
-        "Unable to login. Please try again."
-      );
-
-
-      /* RESET BUTTON */
-
-      if (loginBtn) {
-        loginBtn.disabled = false;
-      }
-
-      if (btnText) {
-        btnText.textContent =
-          "Access Command Center";
-      }
-
-      if (btnLoader) {
-        btnLoader.style.display = "none";
-      }
-
+      if (loginBtn) loginBtn.disabled = false;
+      if (btnText) btnText.textContent = "Access Command Center";
+      if (btnLoader) btnLoader.style.display = "none";
     }
-
   });
 
 });
